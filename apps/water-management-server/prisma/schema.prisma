@@ -1,0 +1,132 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Usage {
+  amountUsed    Float?
+  createdAt     DateTime  @default(now())
+  id            String    @id @default(cuid())
+  meter         Meter?    @relation(fields: [meterId], references: [id])
+  meterId       String?
+  meterRelation String?
+  updatedAt     DateTime  @updatedAt
+  usageDate     DateTime?
+}
+
+model Meter {
+  coordinates      Json?
+  createdAt        DateTime         @default(now())
+  id               String           @id @default(cuid())
+  installationDate DateTime?
+  status           EnumMeterStatus?
+  tokenBalance     Int?
+  updatedAt        DateTime         @updatedAt
+  usages           Usage[]
+  user             User?            @relation(fields: [userId], references: [id])
+  userId           String?
+}
+
+model Ticket {
+  createdAt    DateTime          @default(now())
+  id           String            @id @default(cuid())
+  message      String?
+  status       EnumTicketStatus?
+  subject      String?
+  updatedAt    DateTime          @updatedAt
+  user         User?             @relation(fields: [userId], references: [id])
+  userId       String?
+  userRelation String?
+}
+
+model Role {
+  createdAt   DateTime @default(now())
+  description String?
+  id          String   @id @default(cuid())
+  name        String?
+  updatedAt   DateTime @updatedAt
+  users       User[]
+}
+
+model User {
+  createdAt DateTime @default(now())
+  email     String?  @unique
+  firstName String?
+  id        String   @id @default(cuid())
+  lastName  String?
+  meters    Meter[]
+  password  String
+  role      Role?    @relation(fields: [roleId], references: [id])
+  roleId    String?
+  roles     Json
+  tickets   Ticket[]
+  updatedAt DateTime @updatedAt
+  userRole  String?
+  username  String   @unique
+}
+
+model PrepaidMeter {
+  alerts         Alert[]
+  commands       Command[]
+  createdAt      DateTime                @default(now())
+  id             String                  @id @default(cuid())
+  meterDataItems MeterData[]
+  meterNumber    String?
+  status         EnumPrepaidMeterStatus?
+  updatedAt      DateTime                @updatedAt
+}
+
+model Command {
+  commandType    EnumCommandCommandType?
+  createdAt      DateTime                @default(now())
+  id             String                  @id @default(cuid())
+  parameter      String?
+  prepaidMeter   PrepaidMeter?           @relation(fields: [prepaidMeterId], references: [id])
+  prepaidMeterId String?
+  sentAt         DateTime?
+  updatedAt      DateTime                @updatedAt
+}
+
+model MeterData {
+  createdAt      DateTime      @default(now())
+  id             String        @id @default(cuid())
+  prepaidMeter   PrepaidMeter? @relation(fields: [prepaidMeterId], references: [id])
+  prepaidMeterId String?
+  timestamp      DateTime?
+  updatedAt      DateTime      @updatedAt
+  value          Float?
+}
+
+model Alert {
+  createdAt      DateTime        @default(now())
+  id             String          @id @default(cuid())
+  level          EnumAlertLevel?
+  message        String?
+  prepaidMeter   PrepaidMeter?   @relation(fields: [prepaidMeterId], references: [id])
+  prepaidMeterId String?
+  updatedAt      DateTime        @updatedAt
+}
+
+enum EnumMeterStatus {
+  Option1
+}
+
+enum EnumTicketStatus {
+  Option1
+}
+
+enum EnumPrepaidMeterStatus {
+  Option1
+}
+
+enum EnumCommandCommandType {
+  Option1
+}
+
+enum EnumAlertLevel {
+  Option1
+}
