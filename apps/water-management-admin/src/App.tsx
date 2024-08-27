@@ -5,10 +5,6 @@ import { theme } from "./theme/theme";
 import Login from "./Login";
 import "./App.scss";
 import Dashboard from "./pages/Dashboard";
-import { UsageList } from "./usage/UsageList";
-import { UsageCreate } from "./usage/UsageCreate";
-import { UsageEdit } from "./usage/UsageEdit";
-import { UsageShow } from "./usage/UsageShow";
 import { MeterList } from "./meter/MeterList";
 import { MeterCreate } from "./meter/MeterCreate";
 import { MeterEdit } from "./meter/MeterEdit";
@@ -17,6 +13,10 @@ import { TicketList } from "./ticket/TicketList";
 import { TicketCreate } from "./ticket/TicketCreate";
 import { TicketEdit } from "./ticket/TicketEdit";
 import { TicketShow } from "./ticket/TicketShow";
+import { UsageList } from "./usage/UsageList";
+import { UsageCreate } from "./usage/UsageCreate";
+import { UsageEdit } from "./usage/UsageEdit";
+import { UsageShow } from "./usage/UsageShow";
 import { RoleList } from "./role/RoleList";
 import { RoleCreate } from "./role/RoleCreate";
 import { RoleEdit } from "./role/RoleEdit";
@@ -68,13 +68,6 @@ const App = (): React.ReactElement => {
         loginPage={Login}
       >
         <Resource
-          name="Usage"
-          list={UsageList}
-          edit={UsageEdit}
-          create={UsageCreate}
-          show={UsageShow}
-        />
-        <Resource
           name="Meter"
           list={MeterList}
           edit={MeterEdit}
@@ -87,6 +80,13 @@ const App = (): React.ReactElement => {
           edit={TicketEdit}
           create={TicketCreate}
           show={TicketShow}
+        />
+        <Resource
+          name="Usage"
+          list={UsageList}
+          edit={UsageEdit}
+          create={UsageCreate}
+          show={UsageShow}
         />
         <Resource
           name="Role"

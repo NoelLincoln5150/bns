@@ -7,16 +7,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Usage {
-  amountUsed    Float?
-  createdAt     DateTime  @default(now())
-  id            String    @id @default(cuid())
-  meter         Meter?
-  meterRelation String?
-  updatedAt     DateTime  @updatedAt
-  usageDate     DateTime?
-}
-
 model Meter {
   coordinates      Json?
   createdAt        DateTime         @default(now())
@@ -41,6 +31,16 @@ model Ticket {
   user         User?             @relation(fields: [userId], references: [id])
   userId       String?
   userRelation String?
+}
+
+model Usage {
+  amountUsed    Float?
+  createdAt     DateTime  @default(now())
+  id            String    @id @default(cuid())
+  meter         Meter?
+  meterRelation String?
+  updatedAt     DateTime  @updatedAt
+  usageDate     DateTime?
 }
 
 model Role {
@@ -123,7 +123,16 @@ enum EnumMeterStatus {
 }
 
 enum EnumTicketStatus {
-  Option1
+  Pending
+  InProgress
+  Resolved
+  Closed
+  Escalated
+  OnHold
+  Cancelled
+  Scheduled
+  AwaitingParts
+  UnderReview
 }
 
 enum EnumCommandCommandType {

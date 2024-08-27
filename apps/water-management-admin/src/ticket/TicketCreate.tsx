@@ -17,7 +17,18 @@ export const TicketCreate = (props: CreateProps): React.ReactElement => {
         <SelectInput
           source="status"
           label="status"
-          choices={[{ label: "Option 1", value: "Option1" }]}
+          choices={[
+            { label: "PENDING", value: "Pending" },
+            { label: "IN_PROGRESS", value: "InProgress" },
+            { label: "RESOLVED", value: "Resolved" },
+            { label: "CLOSED", value: "Closed" },
+            { label: "ESCALATED", value: "Escalated" },
+            { label: "ON_HOLD", value: "OnHold" },
+            { label: "CANCELLED", value: "Cancelled" },
+            { label: "SCHEDULED", value: "Scheduled" },
+            { label: "AWAITING_PARTS", value: "AwaitingParts" },
+            { label: "UNDER_REVIEW", value: "UnderReview" },
+          ]}
           optionText="label"
           allowEmpty
           optionValue="value"

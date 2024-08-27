@@ -5,7 +5,17 @@ import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
 export type TicketWhereInput = {
   id?: StringFilter;
   message?: StringNullableFilter;
-  status?: "Option1";
+  status?:
+    | "Pending"
+    | "InProgress"
+    | "Resolved"
+    | "Closed"
+    | "Escalated"
+    | "OnHold"
+    | "Cancelled"
+    | "Scheduled"
+    | "AwaitingParts"
+    | "UnderReview";
   subject?: StringNullableFilter;
   user?: UserWhereUniqueInput;
   userRelation?: StringNullableFilter;

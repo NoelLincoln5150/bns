@@ -45,7 +45,18 @@ class TicketCreateInput {
   @Field(() => EnumTicketStatus, {
     nullable: true,
   })
-  status?: "Option1" | null;
+  status?:
+    | "Pending"
+    | "InProgress"
+    | "Resolved"
+    | "Closed"
+    | "Escalated"
+    | "OnHold"
+    | "Cancelled"
+    | "Scheduled"
+    | "AwaitingParts"
+    | "UnderReview"
+    | null;
 
   @ApiProperty({
     required: false,

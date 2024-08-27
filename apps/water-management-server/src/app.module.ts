@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
-import { UsageModule } from "./usage/usage.module";
 import { MeterModule } from "./meter/meter.module";
 import { TicketModule } from "./ticket/ticket.module";
+import { UsageModule } from "./usage/usage.module";
 import { RoleModule } from "./role/role.module";
 import { UserModule } from "./user/user.module";
 import { MeterDataModule } from "./meterData/meterData.module";
@@ -30,9 +30,9 @@ import { AuthModule } from "./auth/auth.module";
     AuthModule,
     MqttModule,
     KafkaModule,
-    UsageModule,
     MeterModule,
     TicketModule,
+    UsageModule,
     RoleModule,
     UserModule,
     MeterDataModule,
