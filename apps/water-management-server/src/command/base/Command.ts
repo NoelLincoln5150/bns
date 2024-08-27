@@ -34,7 +34,7 @@ class Command {
   @Field(() => EnumCommandCommandType, {
     nullable: true,
   })
-  commandType?: "Option1" | null;
+  commandType?: "Open" | "Close" | "Reset" | null;
 
   @ApiProperty({
     required: true,

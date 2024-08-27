@@ -181,61 +181,61 @@
   },
   {
     "role": "user",
-    "resource": "Command",
+    "resource": "MeterData",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Command",
+    "resource": "MeterData",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Command",
+    "resource": "MeterData",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Command",
+    "resource": "MeterData",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Command",
+    "resource": "MeterData",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "MeterData",
+    "resource": "Command",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "MeterData",
+    "resource": "Command",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "MeterData",
+    "resource": "Command",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "MeterData",
+    "resource": "Command",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "MeterData",
+    "resource": "Command",
     "action": "read:any",
     "attributes": "*"
   },

@@ -19,7 +19,11 @@ export const CommandEdit = (props: EditProps): React.ReactElement => {
         <SelectInput
           source="commandType"
           label="commandType"
-          choices={[{ label: "Option 1", value: "Option1" }]}
+          choices={[
+            { label: "OPEN", value: "Open" },
+            { label: "CLOSE", value: "Close" },
+            { label: "RESET", value: "Reset" },
+          ]}
           optionText="label"
           allowEmpty
           optionValue="value"

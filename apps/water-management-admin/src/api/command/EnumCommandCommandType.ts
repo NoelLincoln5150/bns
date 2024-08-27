@@ -1,3 +1,5 @@
 export enum EnumCommandCommandType {
-  Option_1 = "Option1",
+  Open = "Open",
+  Close = "Close",
+  Reset = "Reset",
 }

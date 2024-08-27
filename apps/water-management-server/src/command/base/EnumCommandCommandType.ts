@@ -12,7 +12,9 @@ https://docs.amplication.com/how-to/custom-code
 import { registerEnumType } from "@nestjs/graphql";
 
 export enum EnumCommandCommandType {
-  Option_1 = "Option1",
+  Open = "Open",
+  Close = "Close",
+  Reset = "Reset",
 }
 
 registerEnumType(EnumCommandCommandType, {

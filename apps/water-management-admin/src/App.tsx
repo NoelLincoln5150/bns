@@ -29,14 +29,14 @@ import { PrepaidMeterList } from "./prepaidMeter/PrepaidMeterList";
 import { PrepaidMeterCreate } from "./prepaidMeter/PrepaidMeterCreate";
 import { PrepaidMeterEdit } from "./prepaidMeter/PrepaidMeterEdit";
 import { PrepaidMeterShow } from "./prepaidMeter/PrepaidMeterShow";
-import { CommandList } from "./command/CommandList";
-import { CommandCreate } from "./command/CommandCreate";
-import { CommandEdit } from "./command/CommandEdit";
-import { CommandShow } from "./command/CommandShow";
 import { MeterDataList } from "./meterData/MeterDataList";
 import { MeterDataCreate } from "./meterData/MeterDataCreate";
 import { MeterDataEdit } from "./meterData/MeterDataEdit";
 import { MeterDataShow } from "./meterData/MeterDataShow";
+import { CommandList } from "./command/CommandList";
+import { CommandCreate } from "./command/CommandCreate";
+import { CommandEdit } from "./command/CommandEdit";
+import { CommandShow } from "./command/CommandShow";
 import { AlertList } from "./alert/AlertList";
 import { AlertCreate } from "./alert/AlertCreate";
 import { AlertEdit } from "./alert/AlertEdit";
@@ -110,18 +110,18 @@ const App = (): React.ReactElement => {
           show={PrepaidMeterShow}
         />
         <Resource
-          name="Command"
-          list={CommandList}
-          edit={CommandEdit}
-          create={CommandCreate}
-          show={CommandShow}
-        />
-        <Resource
           name="MeterData"
           list={MeterDataList}
           edit={MeterDataEdit}
           create={MeterDataCreate}
           show={MeterDataShow}
+        />
+        <Resource
+          name="Command"
+          list={CommandList}
+          edit={CommandEdit}
+          create={CommandCreate}
+          show={CommandShow}
         />
         <Resource
           name="Alert"

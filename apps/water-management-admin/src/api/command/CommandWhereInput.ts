@@ -4,7 +4,7 @@ import { PrepaidMeterWhereUniqueInput } from "../prepaidMeter/PrepaidMeterWhereU
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 
 export type CommandWhereInput = {
-  commandType?: "Option1";
+  commandType?: "Open" | "Close" | "Reset";
   id?: StringFilter;
   parameter?: StringNullableFilter;
   prepaidMeter?: PrepaidMeterWhereUniqueInput;

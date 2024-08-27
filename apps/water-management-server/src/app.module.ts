@@ -5,8 +5,8 @@ import { TicketModule } from "./ticket/ticket.module";
 import { RoleModule } from "./role/role.module";
 import { UserModule } from "./user/user.module";
 import { PrepaidMeterModule } from "./prepaidMeter/prepaidMeter.module";
-import { CommandModule } from "./command/command.module";
 import { MeterDataModule } from "./meterData/meterData.module";
+import { CommandModule } from "./command/command.module";
 import { AlertModule } from "./alert/alert.module";
 import { IoTModule } from "./iot/iot.module";
 import { HealthModule } from "./health/health.module";
@@ -36,8 +36,8 @@ import { AuthModule } from "./auth/auth.module";
     RoleModule,
     UserModule,
     PrepaidMeterModule,
-    CommandModule,
     MeterDataModule,
+    CommandModule,
     AlertModule,
     IoTModule,
     HealthModule,

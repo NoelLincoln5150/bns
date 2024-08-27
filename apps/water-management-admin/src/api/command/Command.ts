@@ -1,7 +1,7 @@
 import { PrepaidMeter } from "../prepaidMeter/PrepaidMeter";
 
 export type Command = {
-  commandType?: "Option1" | null;
+  commandType?: "Open" | "Close" | "Reset" | null;
   createdAt: Date;
   id: string;
   parameter: string | null;

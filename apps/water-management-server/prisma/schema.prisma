@@ -80,6 +80,16 @@ model PrepaidMeter {
   updatedAt      DateTime                @updatedAt
 }
 
+model MeterData {
+  createdAt      DateTime      @default(now())
+  id             String        @id @default(cuid())
+  prepaidMeter   PrepaidMeter? @relation(fields: [prepaidMeterId], references: [id])
+  prepaidMeterId String?
+  timestamp      DateTime?
+  updatedAt      DateTime      @updatedAt
+  value          Float?
+}
+
 model Command {
   commandType    EnumCommandCommandType?
   createdAt      DateTime                @default(now())
@@ -89,16 +99,6 @@ model Command {
   prepaidMeterId String?
   sentAt         DateTime?
   updatedAt      DateTime                @updatedAt
-}
-
-model MeterData {
-  createdAt      DateTime      @default(now())
-  id             String        @id @default(cuid())
-  prepaidMeter   PrepaidMeter? @relation(fields: [prepaidMeterId], references: [id])
-  prepaidMeterId String?
-  timestamp      DateTime?
-  updatedAt      DateTime      @updatedAt
-  value          Float?
 }
 
 model Alert {
@@ -124,7 +124,9 @@ enum EnumPrepaidMeterStatus {
 }
 
 enum EnumCommandCommandType {
-  Option1
+  Open
+  Close
+  Reset
 }
 
 enum EnumAlertLevel {

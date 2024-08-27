@@ -30,7 +30,7 @@ class CommandWhereInput {
   @Field(() => EnumCommandCommandType, {
     nullable: true,
   })
-  commandType?: "Option1";
+  commandType?: "Open" | "Close" | "Reset";
 
   @ApiProperty({
     required: false,
