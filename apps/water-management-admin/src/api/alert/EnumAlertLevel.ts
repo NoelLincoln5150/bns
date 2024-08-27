@@ -1,3 +1,7 @@
 export enum EnumAlertLevel {
-  Option_1 = "Option1",
+  Info = "Info",
+  Warning = "Warning",
+  Urgent = "Urgent",
+  Error = "Error",
+  Critical = "Critical",
 }

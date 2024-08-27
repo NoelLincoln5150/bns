@@ -12,7 +12,11 @@ https://docs.amplication.com/how-to/custom-code
 import { registerEnumType } from "@nestjs/graphql";
 
 export enum EnumAlertLevel {
-  Option_1 = "Option1",
+  Info = "Info",
+  Warning = "Warning",
+  Urgent = "Urgent",
+  Error = "Error",
+  Critical = "Critical",
 }
 
 registerEnumType(EnumAlertLevel, {

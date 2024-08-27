@@ -128,5 +128,9 @@ enum EnumCommandCommandType {
 }
 
 enum EnumAlertLevel {
-  Option1
+  Info
+  Warning
+  Urgent
+  Error
+  Critical
 }

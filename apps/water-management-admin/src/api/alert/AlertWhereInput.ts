@@ -4,7 +4,7 @@ import { PrepaidMeterWhereUniqueInput } from "../prepaidMeter/PrepaidMeterWhereU
 
 export type AlertWhereInput = {
   id?: StringFilter;
-  level?: "Option1";
+  level?: "Info" | "Warning" | "Urgent" | "Error" | "Critical";
   message?: StringNullableFilter;
   prepaidMeter?: PrepaidMeterWhereUniqueInput;
 };

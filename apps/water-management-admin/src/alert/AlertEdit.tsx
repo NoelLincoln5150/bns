@@ -16,7 +16,13 @@ export const AlertEdit = (props: EditProps): React.ReactElement => {
         <SelectInput
           source="level"
           label="level"
-          choices={[{ label: "Option 1", value: "Option1" }]}
+          choices={[
+            { label: "INFO", value: "Info" },
+            { label: "WARNING", value: "Warning" },
+            { label: "URGENT", value: "Urgent" },
+            { label: "ERROR", value: "Error" },
+            { label: "CRITICAL", value: "Critical" },
+          ]}
           optionText="label"
           allowEmpty
           optionValue="value"

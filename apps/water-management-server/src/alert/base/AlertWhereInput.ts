@@ -40,7 +40,7 @@ class AlertWhereInput {
   @Field(() => EnumAlertLevel, {
     nullable: true,
   })
-  level?: "Option1";
+  level?: "Info" | "Warning" | "Urgent" | "Error" | "Critical";
 
   @ApiProperty({
     required: false,

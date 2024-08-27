@@ -33,7 +33,7 @@ class AlertCreateInput {
   @Field(() => EnumAlertLevel, {
     nullable: true,
   })
-  level?: "Option1" | null;
+  level?: "Info" | "Warning" | "Urgent" | "Error" | "Critical" | null;
 
   @ApiProperty({
     required: false,
