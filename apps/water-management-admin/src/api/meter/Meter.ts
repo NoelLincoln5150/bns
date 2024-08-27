@@ -7,9 +7,18 @@ export type Meter = {
   createdAt: Date;
   id: string;
   installationDate: Date | null;
-  status?: "Option1" | null;
+  status?:
+    | "Active"
+    | "Inactive"
+    | "Suspended"
+    | "Maintenance"
+    | "Faulty"
+    | "Closed"
+    | "Pending"
+    | "Disconnected"
+    | null;
   tokenBalance: number | null;
   updatedAt: Date;
-  usages?: Array<Usage>;
+  usages?: Usage | null;
   user?: User | null;
 };

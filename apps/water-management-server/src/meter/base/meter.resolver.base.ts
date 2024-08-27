@@ -26,7 +26,6 @@ import { MeterFindUniqueArgs } from "./MeterFindUniqueArgs";
 import { CreateMeterArgs } from "./CreateMeterArgs";
 import { UpdateMeterArgs } from "./UpdateMeterArgs";
 import { DeleteMeterArgs } from "./DeleteMeterArgs";
-import { UsageFindManyArgs } from "../../usage/base/UsageFindManyArgs";
 import { Usage } from "../../usage/base/Usage";
 import { User } from "../../user/base/User";
 import { MeterService } from "../meter.service";
@@ -94,6 +93,12 @@ export class MeterResolverBase {
       data: {
         ...args.data,
 
+        usages: args.data.usages
+          ? {
+              connect: args.data.usages,
+            }
+          : undefined,
+
         user: args.data.user
           ? {
               connect: args.data.user,
@@ -118,6 +123,12 @@ export class MeterResolverBase {
         ...args,
         data: {
           ...args.data,
+
+          usages: args.data.usages
+            ? {
+                connect: args.data.usages,
+              }
+            : undefined,
 
           user: args.data.user
             ? {
@@ -158,23 +169,22 @@ export class MeterResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [Usage], { name: "usages" })
+  @graphql.ResolveField(() => Usage, {
+    nullable: true,
+    name: "usages",
+  })
   @nestAccessControl.UseRoles({
     resource: "Usage",
     action: "read",
     possession: "any",
   })
-  async findUsages(
-    @graphql.Parent() parent: Meter,
-    @graphql.Args() args: UsageFindManyArgs
-  ): Promise<Usage[]> {
-    const results = await this.service.findUsages(parent.id, args);
+  async getUsages(@graphql.Parent() parent: Meter): Promise<Usage | null> {
+    const result = await this.service.getUsages(parent.id);
 
-    if (!results) {
-      return [];
+    if (!result) {
+      return null;
     }
-
-    return results;
+    return result;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

@@ -291,6 +291,12 @@ export class UserControllerBase {
         tokenBalance: true,
         updatedAt: true,
 
+        usages: {
+          select: {
+            id: true,
+          },
+        },
+
         user: {
           select: {
             id: true,

@@ -18,7 +18,7 @@ import { StringFilter } from "../../util/StringFilter";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { EnumMeterStatus } from "./EnumMeterStatus";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
-import { UsageListRelationFilter } from "../../usage/base/UsageListRelationFilter";
+import { UsageWhereUniqueInput } from "../../usage/base/UsageWhereUniqueInput";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
@@ -65,7 +65,15 @@ class MeterWhereInput {
   @Field(() => EnumMeterStatus, {
     nullable: true,
   })
-  status?: "Option1";
+  status?:
+    | "Active"
+    | "Inactive"
+    | "Suspended"
+    | "Maintenance"
+    | "Faulty"
+    | "Closed"
+    | "Pending"
+    | "Disconnected";
 
   @ApiProperty({
     required: false,
@@ -80,15 +88,15 @@ class MeterWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => UsageListRelationFilter,
+    type: () => UsageWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => UsageListRelationFilter)
+  @Type(() => UsageWhereUniqueInput)
   @IsOptional()
-  @Field(() => UsageListRelationFilter, {
+  @Field(() => UsageWhereUniqueInput, {
     nullable: true,
   })
-  usages?: UsageListRelationFilter;
+  usages?: UsageWhereUniqueInput;
 
   @ApiProperty({
     required: false,

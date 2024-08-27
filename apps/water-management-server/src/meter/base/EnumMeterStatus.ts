@@ -12,7 +12,14 @@ https://docs.amplication.com/how-to/custom-code
 import { registerEnumType } from "@nestjs/graphql";
 
 export enum EnumMeterStatus {
-  Option_1 = "Option1",
+  Active = "Active",
+  Inactive = "Inactive",
+  Suspended = "Suspended",
+  Maintenance = "Maintenance",
+  Faulty = "Faulty",
+  Closed = "Closed",
+  Pending = "Pending",
+  Disconnected = "Disconnected",
 }
 
 registerEnumType(EnumMeterStatus, {

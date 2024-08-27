@@ -11,6 +11,7 @@ import {
   Datagrid,
 } from "react-admin";
 
+import { USAGE_TITLE_FIELD } from "../usage/UsageTitle";
 import { USER_TITLE_FIELD } from "./UserTitle";
 import { ROLE_TITLE_FIELD } from "../role/RoleTitle";
 
@@ -39,6 +40,9 @@ export const UserShow = (props: ShowProps): React.ReactElement => {
             <TextField label="status" source="status" />
             <TextField label="tokenBalance" source="tokenBalance" />
             <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField label="Usages" source="usage.id" reference="Usage">
+              <TextField source={USAGE_TITLE_FIELD} />
+            </ReferenceField>
             <ReferenceField label="user" source="user.id" reference="User">
               <TextField source={USER_TITLE_FIELD} />
             </ReferenceField>

@@ -7,8 +7,6 @@ import {
   DateTimeInput,
   SelectInput,
   NumberInput,
-  ReferenceArrayInput,
-  SelectArrayInput,
   ReferenceInput,
 } from "react-admin";
 
@@ -24,20 +22,24 @@ export const MeterCreate = (props: CreateProps): React.ReactElement => {
         <SelectInput
           source="status"
           label="status"
-          choices={[{ label: "Option 1", value: "Option1" }]}
+          choices={[
+            { label: "ACTIVE", value: "Active" },
+            { label: "INACTIVE ", value: "Inactive" },
+            { label: "SUSPENDED ", value: "Suspended" },
+            { label: "MAINTENANCE ", value: "Maintenance" },
+            { label: "FAULTY ", value: "Faulty" },
+            { label: "CLOSED", value: "Closed" },
+            { label: "PENDING", value: "Pending" },
+            { label: "DISCONNECTED ", value: "Disconnected" },
+          ]}
           optionText="label"
           allowEmpty
           optionValue="value"
         />
         <NumberInput step={1} label="tokenBalance" source="tokenBalance" />
-        <ReferenceArrayInput
-          source="usages"
-          reference="Usage"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={UsageTitle} />
-        </ReferenceArrayInput>
+        <ReferenceInput source="usages.id" reference="Usage" label="Usages">
+          <SelectInput optionText={UsageTitle} />
+        </ReferenceInput>
         <ReferenceInput source="user.id" reference="User" label="user">
           <SelectInput optionText={UserTitle} />
         </ReferenceInput>

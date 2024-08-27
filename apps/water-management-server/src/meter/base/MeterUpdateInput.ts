@@ -25,7 +25,7 @@ import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { Type } from "class-transformer";
 import { EnumMeterStatus } from "./EnumMeterStatus";
-import { UsageUpdateManyWithoutMetersInput } from "./UsageUpdateManyWithoutMetersInput";
+import { UsageWhereUniqueInput } from "../../usage/base/UsageWhereUniqueInput";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
@@ -60,7 +60,16 @@ class MeterUpdateInput {
   @Field(() => EnumMeterStatus, {
     nullable: true,
   })
-  status?: "Option1" | null;
+  status?:
+    | "Active"
+    | "Inactive"
+    | "Suspended"
+    | "Maintenance"
+    | "Faulty"
+    | "Closed"
+    | "Pending"
+    | "Disconnected"
+    | null;
 
   @ApiProperty({
     required: false,
@@ -77,15 +86,15 @@ class MeterUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => UsageUpdateManyWithoutMetersInput,
+    type: () => UsageWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => UsageUpdateManyWithoutMetersInput)
+  @Type(() => UsageWhereUniqueInput)
   @IsOptional()
-  @Field(() => UsageUpdateManyWithoutMetersInput, {
+  @Field(() => UsageWhereUniqueInput, {
     nullable: true,
   })
-  usages?: UsageUpdateManyWithoutMetersInput;
+  usages?: UsageWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

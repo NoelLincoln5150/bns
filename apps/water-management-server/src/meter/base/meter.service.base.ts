@@ -40,15 +40,12 @@ export class MeterServiceBase {
     return this.prisma.meter.delete(args);
   }
 
-  async findUsages(
-    parentId: string,
-    args: Prisma.UsageFindManyArgs
-  ): Promise<PrismaUsage[]> {
+  async getUsages(parentId: string): Promise<PrismaUsage | null> {
     return this.prisma.meter
-      .findUniqueOrThrow({
+      .findUnique({
         where: { id: parentId },
       })
-      .usages(args);
+      .usages();
   }
 
   async getUser(parentId: string): Promise<PrismaUser | null> {

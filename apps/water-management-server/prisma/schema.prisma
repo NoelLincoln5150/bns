@@ -11,8 +11,7 @@ model Usage {
   amountUsed    Float?
   createdAt     DateTime  @default(now())
   id            String    @id @default(cuid())
-  meter         Meter?    @relation(fields: [meterId], references: [id])
-  meterId       String?
+  meter         Meter?
   meterRelation String?
   updatedAt     DateTime  @updatedAt
   usageDate     DateTime?
@@ -26,7 +25,8 @@ model Meter {
   status           EnumMeterStatus?
   tokenBalance     Int?
   updatedAt        DateTime         @updatedAt
-  usages           Usage[]
+  usages           Usage?           @relation(fields: [usagesId], references: [id])
+  usagesId         String?          @unique
   user             User?            @relation(fields: [userId], references: [id])
   userId           String?
 }
@@ -112,7 +112,14 @@ model Alert {
 }
 
 enum EnumMeterStatus {
-  Option1
+  Active
+  Inactive
+  Suspended
+  Maintenance
+  Faulty
+  Closed
+  Pending
+  Disconnected
 }
 
 enum EnumTicketStatus {

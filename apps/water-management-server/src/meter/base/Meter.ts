@@ -77,7 +77,16 @@ class Meter {
   @Field(() => EnumMeterStatus, {
     nullable: true,
   })
-  status?: "Option1" | null;
+  status?:
+    | "Active"
+    | "Inactive"
+    | "Suspended"
+    | "Maintenance"
+    | "Faulty"
+    | "Closed"
+    | "Pending"
+    | "Disconnected"
+    | null;
 
   @ApiProperty({
     required: false,
@@ -102,12 +111,12 @@ class Meter {
 
   @ApiProperty({
     required: false,
-    type: () => [Usage],
+    type: () => Usage,
   })
   @ValidateNested()
   @Type(() => Usage)
   @IsOptional()
-  usages?: Array<Usage>;
+  usages?: Usage | null;
 
   @ApiProperty({
     required: false,

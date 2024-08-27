@@ -1,12 +1,21 @@
 import { InputJsonValue } from "../../types";
-import { UsageUpdateManyWithoutMetersInput } from "./UsageUpdateManyWithoutMetersInput";
+import { UsageWhereUniqueInput } from "../usage/UsageWhereUniqueInput";
 import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
 
 export type MeterUpdateInput = {
   coordinates?: InputJsonValue;
   installationDate?: Date | null;
-  status?: "Option1" | null;
+  status?:
+    | "Active"
+    | "Inactive"
+    | "Suspended"
+    | "Maintenance"
+    | "Faulty"
+    | "Closed"
+    | "Pending"
+    | "Disconnected"
+    | null;
   tokenBalance?: number | null;
-  usages?: UsageUpdateManyWithoutMetersInput;
+  usages?: UsageWhereUniqueInput | null;
   user?: UserWhereUniqueInput | null;
 };

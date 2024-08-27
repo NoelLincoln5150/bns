@@ -8,5 +8,6 @@ export type MeterOrderByInput = {
   status?: SortOrder;
   tokenBalance?: SortOrder;
   updatedAt?: SortOrder;
+  usagesId?: SortOrder;
   userId?: SortOrder;
 };

@@ -26,9 +26,6 @@ import { Meter } from "./Meter";
 import { MeterFindManyArgs } from "./MeterFindManyArgs";
 import { MeterWhereUniqueInput } from "./MeterWhereUniqueInput";
 import { MeterUpdateInput } from "./MeterUpdateInput";
-import { UsageFindManyArgs } from "../../usage/base/UsageFindManyArgs";
-import { Usage } from "../../usage/base/Usage";
-import { UsageWhereUniqueInput } from "../../usage/base/UsageWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -53,6 +50,12 @@ export class MeterControllerBase {
       data: {
         ...data,
 
+        usages: data.usages
+          ? {
+              connect: data.usages,
+            }
+          : undefined,
+
         user: data.user
           ? {
               connect: data.user,
@@ -67,6 +70,12 @@ export class MeterControllerBase {
         status: true,
         tokenBalance: true,
         updatedAt: true,
+
+        usages: {
+          select: {
+            id: true,
+          },
+        },
 
         user: {
           select: {
@@ -102,6 +111,12 @@ export class MeterControllerBase {
         tokenBalance: true,
         updatedAt: true,
 
+        usages: {
+          select: {
+            id: true,
+          },
+        },
+
         user: {
           select: {
             id: true,
@@ -136,6 +151,12 @@ export class MeterControllerBase {
         status: true,
         tokenBalance: true,
         updatedAt: true,
+
+        usages: {
+          select: {
+            id: true,
+          },
+        },
 
         user: {
           select: {
@@ -174,6 +195,12 @@ export class MeterControllerBase {
         data: {
           ...data,
 
+          usages: data.usages
+            ? {
+                connect: data.usages,
+              }
+            : undefined,
+
           user: data.user
             ? {
                 connect: data.user,
@@ -188,6 +215,12 @@ export class MeterControllerBase {
           status: true,
           tokenBalance: true,
           updatedAt: true,
+
+          usages: {
+            select: {
+              id: true,
+            },
+          },
 
           user: {
             select: {
@@ -232,6 +265,12 @@ export class MeterControllerBase {
           tokenBalance: true,
           updatedAt: true,
 
+          usages: {
+            select: {
+              id: true,
+            },
+          },
+
           user: {
             select: {
               id: true,
@@ -247,110 +286,5 @@ export class MeterControllerBase {
       }
       throw error;
     }
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/usages")
-  @ApiNestedQuery(UsageFindManyArgs)
-  @nestAccessControl.UseRoles({
-    resource: "Usage",
-    action: "read",
-    possession: "any",
-  })
-  async findUsages(
-    @common.Req() request: Request,
-    @common.Param() params: MeterWhereUniqueInput
-  ): Promise<Usage[]> {
-    const query = plainToClass(UsageFindManyArgs, request.query);
-    const results = await this.service.findUsages(params.id, {
-      ...query,
-      select: {
-        amountUsed: true,
-        createdAt: true,
-        id: true,
-
-        meter: {
-          select: {
-            id: true,
-          },
-        },
-
-        meterRelation: true,
-        updatedAt: true,
-        usageDate: true,
-      },
-    });
-    if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
-    }
-    return results;
-  }
-
-  @common.Post("/:id/usages")
-  @nestAccessControl.UseRoles({
-    resource: "Meter",
-    action: "update",
-    possession: "any",
-  })
-  async connectUsages(
-    @common.Param() params: MeterWhereUniqueInput,
-    @common.Body() body: UsageWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      usages: {
-        connect: body,
-      },
-    };
-    await this.service.updateMeter({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Patch("/:id/usages")
-  @nestAccessControl.UseRoles({
-    resource: "Meter",
-    action: "update",
-    possession: "any",
-  })
-  async updateUsages(
-    @common.Param() params: MeterWhereUniqueInput,
-    @common.Body() body: UsageWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      usages: {
-        set: body,
-      },
-    };
-    await this.service.updateMeter({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Delete("/:id/usages")
-  @nestAccessControl.UseRoles({
-    resource: "Meter",
-    action: "update",
-    possession: "any",
-  })
-  async disconnectUsages(
-    @common.Param() params: MeterWhereUniqueInput,
-    @common.Body() body: UsageWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      usages: {
-        disconnect: body,
-      },
-    };
-    await this.service.updateMeter({
-      where: params,
-      data,
-      select: { id: true },
-    });
   }
 }
