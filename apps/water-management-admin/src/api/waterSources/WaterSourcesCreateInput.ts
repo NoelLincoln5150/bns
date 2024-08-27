@@ -1,3 +1,5 @@
+import { PremisesWaterSourceCreateNestedManyWithoutWaterSourcesItemsInput } from "./PremisesWaterSourceCreateNestedManyWithoutWaterSourcesItemsInput";
+
 export type WaterSourcesCreateInput = {
   county?: string | null;
   deletedAt?: Date | null;
@@ -7,6 +9,7 @@ export type WaterSourcesCreateInput = {
   longitude?: number | null;
   name?: string | null;
   numberField?: number | null;
+  premisesWaterSources?: PremisesWaterSourceCreateNestedManyWithoutWaterSourcesItemsInput;
   region?: string | null;
   subCounty?: string | null;
   supplierNumber?: string | null;

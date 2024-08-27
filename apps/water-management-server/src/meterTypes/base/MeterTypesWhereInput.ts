@@ -13,7 +13,8 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { IsOptional, ValidateNested } from "class-validator";
+import { MeterListRelationFilter } from "../../meter/base/MeterListRelationFilter";
 
 @InputType()
 class MeterTypesWhereInput {
@@ -27,6 +28,18 @@ class MeterTypesWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => MeterListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => MeterListRelationFilter)
+  @IsOptional()
+  @Field(() => MeterListRelationFilter, {
+    nullable: true,
+  })
+  meters?: MeterListRelationFilter;
 }
 
 export { MeterTypesWhereInput as MeterTypesWhereInput };

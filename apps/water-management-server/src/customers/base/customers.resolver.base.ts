@@ -28,6 +28,8 @@ import { UpdateCustomersArgs } from "./UpdateCustomersArgs";
 import { DeleteCustomersArgs } from "./DeleteCustomersArgs";
 import { B2bTransactionsFindManyArgs } from "../../b2bTransactions/base/B2bTransactionsFindManyArgs";
 import { B2bTransactions } from "../../b2bTransactions/base/B2bTransactions";
+import { CustomerMeterFindManyArgs } from "../../customerMeter/base/CustomerMeterFindManyArgs";
+import { CustomerMeter } from "../../customerMeter/base/CustomerMeter";
 import { CustomersService } from "../customers.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Customers)
@@ -161,6 +163,26 @@ export class CustomersResolverBase {
       parent.id,
       args
     );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [CustomerMeter], { name: "customerMeters" })
+  @nestAccessControl.UseRoles({
+    resource: "CustomerMeter",
+    action: "read",
+    possession: "any",
+  })
+  async findCustomerMeters(
+    @graphql.Parent() parent: Customers,
+    @graphql.Args() args: CustomerMeterFindManyArgs
+  ): Promise<CustomerMeter[]> {
+    const results = await this.service.findCustomerMeters(parent.id, args);
 
     if (!results) {
       return [];

@@ -52,7 +52,9 @@ export class PasswordResetsControllerBase {
       data: data,
       select: {
         createdAt: true,
+        email: true,
         id: true,
+        token: true,
         updatedAt: true,
       },
     });
@@ -78,7 +80,9 @@ export class PasswordResetsControllerBase {
       ...args,
       select: {
         createdAt: true,
+        email: true,
         id: true,
+        token: true,
         updatedAt: true,
       },
     });
@@ -103,7 +107,9 @@ export class PasswordResetsControllerBase {
       where: params,
       select: {
         createdAt: true,
+        email: true,
         id: true,
+        token: true,
         updatedAt: true,
       },
     });
@@ -137,7 +143,9 @@ export class PasswordResetsControllerBase {
         data: data,
         select: {
           createdAt: true,
+          email: true,
           id: true,
+          token: true,
           updatedAt: true,
         },
       });
@@ -170,7 +178,9 @@ export class PasswordResetsControllerBase {
         where: params,
         select: {
           createdAt: true,
+          email: true,
           id: true,
+          token: true,
           updatedAt: true,
         },
       });

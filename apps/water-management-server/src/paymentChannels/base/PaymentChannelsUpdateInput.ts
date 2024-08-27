@@ -9,5 +9,105 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-class PaymentChannelsUpdateInput {}
+import { InputType, Field, Float } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+import {
+  IsNumber,
+  Max,
+  IsOptional,
+  IsString,
+  MaxLength,
+  ValidateNested,
+} from "class-validator";
+import { Decimal } from "decimal.js";
+import { PaymentTypesWhereUniqueInput } from "../../paymentTypes/base/PaymentTypesWhereUniqueInput";
+import { Type } from "class-transformer";
+
+@InputType()
+class PaymentChannelsUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Max(99999999999)
+  @IsOptional()
+  @Field(() => Float, {
+    nullable: true,
+  })
+  accountNumber?: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  channel?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  deletedAt?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  enabled?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  payableId?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  payableType?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentTypesWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentTypesWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PaymentTypesWhereUniqueInput, {
+    nullable: true,
+  })
+  paymentType?: PaymentTypesWhereUniqueInput | null;
+}
+
 export { PaymentChannelsUpdateInput as PaymentChannelsUpdateInput };

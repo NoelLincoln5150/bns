@@ -12,8 +12,14 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { B2bTransactionsCreateNestedManyWithoutCustomersItemsInput } from "./B2bTransactionsCreateNestedManyWithoutCustomersItemsInput";
-import { ValidateNested, IsOptional } from "class-validator";
+import {
+  ValidateNested,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from "class-validator";
 import { Type } from "class-transformer";
+import { CustomerMeterCreateNestedManyWithoutCustomersItemsInput } from "./CustomerMeterCreateNestedManyWithoutCustomersItemsInput";
 
 @InputType()
 class CustomersCreateInput {
@@ -28,6 +34,77 @@ class CustomersCreateInput {
     nullable: true,
   })
   b2bTransactionsItems?: B2bTransactionsCreateNestedManyWithoutCustomersItemsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => CustomerMeterCreateNestedManyWithoutCustomersItemsInput,
+  })
+  @ValidateNested()
+  @Type(() => CustomerMeterCreateNestedManyWithoutCustomersItemsInput)
+  @IsOptional()
+  @Field(() => CustomerMeterCreateNestedManyWithoutCustomersItemsInput, {
+    nullable: true,
+  })
+  customerMeters?: CustomerMeterCreateNestedManyWithoutCustomersItemsInput;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  deletedAt?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  email?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  hash?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  name?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  phoneNumber?: string | null;
 }
 
 export { CustomersCreateInput as CustomersCreateInput };

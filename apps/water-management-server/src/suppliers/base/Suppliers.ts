@@ -11,9 +11,11 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { Contract } from "../../contract/base/Contract";
 import {
-  IsDate,
+  ValidateNested,
   IsOptional,
+  IsDate,
   IsString,
   MaxLength,
   IsInt,
@@ -24,6 +26,15 @@ import { Type } from "class-transformer";
 
 @ObjectType()
 class Suppliers {
+  @ApiProperty({
+    required: false,
+    type: () => [Contract],
+  })
+  @ValidateNested()
+  @Type(() => Contract)
+  @IsOptional()
+  contracts?: Array<Contract>;
+
   @ApiProperty({
     required: true,
   })

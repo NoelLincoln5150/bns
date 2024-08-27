@@ -1,3 +1,4 @@
+import { LogsUpdateManyWithoutUsersInput } from "./LogsUpdateManyWithoutUsersInput";
 import { MeterUpdateManyWithoutUsersInput } from "./MeterUpdateManyWithoutUsersInput";
 import { RoleUpdateManyWithoutUsersInput } from "./RoleUpdateManyWithoutUsersInput";
 import { InputJsonValue } from "../../types";
@@ -8,6 +9,7 @@ export type UserUpdateInput = {
   emailVerifiedAt?: Date | null;
   firstName?: string | null;
   lastName?: string | null;
+  logsItems?: LogsUpdateManyWithoutUsersInput;
   meters?: MeterUpdateManyWithoutUsersInput;
   name?: string | null;
   password?: string;

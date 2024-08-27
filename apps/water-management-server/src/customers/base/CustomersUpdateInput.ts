@@ -12,8 +12,14 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { B2bTransactionsUpdateManyWithoutCustomersItemsInput } from "./B2bTransactionsUpdateManyWithoutCustomersItemsInput";
-import { ValidateNested, IsOptional } from "class-validator";
+import {
+  ValidateNested,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from "class-validator";
 import { Type } from "class-transformer";
+import { CustomerMeterUpdateManyWithoutCustomersItemsInput } from "./CustomerMeterUpdateManyWithoutCustomersItemsInput";
 
 @InputType()
 class CustomersUpdateInput {
@@ -28,6 +34,77 @@ class CustomersUpdateInput {
     nullable: true,
   })
   b2bTransactionsItems?: B2bTransactionsUpdateManyWithoutCustomersItemsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => CustomerMeterUpdateManyWithoutCustomersItemsInput,
+  })
+  @ValidateNested()
+  @Type(() => CustomerMeterUpdateManyWithoutCustomersItemsInput)
+  @IsOptional()
+  @Field(() => CustomerMeterUpdateManyWithoutCustomersItemsInput, {
+    nullable: true,
+  })
+  customerMeters?: CustomerMeterUpdateManyWithoutCustomersItemsInput;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  deletedAt?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  email?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  hash?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  name?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  phoneNumber?: string | null;
 }
 
 export { CustomersUpdateInput as CustomersUpdateInput };

@@ -1,1 +1,4 @@
-export type PasswordResetTokensCreateInput = {};
+export type PasswordResetTokensCreateInput = {
+  email?: string | null;
+  token?: string | null;
+};

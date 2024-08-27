@@ -9,5 +9,102 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-class DocumentTypesCreateInput {}
+import { InputType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+import {
+  IsString,
+  MaxLength,
+  IsOptional,
+  IsDate,
+  ValidateNested,
+} from "class-validator";
+import { Type } from "class-transformer";
+import { DocumentsCreateNestedManyWithoutDocumentTypesItemsInput } from "./DocumentsCreateNestedManyWithoutDocumentTypesItemsInput";
+
+@InputType()
+class DocumentTypesCreateInput {
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code?: string | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  deletedAt?: Date | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => DocumentsCreateNestedManyWithoutDocumentTypesItemsInput,
+  })
+  @ValidateNested()
+  @Type(() => DocumentsCreateNestedManyWithoutDocumentTypesItemsInput)
+  @IsOptional()
+  @Field(() => DocumentsCreateNestedManyWithoutDocumentTypesItemsInput, {
+    nullable: true,
+  })
+  documentsItems?: DocumentsCreateNestedManyWithoutDocumentTypesItemsInput;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  movement?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  name?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  requirePayment?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  typeField?: string | null;
+}
+
 export { DocumentTypesCreateInput as DocumentTypesCreateInput };

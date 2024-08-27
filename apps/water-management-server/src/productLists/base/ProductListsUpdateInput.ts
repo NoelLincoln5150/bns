@@ -9,5 +9,66 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-class ProductListsUpdateInput {}
+import { InputType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+import {
+  IsString,
+  MaxLength,
+  IsOptional,
+  IsDate,
+  IsBoolean,
+  ValidateNested,
+} from "class-validator";
+import { Type } from "class-transformer";
+import { ProductsUpdateManyWithoutProductListsItemsInput } from "./ProductsUpdateManyWithoutProductListsItemsInput";
+
+@InputType()
+class ProductListsUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(256)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  barcode?: string | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  deletedAt?: Date | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  inStock?: boolean | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductsUpdateManyWithoutProductListsItemsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductsUpdateManyWithoutProductListsItemsInput)
+  @IsOptional()
+  @Field(() => ProductsUpdateManyWithoutProductListsItemsInput, {
+    nullable: true,
+  })
+  productid?: ProductsUpdateManyWithoutProductListsItemsInput;
+}
+
 export { ProductListsUpdateInput as ProductListsUpdateInput };

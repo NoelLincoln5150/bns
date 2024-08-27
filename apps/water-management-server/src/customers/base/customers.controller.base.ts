@@ -29,6 +29,9 @@ import { CustomersUpdateInput } from "./CustomersUpdateInput";
 import { B2bTransactionsFindManyArgs } from "../../b2bTransactions/base/B2bTransactionsFindManyArgs";
 import { B2bTransactions } from "../../b2bTransactions/base/B2bTransactions";
 import { B2bTransactionsWhereUniqueInput } from "../../b2bTransactions/base/B2bTransactionsWhereUniqueInput";
+import { CustomerMeterFindManyArgs } from "../../customerMeter/base/CustomerMeterFindManyArgs";
+import { CustomerMeter } from "../../customerMeter/base/CustomerMeter";
+import { CustomerMeterWhereUniqueInput } from "../../customerMeter/base/CustomerMeterWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -55,7 +58,12 @@ export class CustomersControllerBase {
       data: data,
       select: {
         createdAt: true,
+        deletedAt: true,
+        email: true,
+        hash: true,
         id: true,
+        name: true,
+        phoneNumber: true,
         updatedAt: true,
       },
     });
@@ -79,7 +87,12 @@ export class CustomersControllerBase {
       ...args,
       select: {
         createdAt: true,
+        deletedAt: true,
+        email: true,
+        hash: true,
         id: true,
+        name: true,
+        phoneNumber: true,
         updatedAt: true,
       },
     });
@@ -104,7 +117,12 @@ export class CustomersControllerBase {
       where: params,
       select: {
         createdAt: true,
+        deletedAt: true,
+        email: true,
+        hash: true,
         id: true,
+        name: true,
+        phoneNumber: true,
         updatedAt: true,
       },
     });
@@ -138,7 +156,12 @@ export class CustomersControllerBase {
         data: data,
         select: {
           createdAt: true,
+          deletedAt: true,
+          email: true,
+          hash: true,
           id: true,
+          name: true,
+          phoneNumber: true,
           updatedAt: true,
         },
       });
@@ -171,7 +194,12 @@ export class CustomersControllerBase {
         where: params,
         select: {
           createdAt: true,
+          deletedAt: true,
+          email: true,
+          hash: true,
           id: true,
+          name: true,
+          phoneNumber: true,
           updatedAt: true,
         },
       });
@@ -300,6 +328,115 @@ export class CustomersControllerBase {
   ): Promise<void> {
     const data = {
       b2bTransactionsItems: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateCustomers({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/customerMeters")
+  @ApiNestedQuery(CustomerMeterFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "CustomerMeter",
+    action: "read",
+    possession: "any",
+  })
+  async findCustomerMeters(
+    @common.Req() request: Request,
+    @common.Param() params: CustomersWhereUniqueInput
+  ): Promise<CustomerMeter[]> {
+    const query = plainToClass(CustomerMeterFindManyArgs, request.query);
+    const results = await this.service.findCustomerMeters(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+
+        customer: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+
+        meterId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/customerMeters")
+  @nestAccessControl.UseRoles({
+    resource: "Customers",
+    action: "update",
+    possession: "any",
+  })
+  async connectCustomerMeters(
+    @common.Param() params: CustomersWhereUniqueInput,
+    @common.Body() body: CustomerMeterWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      customerMeters: {
+        connect: body,
+      },
+    };
+    await this.service.updateCustomers({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/customerMeters")
+  @nestAccessControl.UseRoles({
+    resource: "Customers",
+    action: "update",
+    possession: "any",
+  })
+  async updateCustomerMeters(
+    @common.Param() params: CustomersWhereUniqueInput,
+    @common.Body() body: CustomerMeterWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      customerMeters: {
+        set: body,
+      },
+    };
+    await this.service.updateCustomers({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/customerMeters")
+  @nestAccessControl.UseRoles({
+    resource: "Customers",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectCustomerMeters(
+    @common.Param() params: CustomersWhereUniqueInput,
+    @common.Body() body: CustomerMeterWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      customerMeters: {
         disconnect: body,
       },
     };

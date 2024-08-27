@@ -9,5 +9,103 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-class PaymentTypesUpdateInput {}
+import { InputType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+import {
+  IsString,
+  MaxLength,
+  IsOptional,
+  ValidateNested,
+} from "class-validator";
+import { DocumentPaymentsUpdateManyWithoutPaymentTypesItemsInput } from "./DocumentPaymentsUpdateManyWithoutPaymentTypesItemsInput";
+import { Type } from "class-transformer";
+import { PaymentChannelsUpdateManyWithoutPaymentTypesItemsInput } from "./PaymentChannelsUpdateManyWithoutPaymentTypesItemsInput";
+
+@InputType()
+class PaymentTypesUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  canSettle?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  deletedAt?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  displayName?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => DocumentPaymentsUpdateManyWithoutPaymentTypesItemsInput,
+  })
+  @ValidateNested()
+  @Type(() => DocumentPaymentsUpdateManyWithoutPaymentTypesItemsInput)
+  @IsOptional()
+  @Field(() => DocumentPaymentsUpdateManyWithoutPaymentTypesItemsInput, {
+    nullable: true,
+  })
+  documentPaymentsItems?: DocumentPaymentsUpdateManyWithoutPaymentTypesItemsInput;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  enabled?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  name?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentChannelsUpdateManyWithoutPaymentTypesItemsInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentChannelsUpdateManyWithoutPaymentTypesItemsInput)
+  @IsOptional()
+  @Field(() => PaymentChannelsUpdateManyWithoutPaymentTypesItemsInput, {
+    nullable: true,
+  })
+  paymentChannelsItems?: PaymentChannelsUpdateManyWithoutPaymentTypesItemsInput;
+}
+
 export { PaymentTypesUpdateInput as PaymentTypesUpdateInput };

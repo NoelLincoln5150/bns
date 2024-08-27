@@ -9,5 +9,103 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-class DocumentsCreateInput {}
+import { InputType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+import {
+  IsString,
+  MaxLength,
+  IsOptional,
+  ValidateNested,
+  IsBoolean,
+} from "class-validator";
+import { DocumentPaymentsCreateNestedManyWithoutDocumentsItemsInput } from "./DocumentPaymentsCreateNestedManyWithoutDocumentsItemsInput";
+import { Type } from "class-transformer";
+import { DocumentTypesWhereUniqueInput } from "../../documentTypes/base/DocumentTypesWhereUniqueInput";
+
+@InputType()
+class DocumentsCreateInput {
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  deletedAt?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => DocumentPaymentsCreateNestedManyWithoutDocumentsItemsInput,
+  })
+  @ValidateNested()
+  @Type(() => DocumentPaymentsCreateNestedManyWithoutDocumentsItemsInput)
+  @IsOptional()
+  @Field(() => DocumentPaymentsCreateNestedManyWithoutDocumentsItemsInput, {
+    nullable: true,
+  })
+  documentPaymentsItems?: DocumentPaymentsCreateNestedManyWithoutDocumentsItemsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => DocumentTypesWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => DocumentTypesWhereUniqueInput)
+  @IsOptional()
+  @Field(() => DocumentTypesWhereUniqueInput, {
+    nullable: true,
+  })
+  documentType?: DocumentTypesWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  documentableId?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  documentableType?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  numberField?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  paid?: boolean | null;
+}
+
 export { DocumentsCreateInput as DocumentsCreateInput };

@@ -49,11 +49,26 @@ export class PremisesWaterSourceControllerBase {
     @common.Body() data: PremisesWaterSourceCreateInput
   ): Promise<PremisesWaterSource> {
     return await this.service.createPremisesWaterSource({
-      data: data,
+      data: {
+        ...data,
+
+        waterSourceId: data.waterSourceId
+          ? {
+              connect: data.waterSourceId,
+            }
+          : undefined,
+      },
       select: {
         createdAt: true,
         id: true,
+        premisesId: true,
         updatedAt: true,
+
+        waterSourceId: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -79,7 +94,14 @@ export class PremisesWaterSourceControllerBase {
       select: {
         createdAt: true,
         id: true,
+        premisesId: true,
         updatedAt: true,
+
+        waterSourceId: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -104,7 +126,14 @@ export class PremisesWaterSourceControllerBase {
       select: {
         createdAt: true,
         id: true,
+        premisesId: true,
         updatedAt: true,
+
+        waterSourceId: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     if (result === null) {
@@ -134,11 +163,26 @@ export class PremisesWaterSourceControllerBase {
     try {
       return await this.service.updatePremisesWaterSource({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          waterSourceId: data.waterSourceId
+            ? {
+                connect: data.waterSourceId,
+              }
+            : undefined,
+        },
         select: {
           createdAt: true,
           id: true,
+          premisesId: true,
           updatedAt: true,
+
+          waterSourceId: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
@@ -171,7 +215,14 @@ export class PremisesWaterSourceControllerBase {
         select: {
           createdAt: true,
           id: true,
+          premisesId: true,
           updatedAt: true,
+
+          waterSourceId: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {

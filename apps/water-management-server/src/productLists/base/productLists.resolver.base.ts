@@ -18,11 +18,16 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { ProductLists } from "./ProductLists";
 import { ProductListsCountArgs } from "./ProductListsCountArgs";
 import { ProductListsFindManyArgs } from "./ProductListsFindManyArgs";
 import { ProductListsFindUniqueArgs } from "./ProductListsFindUniqueArgs";
+import { CreateProductListsArgs } from "./CreateProductListsArgs";
+import { UpdateProductListsArgs } from "./UpdateProductListsArgs";
 import { DeleteProductListsArgs } from "./DeleteProductListsArgs";
+import { ProductsFindManyArgs } from "../../products/base/ProductsFindManyArgs";
+import { Products } from "../../products/base/Products";
 import { ProductListsService } from "../productLists.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => ProductLists)
@@ -77,6 +82,47 @@ export class ProductListsResolverBase {
     return result;
   }
 
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => ProductLists)
+  @nestAccessControl.UseRoles({
+    resource: "ProductLists",
+    action: "create",
+    possession: "any",
+  })
+  async createProductLists(
+    @graphql.Args() args: CreateProductListsArgs
+  ): Promise<ProductLists> {
+    return await this.service.createProductLists({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => ProductLists)
+  @nestAccessControl.UseRoles({
+    resource: "ProductLists",
+    action: "update",
+    possession: "any",
+  })
+  async updateProductLists(
+    @graphql.Args() args: UpdateProductListsArgs
+  ): Promise<ProductLists | null> {
+    try {
+      return await this.service.updateProductLists({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
+  }
+
   @graphql.Mutation(() => ProductLists)
   @nestAccessControl.UseRoles({
     resource: "ProductLists",
@@ -96,5 +142,25 @@ export class ProductListsResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Products], { name: "productid" })
+  @nestAccessControl.UseRoles({
+    resource: "Products",
+    action: "read",
+    possession: "any",
+  })
+  async findProductid(
+    @graphql.Parent() parent: ProductLists,
+    @graphql.Args() args: ProductsFindManyArgs
+  ): Promise<Products[]> {
+    const results = await this.service.findProductid(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 }

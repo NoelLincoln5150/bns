@@ -9,5 +9,103 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-class DocumentsUpdateInput {}
+import { InputType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+import {
+  IsString,
+  MaxLength,
+  IsOptional,
+  ValidateNested,
+  IsBoolean,
+} from "class-validator";
+import { DocumentPaymentsUpdateManyWithoutDocumentsItemsInput } from "./DocumentPaymentsUpdateManyWithoutDocumentsItemsInput";
+import { Type } from "class-transformer";
+import { DocumentTypesWhereUniqueInput } from "../../documentTypes/base/DocumentTypesWhereUniqueInput";
+
+@InputType()
+class DocumentsUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  deletedAt?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => DocumentPaymentsUpdateManyWithoutDocumentsItemsInput,
+  })
+  @ValidateNested()
+  @Type(() => DocumentPaymentsUpdateManyWithoutDocumentsItemsInput)
+  @IsOptional()
+  @Field(() => DocumentPaymentsUpdateManyWithoutDocumentsItemsInput, {
+    nullable: true,
+  })
+  documentPaymentsItems?: DocumentPaymentsUpdateManyWithoutDocumentsItemsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => DocumentTypesWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => DocumentTypesWhereUniqueInput)
+  @IsOptional()
+  @Field(() => DocumentTypesWhereUniqueInput, {
+    nullable: true,
+  })
+  documentType?: DocumentTypesWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  documentableId?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  documentableType?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  numberField?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  paid?: boolean | null;
+}
+
 export { DocumentsUpdateInput as DocumentsUpdateInput };

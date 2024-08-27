@@ -26,6 +26,9 @@ import { Documents } from "./Documents";
 import { DocumentsFindManyArgs } from "./DocumentsFindManyArgs";
 import { DocumentsWhereUniqueInput } from "./DocumentsWhereUniqueInput";
 import { DocumentsUpdateInput } from "./DocumentsUpdateInput";
+import { DocumentPaymentsFindManyArgs } from "../../documentPayments/base/DocumentPaymentsFindManyArgs";
+import { DocumentPayments } from "../../documentPayments/base/DocumentPayments";
+import { DocumentPaymentsWhereUniqueInput } from "../../documentPayments/base/DocumentPaymentsWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -49,10 +52,30 @@ export class DocumentsControllerBase {
     @common.Body() data: DocumentsCreateInput
   ): Promise<Documents> {
     return await this.service.createDocuments({
-      data: data,
+      data: {
+        ...data,
+
+        documentType: data.documentType
+          ? {
+              connect: data.documentType,
+            }
+          : undefined,
+      },
       select: {
         createdAt: true,
+        deletedAt: true,
+
+        documentType: {
+          select: {
+            id: true,
+          },
+        },
+
+        documentableId: true,
+        documentableType: true,
         id: true,
+        numberField: true,
+        paid: true,
         updatedAt: true,
       },
     });
@@ -76,7 +99,19 @@ export class DocumentsControllerBase {
       ...args,
       select: {
         createdAt: true,
+        deletedAt: true,
+
+        documentType: {
+          select: {
+            id: true,
+          },
+        },
+
+        documentableId: true,
+        documentableType: true,
         id: true,
+        numberField: true,
+        paid: true,
         updatedAt: true,
       },
     });
@@ -101,7 +136,19 @@ export class DocumentsControllerBase {
       where: params,
       select: {
         createdAt: true,
+        deletedAt: true,
+
+        documentType: {
+          select: {
+            id: true,
+          },
+        },
+
+        documentableId: true,
+        documentableType: true,
         id: true,
+        numberField: true,
+        paid: true,
         updatedAt: true,
       },
     });
@@ -132,10 +179,30 @@ export class DocumentsControllerBase {
     try {
       return await this.service.updateDocuments({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          documentType: data.documentType
+            ? {
+                connect: data.documentType,
+              }
+            : undefined,
+        },
         select: {
           createdAt: true,
+          deletedAt: true,
+
+          documentType: {
+            select: {
+              id: true,
+            },
+          },
+
+          documentableId: true,
+          documentableType: true,
           id: true,
+          numberField: true,
+          paid: true,
           updatedAt: true,
         },
       });
@@ -168,7 +235,19 @@ export class DocumentsControllerBase {
         where: params,
         select: {
           createdAt: true,
+          deletedAt: true,
+
+          documentType: {
+            select: {
+              id: true,
+            },
+          },
+
+          documentableId: true,
+          documentableType: true,
           id: true,
+          numberField: true,
+          paid: true,
           updatedAt: true,
         },
       });
@@ -180,5 +259,107 @@ export class DocumentsControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/documentPaymentsItems")
+  @ApiNestedQuery(DocumentPaymentsFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "DocumentPayments",
+    action: "read",
+    possession: "any",
+  })
+  async findDocumentPaymentsItems(
+    @common.Req() request: Request,
+    @common.Param() params: DocumentsWhereUniqueInput
+  ): Promise<DocumentPayments[]> {
+    const query = plainToClass(DocumentPaymentsFindManyArgs, request.query);
+    const results = await this.service.findDocumentPaymentsItems(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+
+        document: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/documentPaymentsItems")
+  @nestAccessControl.UseRoles({
+    resource: "Documents",
+    action: "update",
+    possession: "any",
+  })
+  async connectDocumentPaymentsItems(
+    @common.Param() params: DocumentsWhereUniqueInput,
+    @common.Body() body: DocumentPaymentsWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      documentPaymentsItems: {
+        connect: body,
+      },
+    };
+    await this.service.updateDocuments({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/documentPaymentsItems")
+  @nestAccessControl.UseRoles({
+    resource: "Documents",
+    action: "update",
+    possession: "any",
+  })
+  async updateDocumentPaymentsItems(
+    @common.Param() params: DocumentsWhereUniqueInput,
+    @common.Body() body: DocumentPaymentsWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      documentPaymentsItems: {
+        set: body,
+      },
+    };
+    await this.service.updateDocuments({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/documentPaymentsItems")
+  @nestAccessControl.UseRoles({
+    resource: "Documents",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectDocumentPaymentsItems(
+    @common.Param() params: DocumentsWhereUniqueInput,
+    @common.Body() body: DocumentPaymentsWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      documentPaymentsItems: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateDocuments({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

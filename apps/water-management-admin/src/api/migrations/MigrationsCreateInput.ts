@@ -1,1 +1,3 @@
-export type MigrationsCreateInput = {};
+export type MigrationsCreateInput = {
+  migrationName?: string | null;
+};

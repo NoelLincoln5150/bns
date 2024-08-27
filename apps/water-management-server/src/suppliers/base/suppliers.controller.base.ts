@@ -26,6 +26,9 @@ import { Suppliers } from "./Suppliers";
 import { SuppliersFindManyArgs } from "./SuppliersFindManyArgs";
 import { SuppliersWhereUniqueInput } from "./SuppliersWhereUniqueInput";
 import { SuppliersUpdateInput } from "./SuppliersUpdateInput";
+import { ContractFindManyArgs } from "../../contract/base/ContractFindManyArgs";
+import { Contract } from "../../contract/base/Contract";
+import { ContractWhereUniqueInput } from "../../contract/base/ContractWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -205,5 +208,112 @@ export class SuppliersControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/contracts")
+  @ApiNestedQuery(ContractFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Contract",
+    action: "read",
+    possession: "any",
+  })
+  async findContracts(
+    @common.Req() request: Request,
+    @common.Param() params: SuppliersWhereUniqueInput
+  ): Promise<Contract[]> {
+    const query = plainToClass(ContractFindManyArgs, request.query);
+    const results = await this.service.findContracts(params.id, {
+      ...query,
+      select: {
+        approved: true,
+        createdAt: true,
+        id: true,
+        numberField: true,
+        pricePerUnit: true,
+        status: true,
+
+        supplierNumber: {
+          select: {
+            id: true,
+          },
+        },
+
+        titlle: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/contracts")
+  @nestAccessControl.UseRoles({
+    resource: "Suppliers",
+    action: "update",
+    possession: "any",
+  })
+  async connectContracts(
+    @common.Param() params: SuppliersWhereUniqueInput,
+    @common.Body() body: ContractWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      contracts: {
+        connect: body,
+      },
+    };
+    await this.service.updateSuppliers({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/contracts")
+  @nestAccessControl.UseRoles({
+    resource: "Suppliers",
+    action: "update",
+    possession: "any",
+  })
+  async updateContracts(
+    @common.Param() params: SuppliersWhereUniqueInput,
+    @common.Body() body: ContractWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      contracts: {
+        set: body,
+      },
+    };
+    await this.service.updateSuppliers({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/contracts")
+  @nestAccessControl.UseRoles({
+    resource: "Suppliers",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectContracts(
+    @common.Param() params: SuppliersWhereUniqueInput,
+    @common.Body() body: ContractWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      contracts: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateSuppliers({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

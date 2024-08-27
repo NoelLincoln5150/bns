@@ -1,61 +1,61 @@
 [
   {
     "role": "user",
-    "resource": "Meter",
+    "resource": "Ticket",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Meter",
+    "resource": "Ticket",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Meter",
+    "resource": "Ticket",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Meter",
+    "resource": "Ticket",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Meter",
+    "resource": "Ticket",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Ticket",
+    "resource": "Meter",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Ticket",
+    "resource": "Meter",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Ticket",
+    "resource": "Meter",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Ticket",
+    "resource": "Meter",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Ticket",
+    "resource": "Meter",
     "action": "read:any",
     "attributes": "*"
   },
@@ -151,66 +151,6 @@
   },
   {
     "role": "user",
-    "resource": "Alert",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "Alert",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "Alert",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "Alert",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "Alert",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "PrepaidMeter",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "PrepaidMeter",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "PrepaidMeter",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "PrepaidMeter",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "PrepaidMeter",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
     "resource": "MeterData",
     "action": "read:own",
     "attributes": "*"
@@ -271,31 +211,61 @@
   },
   {
     "role": "user",
-    "resource": "CustomerMeter",
+    "resource": "Alert",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "CustomerMeter",
+    "resource": "Alert",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "CustomerMeter",
+    "resource": "Alert",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "CustomerMeter",
+    "resource": "Alert",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "CustomerMeter",
+    "resource": "Alert",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PrepaidMeter",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PrepaidMeter",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PrepaidMeter",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PrepaidMeter",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PrepaidMeter",
     "action": "read:any",
     "attributes": "*"
   },
@@ -361,61 +331,31 @@
   },
   {
     "role": "user",
-    "resource": "Stocks",
+    "resource": "CustomerMeter",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Stocks",
+    "resource": "CustomerMeter",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Stocks",
+    "resource": "CustomerMeter",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Stocks",
+    "resource": "CustomerMeter",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Stocks",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "Premises",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "Premises",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "Premises",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "Premises",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "Premises",
+    "resource": "CustomerMeter",
     "action": "read:any",
     "attributes": "*"
   },
@@ -481,6 +421,36 @@
   },
   {
     "role": "user",
+    "resource": "Premises",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Premises",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Premises",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Premises",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Premises",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
     "resource": "Taxables",
     "action": "read:own",
     "attributes": "*"
@@ -511,181 +481,61 @@
   },
   {
     "role": "user",
-    "resource": "PaymentAccounts",
+    "resource": "Stocks",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "PaymentAccounts",
+    "resource": "Stocks",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "PaymentAccounts",
+    "resource": "Stocks",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "PaymentAccounts",
+    "resource": "Stocks",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "PaymentAccounts",
+    "resource": "Stocks",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "PasswordResetTokens",
+    "resource": "DocumentPayments",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "PasswordResetTokens",
+    "resource": "DocumentPayments",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "PasswordResetTokens",
+    "resource": "DocumentPayments",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "PasswordResetTokens",
+    "resource": "DocumentPayments",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "PasswordResetTokens",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "ShortCodes",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "ShortCodes",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "ShortCodes",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "ShortCodes",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "ShortCodes",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "PremisesWaterSource",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "PremisesWaterSource",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "PremisesWaterSource",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "PremisesWaterSource",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "PremisesWaterSource",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "DocumentNumbers",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "DocumentNumbers",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "DocumentNumbers",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "DocumentNumbers",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "DocumentNumbers",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "DocumentTypes",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "DocumentTypes",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "DocumentTypes",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "DocumentTypes",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "DocumentTypes",
+    "resource": "DocumentPayments",
     "action": "read:any",
     "attributes": "*"
   },
@@ -721,61 +571,91 @@
   },
   {
     "role": "user",
-    "resource": "Meters",
+    "resource": "PremisesWaterSource",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Meters",
+    "resource": "PremisesWaterSource",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Meters",
+    "resource": "PremisesWaterSource",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Meters",
+    "resource": "PremisesWaterSource",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Meters",
+    "resource": "PremisesWaterSource",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "DocumentPayments",
+    "resource": "ProductLists",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "DocumentPayments",
+    "resource": "ProductLists",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "DocumentPayments",
+    "resource": "ProductLists",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "DocumentPayments",
+    "resource": "ProductLists",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "DocumentPayments",
+    "resource": "ProductLists",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Meters",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Meters",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Meters",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Meters",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Meters",
     "action": "read:any",
     "attributes": "*"
   },
@@ -841,61 +721,61 @@
   },
   {
     "role": "user",
-    "resource": "WaterTokens",
+    "resource": "Products",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "WaterTokens",
+    "resource": "Products",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "WaterTokens",
+    "resource": "Products",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "WaterTokens",
+    "resource": "Products",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "WaterTokens",
+    "resource": "Products",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Logs",
+    "resource": "WaterTokens",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Logs",
+    "resource": "WaterTokens",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Logs",
+    "resource": "WaterTokens",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Logs",
+    "resource": "WaterTokens",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Logs",
+    "resource": "WaterTokens",
     "action": "read:any",
     "attributes": "*"
   },
@@ -931,61 +811,91 @@
   },
   {
     "role": "user",
-    "resource": "WaterSources",
+    "resource": "PaymentAccounts",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "WaterSources",
+    "resource": "PaymentAccounts",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "WaterSources",
+    "resource": "PaymentAccounts",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "WaterSources",
+    "resource": "PaymentAccounts",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "WaterSources",
+    "resource": "PaymentAccounts",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Products",
+    "resource": "DocumentNumbers",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Products",
+    "resource": "DocumentNumbers",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Products",
+    "resource": "DocumentNumbers",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Products",
+    "resource": "DocumentNumbers",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Products",
+    "resource": "DocumentNumbers",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Logs",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Logs",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Logs",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Logs",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Logs",
     "action": "read:any",
     "attributes": "*"
   },
@@ -1021,31 +931,121 @@
   },
   {
     "role": "user",
-    "resource": "ProductLists",
+    "resource": "PasswordResetTokens",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "ProductLists",
+    "resource": "PasswordResetTokens",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "ProductLists",
+    "resource": "PasswordResetTokens",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "ProductLists",
+    "resource": "PasswordResetTokens",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "ProductLists",
+    "resource": "PasswordResetTokens",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "DocumentTypes",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "DocumentTypes",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "DocumentTypes",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "DocumentTypes",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "DocumentTypes",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "WaterSources",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "WaterSources",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "WaterSources",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "WaterSources",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "WaterSources",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "ShortCodes",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "ShortCodes",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "ShortCodes",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "ShortCodes",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "ShortCodes",
     "action": "read:any",
     "attributes": "*"
   },
@@ -1081,66 +1081,6 @@
   },
   {
     "role": "user",
-    "resource": "Otps",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "Otps",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "Otps",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "Otps",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "Otps",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "PasswordResets",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "PasswordResets",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "PasswordResets",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "PasswordResets",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "PasswordResets",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
     "resource": "PaymentTypes",
     "action": "read:own",
     "attributes": "*"
@@ -1171,31 +1111,31 @@
   },
   {
     "role": "user",
-    "resource": "Migrations",
+    "resource": "Otps",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Migrations",
+    "resource": "Otps",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Migrations",
+    "resource": "Otps",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Migrations",
+    "resource": "Otps",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Migrations",
+    "resource": "Otps",
     "action": "read:any",
     "attributes": "*"
   },
@@ -1231,6 +1171,36 @@
   },
   {
     "role": "user",
+    "resource": "PasswordResets",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PasswordResets",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PasswordResets",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PasswordResets",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PasswordResets",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
     "resource": "Notes",
     "action": "read:own",
     "attributes": "*"
@@ -1256,6 +1226,36 @@
   {
     "role": "user",
     "resource": "Notes",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Migrations",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Migrations",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Migrations",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Migrations",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Migrations",
     "action": "read:any",
     "attributes": "*"
   },
@@ -1346,6 +1346,156 @@
   {
     "role": "user",
     "resource": "C2bTransactions",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "ContractParty",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "ContractParty",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "ContractParty",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "ContractParty",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "ContractParty",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Contract",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Contract",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Contract",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Contract",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Contract",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Contact",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Contact",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Contact",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Contact",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Contact",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Category",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Category",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Category",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Category",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Category",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "CategoryProduct",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "CategoryProduct",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "CategoryProduct",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "CategoryProduct",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "CategoryProduct",
     "action": "read:any",
     "attributes": "*"
   }

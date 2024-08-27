@@ -19,6 +19,7 @@ import {
   ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Logs } from "../../logs/base/Logs";
 import { Meter } from "../../meter/base/Meter";
 import { Role } from "../../role/base/Role";
 import { IsJSONValue } from "../../validators";
@@ -89,6 +90,15 @@ class User {
     nullable: true,
   })
   lastName!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Logs],
+  })
+  @ValidateNested()
+  @Type(() => Logs)
+  @IsOptional()
+  logsItems?: Array<Logs>;
 
   @ApiProperty({
     required: false,

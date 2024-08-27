@@ -9,5 +9,103 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-class PaymentTypesCreateInput {}
+import { InputType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+import {
+  IsString,
+  MaxLength,
+  IsOptional,
+  ValidateNested,
+} from "class-validator";
+import { DocumentPaymentsCreateNestedManyWithoutPaymentTypesItemsInput } from "./DocumentPaymentsCreateNestedManyWithoutPaymentTypesItemsInput";
+import { Type } from "class-transformer";
+import { PaymentChannelsCreateNestedManyWithoutPaymentTypesItemsInput } from "./PaymentChannelsCreateNestedManyWithoutPaymentTypesItemsInput";
+
+@InputType()
+class PaymentTypesCreateInput {
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  canSettle?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  deletedAt?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  displayName?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => DocumentPaymentsCreateNestedManyWithoutPaymentTypesItemsInput,
+  })
+  @ValidateNested()
+  @Type(() => DocumentPaymentsCreateNestedManyWithoutPaymentTypesItemsInput)
+  @IsOptional()
+  @Field(() => DocumentPaymentsCreateNestedManyWithoutPaymentTypesItemsInput, {
+    nullable: true,
+  })
+  documentPaymentsItems?: DocumentPaymentsCreateNestedManyWithoutPaymentTypesItemsInput;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  enabled?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  name?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentChannelsCreateNestedManyWithoutPaymentTypesItemsInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentChannelsCreateNestedManyWithoutPaymentTypesItemsInput)
+  @IsOptional()
+  @Field(() => PaymentChannelsCreateNestedManyWithoutPaymentTypesItemsInput, {
+    nullable: true,
+  })
+  paymentChannelsItems?: PaymentChannelsCreateNestedManyWithoutPaymentTypesItemsInput;
+}
+
 export { PaymentTypesCreateInput as PaymentTypesCreateInput };

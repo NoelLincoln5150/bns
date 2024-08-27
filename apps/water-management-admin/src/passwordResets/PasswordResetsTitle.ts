@@ -1,7 +1,7 @@
 import { PasswordResets as TPasswordResets } from "../api/passwordResets/PasswordResets";
 
-export const PASSWORDRESETS_TITLE_FIELD = "id";
+export const PASSWORDRESETS_TITLE_FIELD = "token";
 
 export const PasswordResetsTitle = (record: TPasswordResets): string => {
-  return record.id?.toString() || String(record.id);
+  return record.token?.toString() || String(record.id);
 };

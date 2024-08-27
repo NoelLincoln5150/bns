@@ -18,10 +18,13 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { PersonalAccessTokens } from "./PersonalAccessTokens";
 import { PersonalAccessTokensCountArgs } from "./PersonalAccessTokensCountArgs";
 import { PersonalAccessTokensFindManyArgs } from "./PersonalAccessTokensFindManyArgs";
 import { PersonalAccessTokensFindUniqueArgs } from "./PersonalAccessTokensFindUniqueArgs";
+import { CreatePersonalAccessTokensArgs } from "./CreatePersonalAccessTokensArgs";
+import { UpdatePersonalAccessTokensArgs } from "./UpdatePersonalAccessTokensArgs";
 import { DeletePersonalAccessTokensArgs } from "./DeletePersonalAccessTokensArgs";
 import { PersonalAccessTokensService } from "../personalAccessTokens.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -75,6 +78,47 @@ export class PersonalAccessTokensResolverBase {
       return null;
     }
     return result;
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => PersonalAccessTokens)
+  @nestAccessControl.UseRoles({
+    resource: "PersonalAccessTokens",
+    action: "create",
+    possession: "any",
+  })
+  async createPersonalAccessTokens(
+    @graphql.Args() args: CreatePersonalAccessTokensArgs
+  ): Promise<PersonalAccessTokens> {
+    return await this.service.createPersonalAccessTokens({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => PersonalAccessTokens)
+  @nestAccessControl.UseRoles({
+    resource: "PersonalAccessTokens",
+    action: "update",
+    possession: "any",
+  })
+  async updatePersonalAccessTokens(
+    @graphql.Args() args: UpdatePersonalAccessTokensArgs
+  ): Promise<PersonalAccessTokens | null> {
+    try {
+      return await this.service.updatePersonalAccessTokens({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => PersonalAccessTokens)

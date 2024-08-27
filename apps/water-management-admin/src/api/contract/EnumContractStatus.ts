@@ -1,0 +1,17 @@
+export enum EnumContractStatus {
+  Draft = "Draft",
+  PendingApproval = "PendingApproval",
+  Approved = "Approved",
+  Rejected = "Rejected",
+  SentforSignature = "SentforSignature",
+  PartiallySigned = "PartiallySigned",
+  FullySigned = "FullySigned",
+  Active = "Active",
+  OnHold = "OnHold",
+  AmendmentinProgress = "AmendmentinProgress",
+  Expired = "Expired",
+  Terminated = "Terminated",
+  Completed = "Completed",
+  Renewed = "Renewed",
+  Cancelled = "Cancelled",
+}

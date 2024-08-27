@@ -26,6 +26,9 @@ import { DocumentPayments } from "./DocumentPayments";
 import { DocumentPaymentsFindManyArgs } from "./DocumentPaymentsFindManyArgs";
 import { DocumentPaymentsWhereUniqueInput } from "./DocumentPaymentsWhereUniqueInput";
 import { DocumentPaymentsUpdateInput } from "./DocumentPaymentsUpdateInput";
+import { PaymentTypesFindManyArgs } from "../../paymentTypes/base/PaymentTypesFindManyArgs";
+import { PaymentTypes } from "../../paymentTypes/base/PaymentTypes";
+import { PaymentTypesWhereUniqueInput } from "../../paymentTypes/base/PaymentTypesWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -49,9 +52,24 @@ export class DocumentPaymentsControllerBase {
     @common.Body() data: DocumentPaymentsCreateInput
   ): Promise<DocumentPayments> {
     return await this.service.createDocumentPayments({
-      data: data,
+      data: {
+        ...data,
+
+        document: data.document
+          ? {
+              connect: data.document,
+            }
+          : undefined,
+      },
       select: {
         createdAt: true,
+
+        document: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
         updatedAt: true,
       },
@@ -78,6 +96,13 @@ export class DocumentPaymentsControllerBase {
       ...args,
       select: {
         createdAt: true,
+
+        document: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
         updatedAt: true,
       },
@@ -103,6 +128,13 @@ export class DocumentPaymentsControllerBase {
       where: params,
       select: {
         createdAt: true,
+
+        document: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
         updatedAt: true,
       },
@@ -134,9 +166,24 @@ export class DocumentPaymentsControllerBase {
     try {
       return await this.service.updateDocumentPayments({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          document: data.document
+            ? {
+                connect: data.document,
+              }
+            : undefined,
+        },
         select: {
           createdAt: true,
+
+          document: {
+            select: {
+              id: true,
+            },
+          },
+
           id: true,
           updatedAt: true,
         },
@@ -170,6 +217,13 @@ export class DocumentPaymentsControllerBase {
         where: params,
         select: {
           createdAt: true,
+
+          document: {
+            select: {
+              id: true,
+            },
+          },
+
           id: true,
           updatedAt: true,
         },
@@ -182,5 +236,105 @@ export class DocumentPaymentsControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/paymentType")
+  @ApiNestedQuery(PaymentTypesFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "PaymentTypes",
+    action: "read",
+    possession: "any",
+  })
+  async findPaymentType(
+    @common.Req() request: Request,
+    @common.Param() params: DocumentPaymentsWhereUniqueInput
+  ): Promise<PaymentTypes[]> {
+    const query = plainToClass(PaymentTypesFindManyArgs, request.query);
+    const results = await this.service.findPaymentType(params.id, {
+      ...query,
+      select: {
+        canSettle: true,
+        createdAt: true,
+        deletedAt: true,
+        displayName: true,
+        enabled: true,
+        id: true,
+        name: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/paymentType")
+  @nestAccessControl.UseRoles({
+    resource: "DocumentPayments",
+    action: "update",
+    possession: "any",
+  })
+  async connectPaymentType(
+    @common.Param() params: DocumentPaymentsWhereUniqueInput,
+    @common.Body() body: PaymentTypesWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentType: {
+        connect: body,
+      },
+    };
+    await this.service.updateDocumentPayments({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/paymentType")
+  @nestAccessControl.UseRoles({
+    resource: "DocumentPayments",
+    action: "update",
+    possession: "any",
+  })
+  async updatePaymentType(
+    @common.Param() params: DocumentPaymentsWhereUniqueInput,
+    @common.Body() body: PaymentTypesWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentType: {
+        set: body,
+      },
+    };
+    await this.service.updateDocumentPayments({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/paymentType")
+  @nestAccessControl.UseRoles({
+    resource: "DocumentPayments",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectPaymentType(
+    @common.Param() params: DocumentPaymentsWhereUniqueInput,
+    @common.Body() body: PaymentTypesWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentType: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateDocumentPayments({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

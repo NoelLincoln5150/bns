@@ -9,5 +9,42 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-class PremisesWaterSourceCreateInput {}
+import { InputType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+import {
+  IsString,
+  MaxLength,
+  IsOptional,
+  ValidateNested,
+} from "class-validator";
+import { WaterSourcesWhereUniqueInput } from "../../waterSources/base/WaterSourcesWhereUniqueInput";
+import { Type } from "class-transformer";
+
+@InputType()
+class PremisesWaterSourceCreateInput {
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  premisesId?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => WaterSourcesWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => WaterSourcesWhereUniqueInput)
+  @IsOptional()
+  @Field(() => WaterSourcesWhereUniqueInput, {
+    nullable: true,
+  })
+  waterSourceId?: WaterSourcesWhereUniqueInput | null;
+}
+
 export { PremisesWaterSourceCreateInput as PremisesWaterSourceCreateInput };

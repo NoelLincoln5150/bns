@@ -10,9 +10,11 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
   PremisesWaterSource as PrismaPremisesWaterSource,
+  WaterSources as PrismaWaterSources,
 } from "@prisma/client";
 
 export class PremisesWaterSourceServiceBase {
@@ -48,5 +50,13 @@ export class PremisesWaterSourceServiceBase {
     args: Prisma.PremisesWaterSourceDeleteArgs
   ): Promise<PrismaPremisesWaterSource> {
     return this.prisma.premisesWaterSource.delete(args);
+  }
+
+  async getWaterSourceId(parentId: string): Promise<PrismaWaterSources | null> {
+    return this.prisma.premisesWaterSource
+      .findUnique({
+        where: { id: parentId },
+      })
+      .waterSourceId();
   }
 }

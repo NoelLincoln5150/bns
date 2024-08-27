@@ -26,6 +26,9 @@ import { Meter } from "./Meter";
 import { MeterFindManyArgs } from "./MeterFindManyArgs";
 import { MeterWhereUniqueInput } from "./MeterWhereUniqueInput";
 import { MeterUpdateInput } from "./MeterUpdateInput";
+import { CustomerMeterFindManyArgs } from "../../customerMeter/base/CustomerMeterFindManyArgs";
+import { CustomerMeter } from "../../customerMeter/base/CustomerMeter";
+import { CustomerMeterWhereUniqueInput } from "../../customerMeter/base/CustomerMeterWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -50,6 +53,12 @@ export class MeterControllerBase {
       data: {
         ...data,
 
+        meterType: data.meterType
+          ? {
+              connect: data.meterType,
+            }
+          : undefined,
+
         usages: data.usages
           ? {
               connect: data.usages,
@@ -67,6 +76,13 @@ export class MeterControllerBase {
         createdAt: true,
         id: true,
         installationDate: true,
+
+        meterType: {
+          select: {
+            id: true,
+          },
+        },
+
         status: true,
         tokenBalance: true,
         updatedAt: true,
@@ -107,6 +123,13 @@ export class MeterControllerBase {
         createdAt: true,
         id: true,
         installationDate: true,
+
+        meterType: {
+          select: {
+            id: true,
+          },
+        },
+
         status: true,
         tokenBalance: true,
         updatedAt: true,
@@ -148,6 +171,13 @@ export class MeterControllerBase {
         createdAt: true,
         id: true,
         installationDate: true,
+
+        meterType: {
+          select: {
+            id: true,
+          },
+        },
+
         status: true,
         tokenBalance: true,
         updatedAt: true,
@@ -195,6 +225,12 @@ export class MeterControllerBase {
         data: {
           ...data,
 
+          meterType: data.meterType
+            ? {
+                connect: data.meterType,
+              }
+            : undefined,
+
           usages: data.usages
             ? {
                 connect: data.usages,
@@ -212,6 +248,13 @@ export class MeterControllerBase {
           createdAt: true,
           id: true,
           installationDate: true,
+
+          meterType: {
+            select: {
+              id: true,
+            },
+          },
+
           status: true,
           tokenBalance: true,
           updatedAt: true,
@@ -261,6 +304,13 @@ export class MeterControllerBase {
           createdAt: true,
           id: true,
           installationDate: true,
+
+          meterType: {
+            select: {
+              id: true,
+            },
+          },
+
           status: true,
           tokenBalance: true,
           updatedAt: true,
@@ -286,5 +336,114 @@ export class MeterControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/customerMeters")
+  @ApiNestedQuery(CustomerMeterFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "CustomerMeter",
+    action: "read",
+    possession: "any",
+  })
+  async findCustomerMeters(
+    @common.Req() request: Request,
+    @common.Param() params: MeterWhereUniqueInput
+  ): Promise<CustomerMeter[]> {
+    const query = plainToClass(CustomerMeterFindManyArgs, request.query);
+    const results = await this.service.findCustomerMeters(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+
+        customer: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+
+        meterId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/customerMeters")
+  @nestAccessControl.UseRoles({
+    resource: "Meter",
+    action: "update",
+    possession: "any",
+  })
+  async connectCustomerMeters(
+    @common.Param() params: MeterWhereUniqueInput,
+    @common.Body() body: CustomerMeterWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      customerMeters: {
+        connect: body,
+      },
+    };
+    await this.service.updateMeter({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/customerMeters")
+  @nestAccessControl.UseRoles({
+    resource: "Meter",
+    action: "update",
+    possession: "any",
+  })
+  async updateCustomerMeters(
+    @common.Param() params: MeterWhereUniqueInput,
+    @common.Body() body: CustomerMeterWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      customerMeters: {
+        set: body,
+      },
+    };
+    await this.service.updateMeter({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/customerMeters")
+  @nestAccessControl.UseRoles({
+    resource: "Meter",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectCustomerMeters(
+    @common.Param() params: MeterWhereUniqueInput,
+    @common.Body() body: CustomerMeterWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      customerMeters: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateMeter({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

@@ -18,11 +18,16 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { DocumentTypes } from "./DocumentTypes";
 import { DocumentTypesCountArgs } from "./DocumentTypesCountArgs";
 import { DocumentTypesFindManyArgs } from "./DocumentTypesFindManyArgs";
 import { DocumentTypesFindUniqueArgs } from "./DocumentTypesFindUniqueArgs";
+import { CreateDocumentTypesArgs } from "./CreateDocumentTypesArgs";
+import { UpdateDocumentTypesArgs } from "./UpdateDocumentTypesArgs";
 import { DeleteDocumentTypesArgs } from "./DeleteDocumentTypesArgs";
+import { DocumentsFindManyArgs } from "../../documents/base/DocumentsFindManyArgs";
+import { Documents } from "../../documents/base/Documents";
 import { DocumentTypesService } from "../documentTypes.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => DocumentTypes)
@@ -77,6 +82,47 @@ export class DocumentTypesResolverBase {
     return result;
   }
 
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => DocumentTypes)
+  @nestAccessControl.UseRoles({
+    resource: "DocumentTypes",
+    action: "create",
+    possession: "any",
+  })
+  async createDocumentTypes(
+    @graphql.Args() args: CreateDocumentTypesArgs
+  ): Promise<DocumentTypes> {
+    return await this.service.createDocumentTypes({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => DocumentTypes)
+  @nestAccessControl.UseRoles({
+    resource: "DocumentTypes",
+    action: "update",
+    possession: "any",
+  })
+  async updateDocumentTypes(
+    @graphql.Args() args: UpdateDocumentTypesArgs
+  ): Promise<DocumentTypes | null> {
+    try {
+      return await this.service.updateDocumentTypes({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
+  }
+
   @graphql.Mutation(() => DocumentTypes)
   @nestAccessControl.UseRoles({
     resource: "DocumentTypes",
@@ -96,5 +142,25 @@ export class DocumentTypesResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Documents], { name: "documentsItems" })
+  @nestAccessControl.UseRoles({
+    resource: "Documents",
+    action: "read",
+    possession: "any",
+  })
+  async findDocumentsItems(
+    @graphql.Parent() parent: DocumentTypes,
+    @graphql.Args() args: DocumentsFindManyArgs
+  ): Promise<Documents[]> {
+    const results = await this.service.findDocumentsItems(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 }

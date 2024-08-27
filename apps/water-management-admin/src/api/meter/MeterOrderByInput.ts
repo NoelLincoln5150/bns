@@ -5,6 +5,7 @@ export type MeterOrderByInput = {
   createdAt?: SortOrder;
   id?: SortOrder;
   installationDate?: SortOrder;
+  meterTypeId?: SortOrder;
   status?: SortOrder;
   tokenBalance?: SortOrder;
   updatedAt?: SortOrder;

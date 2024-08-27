@@ -1,11 +1,17 @@
 import * as React from "react";
+
 import {
   Show,
   SimpleShowLayout,
   ShowProps,
   TextField,
   DateField,
+  ReferenceManyField,
+  Datagrid,
+  ReferenceField,
 } from "react-admin";
+
+import { WATERSOURCES_TITLE_FIELD } from "./WaterSourcesTitle";
 
 export const WaterSourcesShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -27,6 +33,25 @@ export const WaterSourcesShow = (props: ShowProps): React.ReactElement => {
         <TextField label="town" source="town" />
         <TextField label="type" source="typeField" />
         <DateField source="updatedAt" label="Updated At" />
+        <ReferenceManyField
+          reference="PremisesWaterSource"
+          target="waterSourceIdId"
+          label="premises_water_sources"
+        >
+          <Datagrid rowClick="show">
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <TextField label="premises_id" source="premisesId" />
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField
+              label="water_source_id"
+              source="watersources.id"
+              reference="WaterSources"
+            >
+              <TextField source={WATERSOURCES_TITLE_FIELD} />
+            </ReferenceField>
+          </Datagrid>
+        </ReferenceManyField>
       </SimpleShowLayout>
     </Show>
   );

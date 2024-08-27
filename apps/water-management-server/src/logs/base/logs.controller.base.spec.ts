@@ -18,25 +18,57 @@ import { LogsService } from "../logs.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  action: "exampleAction",
   createdAt: new Date(),
+  deletedAt: "exampleDeletedAt",
   id: "exampleId",
+  ipAddress: 42.424242424,
+  message: "exampleMessage",
+  requestPayload: "exampleRequestPayload",
+  resourceId: "exampleResourceId",
+  resourceModel: "exampleResourceModel",
+  updateValues: new Date(),
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  action: "exampleAction",
   createdAt: new Date(),
+  deletedAt: "exampleDeletedAt",
   id: "exampleId",
+  ipAddress: 42.424242424,
+  message: "exampleMessage",
+  requestPayload: "exampleRequestPayload",
+  resourceId: "exampleResourceId",
+  resourceModel: "exampleResourceModel",
+  updateValues: new Date(),
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    action: "exampleAction",
     createdAt: new Date(),
+    deletedAt: "exampleDeletedAt",
     id: "exampleId",
+    ipAddress: 42.424242424,
+    message: "exampleMessage",
+    requestPayload: "exampleRequestPayload",
+    resourceId: "exampleResourceId",
+    resourceModel: "exampleResourceModel",
+    updateValues: new Date(),
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  action: "exampleAction",
   createdAt: new Date(),
+  deletedAt: "exampleDeletedAt",
   id: "exampleId",
+  ipAddress: 42.424242424,
+  message: "exampleMessage",
+  requestPayload: "exampleRequestPayload",
+  resourceId: "exampleResourceId",
+  resourceModel: "exampleResourceModel",
+  updateValues: new Date(),
   updatedAt: new Date(),
 };
 
@@ -123,6 +155,7 @@ describe("Logs", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        updateValues: CREATE_RESULT.updateValues.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -135,6 +168,7 @@ describe("Logs", () => {
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
+          updateValues: FIND_MANY_RESULT[0].updateValues.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
@@ -158,6 +192,7 @@ describe("Logs", () => {
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
+        updateValues: FIND_ONE_RESULT.updateValues.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -171,6 +206,7 @@ describe("Logs", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        updateValues: CREATE_RESULT.updateValues.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {

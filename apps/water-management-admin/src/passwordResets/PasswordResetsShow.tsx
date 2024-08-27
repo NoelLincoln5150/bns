@@ -12,7 +12,9 @@ export const PasswordResetsShow = (props: ShowProps): React.ReactElement => {
     <Show {...props}>
       <SimpleShowLayout>
         <DateField source="createdAt" label="Created At" />
+        <TextField label="email" source="email" />
         <TextField label="ID" source="id" />
+        <TextField label="token" source="token" />
         <DateField source="updatedAt" label="Updated At" />
       </SimpleShowLayout>
     </Show>

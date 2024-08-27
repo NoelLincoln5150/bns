@@ -18,10 +18,13 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { PasswordResets } from "./PasswordResets";
 import { PasswordResetsCountArgs } from "./PasswordResetsCountArgs";
 import { PasswordResetsFindManyArgs } from "./PasswordResetsFindManyArgs";
 import { PasswordResetsFindUniqueArgs } from "./PasswordResetsFindUniqueArgs";
+import { CreatePasswordResetsArgs } from "./CreatePasswordResetsArgs";
+import { UpdatePasswordResetsArgs } from "./UpdatePasswordResetsArgs";
 import { DeletePasswordResetsArgs } from "./DeletePasswordResetsArgs";
 import { PasswordResetsService } from "../passwordResets.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -75,6 +78,47 @@ export class PasswordResetsResolverBase {
       return null;
     }
     return result;
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => PasswordResets)
+  @nestAccessControl.UseRoles({
+    resource: "PasswordResets",
+    action: "create",
+    possession: "any",
+  })
+  async createPasswordResets(
+    @graphql.Args() args: CreatePasswordResetsArgs
+  ): Promise<PasswordResets> {
+    return await this.service.createPasswordResets({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => PasswordResets)
+  @nestAccessControl.UseRoles({
+    resource: "PasswordResets",
+    action: "update",
+    possession: "any",
+  })
+  async updatePasswordResets(
+    @graphql.Args() args: UpdatePasswordResetsArgs
+  ): Promise<PasswordResets | null> {
+    try {
+      return await this.service.updatePasswordResets({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => PasswordResets)

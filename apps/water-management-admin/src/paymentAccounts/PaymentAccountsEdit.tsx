@@ -1,11 +1,15 @@
 import * as React from "react";
+
 import {
   Edit,
   SimpleForm,
   EditProps,
   ReferenceArrayInput,
   SelectArrayInput,
+  DateTimeInput,
+  BooleanInput,
 } from "react-admin";
+
 import { B2bTransactionsTitle } from "../b2bTransactions/B2bTransactionsTitle";
 
 export const PaymentAccountsEdit = (props: EditProps): React.ReactElement => {
@@ -20,6 +24,8 @@ export const PaymentAccountsEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={B2bTransactionsTitle} />
         </ReferenceArrayInput>
+        <DateTimeInput label="deleted_at" source="deletedAt" />
+        <BooleanInput label="enabled" source="enabled" />
       </SimpleForm>
     </Edit>
   );

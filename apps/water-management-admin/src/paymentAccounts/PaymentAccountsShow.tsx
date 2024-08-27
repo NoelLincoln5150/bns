@@ -6,6 +6,7 @@ import {
   ShowProps,
   DateField,
   TextField,
+  BooleanField,
   ReferenceManyField,
   Datagrid,
   ReferenceField,
@@ -19,6 +20,8 @@ export const PaymentAccountsShow = (props: ShowProps): React.ReactElement => {
     <Show {...props}>
       <SimpleShowLayout>
         <DateField source="createdAt" label="Created At" />
+        <TextField label="deleted_at" source="deletedAt" />
+        <BooleanField label="enabled" source="enabled" />
         <TextField label="ID" source="id" />
         <DateField source="updatedAt" label="Updated At" />
         <ReferenceManyField

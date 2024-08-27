@@ -3,6 +3,7 @@ import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { FloatNullableFilter } from "../../util/FloatNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { PremisesWaterSourceListRelationFilter } from "../premisesWaterSource/PremisesWaterSourceListRelationFilter";
 
 export type WaterSourcesWhereInput = {
   county?: StringNullableFilter;
@@ -14,6 +15,7 @@ export type WaterSourcesWhereInput = {
   longitude?: FloatNullableFilter;
   name?: StringNullableFilter;
   numberField?: IntNullableFilter;
+  premisesWaterSources?: PremisesWaterSourceListRelationFilter;
   region?: StringNullableFilter;
   subCounty?: StringNullableFilter;
   supplierNumber?: StringNullableFilter;

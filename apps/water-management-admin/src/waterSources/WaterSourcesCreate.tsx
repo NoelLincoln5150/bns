@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import {
   Create,
   SimpleForm,
@@ -6,7 +7,11 @@ import {
   TextInput,
   DateTimeInput,
   NumberInput,
+  ReferenceArrayInput,
+  SelectArrayInput,
 } from "react-admin";
+
+import { PremisesWaterSourceTitle } from "../premisesWaterSource/PremisesWaterSourceTitle";
 
 export const WaterSourcesCreate = (props: CreateProps): React.ReactElement => {
   return (
@@ -20,6 +25,14 @@ export const WaterSourcesCreate = (props: CreateProps): React.ReactElement => {
         <NumberInput label="longitude" source="longitude" />
         <TextInput label="name" source="name" />
         <NumberInput step={1} label="number" source="numberField" />
+        <ReferenceArrayInput
+          source="premisesWaterSources"
+          reference="PremisesWaterSource"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={PremisesWaterSourceTitle} />
+        </ReferenceArrayInput>
         <TextInput label="region" source="region" />
         <TextInput label="subCounty" source="subCounty" />
         <TextInput label="supplier_number" source="supplierNumber" />

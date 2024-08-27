@@ -18,26 +18,50 @@ import { FailedJobsService } from "../failedJobs.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  connection: "exampleConnection",
   createdAt: new Date(),
+  exception: "exampleException",
+  failedAt: new Date(),
   id: "exampleId",
+  payload: "examplePayload",
+  queue: "exampleQueue",
   updatedAt: new Date(),
+  uuid: "exampleUuid",
 };
 const CREATE_RESULT = {
+  connection: "exampleConnection",
   createdAt: new Date(),
+  exception: "exampleException",
+  failedAt: new Date(),
   id: "exampleId",
+  payload: "examplePayload",
+  queue: "exampleQueue",
   updatedAt: new Date(),
+  uuid: "exampleUuid",
 };
 const FIND_MANY_RESULT = [
   {
+    connection: "exampleConnection",
     createdAt: new Date(),
+    exception: "exampleException",
+    failedAt: new Date(),
     id: "exampleId",
+    payload: "examplePayload",
+    queue: "exampleQueue",
     updatedAt: new Date(),
+    uuid: "exampleUuid",
   },
 ];
 const FIND_ONE_RESULT = {
+  connection: "exampleConnection",
   createdAt: new Date(),
+  exception: "exampleException",
+  failedAt: new Date(),
   id: "exampleId",
+  payload: "examplePayload",
+  queue: "exampleQueue",
   updatedAt: new Date(),
+  uuid: "exampleUuid",
 };
 
 const service = {
@@ -123,6 +147,7 @@ describe("FailedJobs", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        failedAt: CREATE_RESULT.failedAt.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -135,6 +160,7 @@ describe("FailedJobs", () => {
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
+          failedAt: FIND_MANY_RESULT[0].failedAt.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
@@ -158,6 +184,7 @@ describe("FailedJobs", () => {
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
+        failedAt: FIND_ONE_RESULT.failedAt.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -171,6 +198,7 @@ describe("FailedJobs", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        failedAt: CREATE_RESULT.failedAt.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {

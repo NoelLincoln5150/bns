@@ -18,11 +18,15 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { Logs } from "./Logs";
 import { LogsCountArgs } from "./LogsCountArgs";
 import { LogsFindManyArgs } from "./LogsFindManyArgs";
 import { LogsFindUniqueArgs } from "./LogsFindUniqueArgs";
+import { CreateLogsArgs } from "./CreateLogsArgs";
+import { UpdateLogsArgs } from "./UpdateLogsArgs";
 import { DeleteLogsArgs } from "./DeleteLogsArgs";
+import { User } from "../../user/base/User";
 import { LogsService } from "../logs.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Logs)
@@ -73,6 +77,59 @@ export class LogsResolverBase {
     return result;
   }
 
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Logs)
+  @nestAccessControl.UseRoles({
+    resource: "Logs",
+    action: "create",
+    possession: "any",
+  })
+  async createLogs(@graphql.Args() args: CreateLogsArgs): Promise<Logs> {
+    return await this.service.createLogs({
+      ...args,
+      data: {
+        ...args.data,
+
+        userId: args.data.userId
+          ? {
+              connect: args.data.userId,
+            }
+          : undefined,
+      },
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Logs)
+  @nestAccessControl.UseRoles({
+    resource: "Logs",
+    action: "update",
+    possession: "any",
+  })
+  async updateLogs(@graphql.Args() args: UpdateLogsArgs): Promise<Logs | null> {
+    try {
+      return await this.service.updateLogs({
+        ...args,
+        data: {
+          ...args.data,
+
+          userId: args.data.userId
+            ? {
+                connect: args.data.userId,
+              }
+            : undefined,
+        },
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
+  }
+
   @graphql.Mutation(() => Logs)
   @nestAccessControl.UseRoles({
     resource: "Logs",
@@ -90,5 +147,24 @@ export class LogsResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => User, {
+    nullable: true,
+    name: "userId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "read",
+    possession: "any",
+  })
+  async getUserId(@graphql.Parent() parent: Logs): Promise<User | null> {
+    const result = await this.service.getUserId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

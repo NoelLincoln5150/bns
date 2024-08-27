@@ -51,9 +51,15 @@ export class FailedJobsControllerBase {
     return await this.service.createFailedJobs({
       data: data,
       select: {
+        connection: true,
         createdAt: true,
+        exception: true,
+        failedAt: true,
         id: true,
+        payload: true,
+        queue: true,
         updatedAt: true,
+        uuid: true,
       },
     });
   }
@@ -75,9 +81,15 @@ export class FailedJobsControllerBase {
     return this.service.failedJobsItems({
       ...args,
       select: {
+        connection: true,
         createdAt: true,
+        exception: true,
+        failedAt: true,
         id: true,
+        payload: true,
+        queue: true,
         updatedAt: true,
+        uuid: true,
       },
     });
   }
@@ -100,9 +112,15 @@ export class FailedJobsControllerBase {
     const result = await this.service.failedJobs({
       where: params,
       select: {
+        connection: true,
         createdAt: true,
+        exception: true,
+        failedAt: true,
         id: true,
+        payload: true,
+        queue: true,
         updatedAt: true,
+        uuid: true,
       },
     });
     if (result === null) {
@@ -134,9 +152,15 @@ export class FailedJobsControllerBase {
         where: params,
         data: data,
         select: {
+          connection: true,
           createdAt: true,
+          exception: true,
+          failedAt: true,
           id: true,
+          payload: true,
+          queue: true,
           updatedAt: true,
+          uuid: true,
         },
       });
     } catch (error) {
@@ -167,9 +191,15 @@ export class FailedJobsControllerBase {
       return await this.service.deleteFailedJobs({
         where: params,
         select: {
+          connection: true,
           createdAt: true,
+          exception: true,
+          failedAt: true,
           id: true,
+          payload: true,
+          queue: true,
           updatedAt: true,
+          uuid: true,
         },
       });
     } catch (error) {

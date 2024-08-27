@@ -9,5 +9,38 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-class CustomerMeterCreateInput {}
+import { InputType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+import { CustomersWhereUniqueInput } from "../../customers/base/CustomersWhereUniqueInput";
+import { ValidateNested, IsOptional } from "class-validator";
+import { Type } from "class-transformer";
+import { MeterWhereUniqueInput } from "../../meter/base/MeterWhereUniqueInput";
+
+@InputType()
+class CustomerMeterCreateInput {
+  @ApiProperty({
+    required: false,
+    type: () => CustomersWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => CustomersWhereUniqueInput)
+  @IsOptional()
+  @Field(() => CustomersWhereUniqueInput, {
+    nullable: true,
+  })
+  customer?: CustomersWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => MeterWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => MeterWhereUniqueInput)
+  @IsOptional()
+  @Field(() => MeterWhereUniqueInput, {
+    nullable: true,
+  })
+  meterId?: MeterWhereUniqueInput | null;
+}
+
 export { CustomerMeterCreateInput as CustomerMeterCreateInput };

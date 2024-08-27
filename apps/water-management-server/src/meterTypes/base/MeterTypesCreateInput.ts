@@ -9,5 +9,25 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-class MeterTypesCreateInput {}
+import { InputType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+import { MeterCreateNestedManyWithoutMeterTypesItemsInput } from "./MeterCreateNestedManyWithoutMeterTypesItemsInput";
+import { ValidateNested, IsOptional } from "class-validator";
+import { Type } from "class-transformer";
+
+@InputType()
+class MeterTypesCreateInput {
+  @ApiProperty({
+    required: false,
+    type: () => MeterCreateNestedManyWithoutMeterTypesItemsInput,
+  })
+  @ValidateNested()
+  @Type(() => MeterCreateNestedManyWithoutMeterTypesItemsInput)
+  @IsOptional()
+  @Field(() => MeterCreateNestedManyWithoutMeterTypesItemsInput, {
+    nullable: true,
+  })
+  meters?: MeterCreateNestedManyWithoutMeterTypesItemsInput;
+}
+
 export { MeterTypesCreateInput as MeterTypesCreateInput };

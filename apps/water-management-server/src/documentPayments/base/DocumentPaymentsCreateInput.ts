@@ -9,5 +9,38 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-class DocumentPaymentsCreateInput {}
+import { InputType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+import { DocumentsWhereUniqueInput } from "../../documents/base/DocumentsWhereUniqueInput";
+import { ValidateNested, IsOptional } from "class-validator";
+import { Type } from "class-transformer";
+import { PaymentTypesCreateNestedManyWithoutDocumentPaymentsItemsInput } from "./PaymentTypesCreateNestedManyWithoutDocumentPaymentsItemsInput";
+
+@InputType()
+class DocumentPaymentsCreateInput {
+  @ApiProperty({
+    required: false,
+    type: () => DocumentsWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => DocumentsWhereUniqueInput)
+  @IsOptional()
+  @Field(() => DocumentsWhereUniqueInput, {
+    nullable: true,
+  })
+  document?: DocumentsWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentTypesCreateNestedManyWithoutDocumentPaymentsItemsInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentTypesCreateNestedManyWithoutDocumentPaymentsItemsInput)
+  @IsOptional()
+  @Field(() => PaymentTypesCreateNestedManyWithoutDocumentPaymentsItemsInput, {
+    nullable: true,
+  })
+  paymentType?: PaymentTypesCreateNestedManyWithoutDocumentPaymentsItemsInput;
+}
+
 export { DocumentPaymentsCreateInput as DocumentPaymentsCreateInput };

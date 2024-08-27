@@ -18,10 +18,13 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { Notes } from "./Notes";
 import { NotesCountArgs } from "./NotesCountArgs";
 import { NotesFindManyArgs } from "./NotesFindManyArgs";
 import { NotesFindUniqueArgs } from "./NotesFindUniqueArgs";
+import { CreateNotesArgs } from "./CreateNotesArgs";
+import { UpdateNotesArgs } from "./UpdateNotesArgs";
 import { DeleteNotesArgs } from "./DeleteNotesArgs";
 import { NotesService } from "../notes.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -73,6 +76,45 @@ export class NotesResolverBase {
       return null;
     }
     return result;
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Notes)
+  @nestAccessControl.UseRoles({
+    resource: "Notes",
+    action: "create",
+    possession: "any",
+  })
+  async createNotes(@graphql.Args() args: CreateNotesArgs): Promise<Notes> {
+    return await this.service.createNotes({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Notes)
+  @nestAccessControl.UseRoles({
+    resource: "Notes",
+    action: "update",
+    possession: "any",
+  })
+  async updateNotes(
+    @graphql.Args() args: UpdateNotesArgs
+  ): Promise<Notes | null> {
+    try {
+      return await this.service.updateNotes({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => Notes)

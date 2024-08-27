@@ -26,6 +26,9 @@ import { MeterTypes } from "./MeterTypes";
 import { MeterTypesFindManyArgs } from "./MeterTypesFindManyArgs";
 import { MeterTypesWhereUniqueInput } from "./MeterTypesWhereUniqueInput";
 import { MeterTypesUpdateInput } from "./MeterTypesUpdateInput";
+import { MeterFindManyArgs } from "../../meter/base/MeterFindManyArgs";
+import { Meter } from "../../meter/base/Meter";
+import { MeterWhereUniqueInput } from "../../meter/base/MeterWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -180,5 +183,123 @@ export class MeterTypesControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/meters")
+  @ApiNestedQuery(MeterFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Meter",
+    action: "read",
+    possession: "any",
+  })
+  async findMeters(
+    @common.Req() request: Request,
+    @common.Param() params: MeterTypesWhereUniqueInput
+  ): Promise<Meter[]> {
+    const query = plainToClass(MeterFindManyArgs, request.query);
+    const results = await this.service.findMeters(params.id, {
+      ...query,
+      select: {
+        coordinates: true,
+        createdAt: true,
+        id: true,
+        installationDate: true,
+
+        meterType: {
+          select: {
+            id: true,
+          },
+        },
+
+        status: true,
+        tokenBalance: true,
+        updatedAt: true,
+
+        usages: {
+          select: {
+            id: true,
+          },
+        },
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/meters")
+  @nestAccessControl.UseRoles({
+    resource: "MeterTypes",
+    action: "update",
+    possession: "any",
+  })
+  async connectMeters(
+    @common.Param() params: MeterTypesWhereUniqueInput,
+    @common.Body() body: MeterWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      meters: {
+        connect: body,
+      },
+    };
+    await this.service.updateMeterTypes({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/meters")
+  @nestAccessControl.UseRoles({
+    resource: "MeterTypes",
+    action: "update",
+    possession: "any",
+  })
+  async updateMeters(
+    @common.Param() params: MeterTypesWhereUniqueInput,
+    @common.Body() body: MeterWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      meters: {
+        set: body,
+      },
+    };
+    await this.service.updateMeterTypes({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/meters")
+  @nestAccessControl.UseRoles({
+    resource: "MeterTypes",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectMeters(
+    @common.Param() params: MeterTypesWhereUniqueInput,
+    @common.Body() body: MeterWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      meters: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateMeterTypes({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

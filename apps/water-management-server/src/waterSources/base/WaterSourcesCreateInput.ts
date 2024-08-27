@@ -11,6 +11,7 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+
 import {
   IsString,
   MaxLength,
@@ -20,8 +21,11 @@ import {
   Min,
   Max,
   IsInt,
+  ValidateNested,
 } from "class-validator";
+
 import { Type } from "class-transformer";
+import { PremisesWaterSourceCreateNestedManyWithoutWaterSourcesItemsInput } from "./PremisesWaterSourceCreateNestedManyWithoutWaterSourcesItemsInput";
 
 @InputType()
 class WaterSourcesCreateInput {
@@ -123,6 +127,22 @@ class WaterSourcesCreateInput {
     nullable: true,
   })
   numberField?: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: () =>
+      PremisesWaterSourceCreateNestedManyWithoutWaterSourcesItemsInput,
+  })
+  @ValidateNested()
+  @Type(() => PremisesWaterSourceCreateNestedManyWithoutWaterSourcesItemsInput)
+  @IsOptional()
+  @Field(
+    () => PremisesWaterSourceCreateNestedManyWithoutWaterSourcesItemsInput,
+    {
+      nullable: true,
+    }
+  )
+  premisesWaterSources?: PremisesWaterSourceCreateNestedManyWithoutWaterSourcesItemsInput;
 
   @ApiProperty({
     required: false,

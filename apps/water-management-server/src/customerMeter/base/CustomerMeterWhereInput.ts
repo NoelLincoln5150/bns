@@ -11,12 +11,26 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { CustomersWhereUniqueInput } from "../../customers/base/CustomersWhereUniqueInput";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { StringFilter } from "../../util/StringFilter";
+import { MeterWhereUniqueInput } from "../../meter/base/MeterWhereUniqueInput";
 
 @InputType()
 class CustomerMeterWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => CustomersWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => CustomersWhereUniqueInput)
+  @IsOptional()
+  @Field(() => CustomersWhereUniqueInput, {
+    nullable: true,
+  })
+  customer?: CustomersWhereUniqueInput;
+
   @ApiProperty({
     required: false,
     type: StringFilter,
@@ -27,6 +41,18 @@ class CustomerMeterWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => MeterWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => MeterWhereUniqueInput)
+  @IsOptional()
+  @Field(() => MeterWhereUniqueInput, {
+    nullable: true,
+  })
+  meterId?: MeterWhereUniqueInput;
 }
 
 export { CustomerMeterWhereInput as CustomerMeterWhereInput };

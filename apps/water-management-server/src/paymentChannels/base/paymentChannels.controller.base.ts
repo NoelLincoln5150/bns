@@ -49,10 +49,31 @@ export class PaymentChannelsControllerBase {
     @common.Body() data: PaymentChannelsCreateInput
   ): Promise<PaymentChannels> {
     return await this.service.createPaymentChannels({
-      data: data,
+      data: {
+        ...data,
+
+        paymentType: data.paymentType
+          ? {
+              connect: data.paymentType,
+            }
+          : undefined,
+      },
       select: {
+        accountNumber: true,
+        channel: true,
         createdAt: true,
+        deletedAt: true,
+        enabled: true,
         id: true,
+        payableId: true,
+        payableType: true,
+
+        paymentType: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -77,8 +98,21 @@ export class PaymentChannelsControllerBase {
     return this.service.paymentChannelsItems({
       ...args,
       select: {
+        accountNumber: true,
+        channel: true,
         createdAt: true,
+        deletedAt: true,
+        enabled: true,
         id: true,
+        payableId: true,
+        payableType: true,
+
+        paymentType: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -102,8 +136,21 @@ export class PaymentChannelsControllerBase {
     const result = await this.service.paymentChannels({
       where: params,
       select: {
+        accountNumber: true,
+        channel: true,
         createdAt: true,
+        deletedAt: true,
+        enabled: true,
         id: true,
+        payableId: true,
+        payableType: true,
+
+        paymentType: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -134,10 +181,31 @@ export class PaymentChannelsControllerBase {
     try {
       return await this.service.updatePaymentChannels({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          paymentType: data.paymentType
+            ? {
+                connect: data.paymentType,
+              }
+            : undefined,
+        },
         select: {
+          accountNumber: true,
+          channel: true,
           createdAt: true,
+          deletedAt: true,
+          enabled: true,
           id: true,
+          payableId: true,
+          payableType: true,
+
+          paymentType: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -169,8 +237,21 @@ export class PaymentChannelsControllerBase {
       return await this.service.deletePaymentChannels({
         where: params,
         select: {
+          accountNumber: true,
+          channel: true,
           createdAt: true,
+          deletedAt: true,
+          enabled: true,
           id: true,
+          payableId: true,
+          payableType: true,
+
+          paymentType: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });

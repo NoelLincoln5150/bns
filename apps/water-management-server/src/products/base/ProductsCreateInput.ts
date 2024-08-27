@@ -9,5 +9,172 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-class ProductsCreateInput {}
+import { InputType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+
+import {
+  IsString,
+  MaxLength,
+  IsOptional,
+  ValidateNested,
+  IsBoolean,
+  IsInt,
+  Min,
+  Max,
+  IsNumber,
+} from "class-validator";
+
+import { CategoryProductCreateNestedManyWithoutProductsItemsInput } from "./CategoryProductCreateNestedManyWithoutProductsItemsInput";
+import { Type } from "class-transformer";
+import { ProductListsCreateNestedManyWithoutProductsItemsInput } from "./ProductListsCreateNestedManyWithoutProductsItemsInput";
+
+@InputType()
+class ProductsCreateInput {
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(256)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  barcode?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => CategoryProductCreateNestedManyWithoutProductsItemsInput,
+  })
+  @ValidateNested()
+  @Type(() => CategoryProductCreateNestedManyWithoutProductsItemsInput)
+  @IsOptional()
+  @Field(() => CategoryProductCreateNestedManyWithoutProductsItemsInput, {
+    nullable: true,
+  })
+  categoryProducts?: CategoryProductCreateNestedManyWithoutProductsItemsInput;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  deletedAt?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  description?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isSerialized?: boolean | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  lowStockWarning?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsInt()
+  @Min(-999999999)
+  @Max(999999999)
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  minimumOrderQuantity?: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  name?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Min(-999999999)
+  @Max(999999999)
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  price?: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductListsCreateNestedManyWithoutProductsItemsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductListsCreateNestedManyWithoutProductsItemsInput)
+  @IsOptional()
+  @Field(() => ProductListsCreateNestedManyWithoutProductsItemsInput, {
+    nullable: true,
+  })
+  productListsItems?: ProductListsCreateNestedManyWithoutProductsItemsInput;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsInt()
+  @Min(-999999999)
+  @Max(999999999)
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  quantity?: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  stockTakePeriod?: string | null;
+}
+
 export { ProductsCreateInput as ProductsCreateInput };

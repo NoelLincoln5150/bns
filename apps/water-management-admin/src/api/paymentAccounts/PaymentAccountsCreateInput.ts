@@ -2,4 +2,6 @@ import { B2bTransactionsCreateNestedManyWithoutPaymentAccountsItemsInput } from 
 
 export type PaymentAccountsCreateInput = {
   b2bTransactionsItems?: B2bTransactionsCreateNestedManyWithoutPaymentAccountsItemsInput;
+  deletedAt?: Date | null;
+  enabled?: boolean | null;
 };

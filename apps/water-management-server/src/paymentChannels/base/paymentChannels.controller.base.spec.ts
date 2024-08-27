@@ -18,25 +18,49 @@ import { PaymentChannelsService } from "../paymentChannels.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  accountNumber: 42.424242424,
+  channel: "exampleChannel",
   createdAt: new Date(),
+  deletedAt: "exampleDeletedAt",
+  enabled: "exampleEnabled",
   id: "exampleId",
+  payableId: "examplePayableId",
+  payableType: "examplePayableType",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  accountNumber: 42.424242424,
+  channel: "exampleChannel",
   createdAt: new Date(),
+  deletedAt: "exampleDeletedAt",
+  enabled: "exampleEnabled",
   id: "exampleId",
+  payableId: "examplePayableId",
+  payableType: "examplePayableType",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    accountNumber: 42.424242424,
+    channel: "exampleChannel",
     createdAt: new Date(),
+    deletedAt: "exampleDeletedAt",
+    enabled: "exampleEnabled",
     id: "exampleId",
+    payableId: "examplePayableId",
+    payableType: "examplePayableType",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  accountNumber: 42.424242424,
+  channel: "exampleChannel",
   createdAt: new Date(),
+  deletedAt: "exampleDeletedAt",
+  enabled: "exampleEnabled",
   id: "exampleId",
+  payableId: "examplePayableId",
+  payableType: "examplePayableType",
   updatedAt: new Date(),
 };
 

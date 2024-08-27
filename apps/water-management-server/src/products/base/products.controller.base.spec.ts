@@ -18,25 +18,65 @@ import { ProductsService } from "../products.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  barcode: "exampleBarcode",
   createdAt: new Date(),
+  deletedAt: "exampleDeletedAt",
+  description: "exampleDescription",
   id: "exampleId",
+  isSerialized: "true",
+  lowStockWarning: "exampleLowStockWarning",
+  minimumOrderQuantity: 42,
+  name: "exampleName",
+  price: 42.42,
+  quantity: 42,
+  stockTakePeriod: "exampleStockTakePeriod",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  barcode: "exampleBarcode",
   createdAt: new Date(),
+  deletedAt: "exampleDeletedAt",
+  description: "exampleDescription",
   id: "exampleId",
+  isSerialized: "true",
+  lowStockWarning: "exampleLowStockWarning",
+  minimumOrderQuantity: 42,
+  name: "exampleName",
+  price: 42.42,
+  quantity: 42,
+  stockTakePeriod: "exampleStockTakePeriod",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    barcode: "exampleBarcode",
     createdAt: new Date(),
+    deletedAt: "exampleDeletedAt",
+    description: "exampleDescription",
     id: "exampleId",
+    isSerialized: "true",
+    lowStockWarning: "exampleLowStockWarning",
+    minimumOrderQuantity: 42,
+    name: "exampleName",
+    price: 42.42,
+    quantity: 42,
+    stockTakePeriod: "exampleStockTakePeriod",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  barcode: "exampleBarcode",
   createdAt: new Date(),
+  deletedAt: "exampleDeletedAt",
+  description: "exampleDescription",
   id: "exampleId",
+  isSerialized: "true",
+  lowStockWarning: "exampleLowStockWarning",
+  minimumOrderQuantity: 42,
+  name: "exampleName",
+  price: 42.42,
+  quantity: 42,
+  stockTakePeriod: "exampleStockTakePeriod",
   updatedAt: new Date(),
 };
 

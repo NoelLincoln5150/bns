@@ -18,25 +18,49 @@ import { NotesService } from "../notes.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  body: "exampleBody",
   createdAt: new Date(),
+  deletedAt: "exampleDeletedAt",
   id: "exampleId",
+  mutable: "true",
+  notableId: "exampleNotableId",
+  notableType: "exampleNotableType",
+  title: "exampleTitle",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  body: "exampleBody",
   createdAt: new Date(),
+  deletedAt: "exampleDeletedAt",
   id: "exampleId",
+  mutable: "true",
+  notableId: "exampleNotableId",
+  notableType: "exampleNotableType",
+  title: "exampleTitle",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    body: "exampleBody",
     createdAt: new Date(),
+    deletedAt: "exampleDeletedAt",
     id: "exampleId",
+    mutable: "true",
+    notableId: "exampleNotableId",
+    notableType: "exampleNotableType",
+    title: "exampleTitle",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  body: "exampleBody",
   createdAt: new Date(),
+  deletedAt: "exampleDeletedAt",
   id: "exampleId",
+  mutable: "true",
+  notableId: "exampleNotableId",
+  notableType: "exampleNotableType",
+  title: "exampleTitle",
   updatedAt: new Date(),
 };
 

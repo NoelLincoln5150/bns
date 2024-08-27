@@ -18,25 +18,37 @@ import { ProductListsService } from "../productLists.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  barcode: "exampleBarcode",
   createdAt: new Date(),
+  deletedAt: new Date(),
   id: "exampleId",
+  inStock: "true",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  barcode: "exampleBarcode",
   createdAt: new Date(),
+  deletedAt: new Date(),
   id: "exampleId",
+  inStock: "true",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    barcode: "exampleBarcode",
     createdAt: new Date(),
+    deletedAt: new Date(),
     id: "exampleId",
+    inStock: "true",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  barcode: "exampleBarcode",
   createdAt: new Date(),
+  deletedAt: new Date(),
   id: "exampleId",
+  inStock: "true",
   updatedAt: new Date(),
 };
 
@@ -123,6 +135,7 @@ describe("ProductLists", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        deletedAt: CREATE_RESULT.deletedAt.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -135,6 +148,7 @@ describe("ProductLists", () => {
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
+          deletedAt: FIND_MANY_RESULT[0].deletedAt.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
@@ -158,6 +172,7 @@ describe("ProductLists", () => {
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
+        deletedAt: FIND_ONE_RESULT.deletedAt.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -171,6 +186,7 @@ describe("ProductLists", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        deletedAt: CREATE_RESULT.deletedAt.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {

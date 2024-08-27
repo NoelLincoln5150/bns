@@ -18,10 +18,13 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { Otps } from "./Otps";
 import { OtpsCountArgs } from "./OtpsCountArgs";
 import { OtpsFindManyArgs } from "./OtpsFindManyArgs";
 import { OtpsFindUniqueArgs } from "./OtpsFindUniqueArgs";
+import { CreateOtpsArgs } from "./CreateOtpsArgs";
+import { UpdateOtpsArgs } from "./UpdateOtpsArgs";
 import { DeleteOtpsArgs } from "./DeleteOtpsArgs";
 import { OtpsService } from "../otps.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -71,6 +74,43 @@ export class OtpsResolverBase {
       return null;
     }
     return result;
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Otps)
+  @nestAccessControl.UseRoles({
+    resource: "Otps",
+    action: "create",
+    possession: "any",
+  })
+  async createOtps(@graphql.Args() args: CreateOtpsArgs): Promise<Otps> {
+    return await this.service.createOtps({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Otps)
+  @nestAccessControl.UseRoles({
+    resource: "Otps",
+    action: "update",
+    possession: "any",
+  })
+  async updateOtps(@graphql.Args() args: UpdateOtpsArgs): Promise<Otps | null> {
+    try {
+      return await this.service.updateOtps({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => Otps)

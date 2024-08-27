@@ -14,16 +14,18 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsJSONValue } from "../../validators";
 import {
   IsOptional,
+  ValidateNested,
   IsDate,
   IsEnum,
   IsInt,
   Min,
   Max,
-  ValidateNested,
 } from "class-validator";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
+import { CustomerMeterCreateNestedManyWithoutMetersInput } from "./CustomerMeterCreateNestedManyWithoutMetersInput";
 import { Type } from "class-transformer";
+import { MeterTypesWhereUniqueInput } from "../../meterTypes/base/MeterTypesWhereUniqueInput";
 import { EnumMeterStatus } from "./EnumMeterStatus";
 import { UsageWhereUniqueInput } from "../../usage/base/UsageWhereUniqueInput";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
@@ -42,6 +44,18 @@ class MeterCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => CustomerMeterCreateNestedManyWithoutMetersInput,
+  })
+  @ValidateNested()
+  @Type(() => CustomerMeterCreateNestedManyWithoutMetersInput)
+  @IsOptional()
+  @Field(() => CustomerMeterCreateNestedManyWithoutMetersInput, {
+    nullable: true,
+  })
+  customerMeters?: CustomerMeterCreateNestedManyWithoutMetersInput;
+
+  @ApiProperty({
+    required: false,
   })
   @IsDate()
   @Type(() => Date)
@@ -50,6 +64,18 @@ class MeterCreateInput {
     nullable: true,
   })
   installationDate?: Date | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => MeterTypesWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => MeterTypesWhereUniqueInput)
+  @IsOptional()
+  @Field(() => MeterTypesWhereUniqueInput, {
+    nullable: true,
+  })
+  meterType?: MeterTypesWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

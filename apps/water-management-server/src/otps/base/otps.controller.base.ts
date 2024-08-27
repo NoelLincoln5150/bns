@@ -51,7 +51,11 @@ export class OtpsControllerBase {
       select: {
         createdAt: true,
         id: true,
+        identifier: true,
+        token: true,
         updatedAt: true,
+        valid: true,
+        validity: true,
       },
     });
   }
@@ -75,7 +79,11 @@ export class OtpsControllerBase {
       select: {
         createdAt: true,
         id: true,
+        identifier: true,
+        token: true,
         updatedAt: true,
+        valid: true,
+        validity: true,
       },
     });
   }
@@ -100,7 +108,11 @@ export class OtpsControllerBase {
       select: {
         createdAt: true,
         id: true,
+        identifier: true,
+        token: true,
         updatedAt: true,
+        valid: true,
+        validity: true,
       },
     });
     if (result === null) {
@@ -134,7 +146,11 @@ export class OtpsControllerBase {
         select: {
           createdAt: true,
           id: true,
+          identifier: true,
+          token: true,
           updatedAt: true,
+          valid: true,
+          validity: true,
         },
       });
     } catch (error) {
@@ -167,7 +183,11 @@ export class OtpsControllerBase {
         select: {
           createdAt: true,
           id: true,
+          identifier: true,
+          token: true,
           updatedAt: true,
+          valid: true,
+          validity: true,
         },
       });
     } catch (error) {

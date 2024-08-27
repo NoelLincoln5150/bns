@@ -10,7 +10,11 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, MeterTypes as PrismaMeterTypes } from "@prisma/client";
+import {
+  Prisma,
+  MeterTypes as PrismaMeterTypes,
+  Meter as PrismaMeter,
+} from "@prisma/client";
 
 export class MeterTypesServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -45,5 +49,16 @@ export class MeterTypesServiceBase {
     args: Prisma.MeterTypesDeleteArgs
   ): Promise<PrismaMeterTypes> {
     return this.prisma.meterTypes.delete(args);
+  }
+
+  async findMeters(
+    parentId: string,
+    args: Prisma.MeterFindManyArgs
+  ): Promise<PrismaMeter[]> {
+    return this.prisma.meterTypes
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .meters(args);
   }
 }

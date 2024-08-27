@@ -19,6 +19,7 @@ import {
   ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { LogsCreateNestedManyWithoutUsersInput } from "./LogsCreateNestedManyWithoutUsersInput";
 import { MeterCreateNestedManyWithoutUsersInput } from "./MeterCreateNestedManyWithoutUsersInput";
 import { RoleCreateNestedManyWithoutUsersInput } from "./RoleCreateNestedManyWithoutUsersInput";
 import { IsJSONValue } from "../../validators";
@@ -73,6 +74,18 @@ class UserCreateInput {
     nullable: true,
   })
   lastName?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => LogsCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => LogsCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => LogsCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  logsItems?: LogsCreateNestedManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,

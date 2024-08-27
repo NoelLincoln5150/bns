@@ -11,11 +11,31 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString } from "class-validator";
+import {
+  IsString,
+  MaxLength,
+  IsOptional,
+  IsDate,
+  ValidateNested,
+} from "class-validator";
 import { Type } from "class-transformer";
+import { DocumentPayments } from "../../documentPayments/base/DocumentPayments";
+import { PaymentChannels } from "../../paymentChannels/base/PaymentChannels";
 
 @ObjectType()
 class PaymentTypes {
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  canSettle!: string | null;
+
   @ApiProperty({
     required: true,
   })
@@ -25,12 +45,78 @@ class PaymentTypes {
   createdAt!: Date;
 
   @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  deletedAt!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  displayName!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [DocumentPayments],
+  })
+  @ValidateNested()
+  @Type(() => DocumentPayments)
+  @IsOptional()
+  documentPaymentsItems?: Array<DocumentPayments>;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  enabled!: string | null;
+
+  @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  name!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [PaymentChannels],
+  })
+  @ValidateNested()
+  @Type(() => PaymentChannels)
+  @IsOptional()
+  paymentChannelsItems?: Array<PaymentChannels>;
 
   @ApiProperty({
     required: true,

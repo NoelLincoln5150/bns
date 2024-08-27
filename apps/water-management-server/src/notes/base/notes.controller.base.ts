@@ -49,8 +49,14 @@ export class NotesControllerBase {
     return await this.service.createNotes({
       data: data,
       select: {
+        body: true,
         createdAt: true,
+        deletedAt: true,
         id: true,
+        mutable: true,
+        notableId: true,
+        notableType: true,
+        title: true,
         updatedAt: true,
       },
     });
@@ -73,8 +79,14 @@ export class NotesControllerBase {
     return this.service.notesItems({
       ...args,
       select: {
+        body: true,
         createdAt: true,
+        deletedAt: true,
         id: true,
+        mutable: true,
+        notableId: true,
+        notableType: true,
+        title: true,
         updatedAt: true,
       },
     });
@@ -98,8 +110,14 @@ export class NotesControllerBase {
     const result = await this.service.notes({
       where: params,
       select: {
+        body: true,
         createdAt: true,
+        deletedAt: true,
         id: true,
+        mutable: true,
+        notableId: true,
+        notableType: true,
+        title: true,
         updatedAt: true,
       },
     });
@@ -132,8 +150,14 @@ export class NotesControllerBase {
         where: params,
         data: data,
         select: {
+          body: true,
           createdAt: true,
+          deletedAt: true,
           id: true,
+          mutable: true,
+          notableId: true,
+          notableType: true,
+          title: true,
           updatedAt: true,
         },
       });
@@ -165,8 +189,14 @@ export class NotesControllerBase {
       return await this.service.deleteNotes({
         where: params,
         select: {
+          body: true,
           createdAt: true,
+          deletedAt: true,
           id: true,
+          mutable: true,
+          notableId: true,
+          notableType: true,
+          title: true,
           updatedAt: true,
         },
       });

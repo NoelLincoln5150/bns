@@ -14,6 +14,8 @@ import { ApiProperty } from "@nestjs/swagger";
 import { B2bTransactionsListRelationFilter } from "../../b2bTransactions/base/B2bTransactionsListRelationFilter";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
+import { CustomerMeterListRelationFilter } from "../../customerMeter/base/CustomerMeterListRelationFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 
 @InputType()
@@ -32,6 +34,51 @@ class CustomersWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => CustomerMeterListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => CustomerMeterListRelationFilter)
+  @IsOptional()
+  @Field(() => CustomerMeterListRelationFilter, {
+    nullable: true,
+  })
+  customerMeters?: CustomerMeterListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  deletedAt?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  email?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  hash?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
     type: StringFilter,
   })
   @Type(() => StringFilter)
@@ -40,6 +87,28 @@ class CustomersWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  name?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  phoneNumber?: StringNullableFilter;
 }
 
 export { CustomersWhereInput as CustomersWhereInput };

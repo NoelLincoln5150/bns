@@ -18,25 +18,45 @@ import { PaymentTypesService } from "../paymentTypes.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  canSettle: "exampleCanSettle",
   createdAt: new Date(),
+  deletedAt: "exampleDeletedAt",
+  displayName: "exampleDisplayName",
+  enabled: "exampleEnabled",
   id: "exampleId",
+  name: "exampleName",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  canSettle: "exampleCanSettle",
   createdAt: new Date(),
+  deletedAt: "exampleDeletedAt",
+  displayName: "exampleDisplayName",
+  enabled: "exampleEnabled",
   id: "exampleId",
+  name: "exampleName",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    canSettle: "exampleCanSettle",
     createdAt: new Date(),
+    deletedAt: "exampleDeletedAt",
+    displayName: "exampleDisplayName",
+    enabled: "exampleEnabled",
     id: "exampleId",
+    name: "exampleName",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  canSettle: "exampleCanSettle",
   createdAt: new Date(),
+  deletedAt: "exampleDeletedAt",
+  displayName: "exampleDisplayName",
+  enabled: "exampleEnabled",
   id: "exampleId",
+  name: "exampleName",
   updatedAt: new Date(),
 };
 

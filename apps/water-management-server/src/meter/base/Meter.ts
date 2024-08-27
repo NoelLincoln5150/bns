@@ -15,16 +15,18 @@ import { IsJSONValue } from "../../validators";
 import {
   IsOptional,
   IsDate,
+  ValidateNested,
   IsString,
   IsEnum,
   IsInt,
   Min,
   Max,
-  ValidateNested,
 } from "class-validator";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { Type } from "class-transformer";
+import { CustomerMeter } from "../../customerMeter/base/CustomerMeter";
+import { MeterTypes } from "../../meterTypes/base/MeterTypes";
 import { EnumMeterStatus } from "./EnumMeterStatus";
 import { Usage } from "../../usage/base/Usage";
 import { User } from "../../user/base/User";
@@ -50,6 +52,15 @@ class Meter {
   createdAt!: Date;
 
   @ApiProperty({
+    required: false,
+    type: () => [CustomerMeter],
+  })
+  @ValidateNested()
+  @Type(() => CustomerMeter)
+  @IsOptional()
+  customerMeters?: Array<CustomerMeter>;
+
+  @ApiProperty({
     required: true,
     type: String,
   })
@@ -67,6 +78,15 @@ class Meter {
     nullable: true,
   })
   installationDate!: Date | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => MeterTypes,
+  })
+  @ValidateNested()
+  @Type(() => MeterTypes)
+  @IsOptional()
+  meterType?: MeterTypes | null;
 
   @ApiProperty({
     required: false,

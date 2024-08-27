@@ -11,9 +11,11 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { ContractUpdateManyWithoutSuppliersItemsInput } from "./ContractUpdateManyWithoutSuppliersItemsInput";
 import {
-  IsDate,
+  ValidateNested,
   IsOptional,
+  IsDate,
   IsString,
   MaxLength,
   IsInt,
@@ -24,6 +26,18 @@ import { Type } from "class-transformer";
 
 @InputType()
 class SuppliersUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: () => ContractUpdateManyWithoutSuppliersItemsInput,
+  })
+  @ValidateNested()
+  @Type(() => ContractUpdateManyWithoutSuppliersItemsInput)
+  @IsOptional()
+  @Field(() => ContractUpdateManyWithoutSuppliersItemsInput, {
+    nullable: true,
+  })
+  contracts?: ContractUpdateManyWithoutSuppliersItemsInput;
+
   @ApiProperty({
     required: false,
   })

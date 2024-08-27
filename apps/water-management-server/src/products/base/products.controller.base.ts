@@ -26,6 +26,12 @@ import { Products } from "./Products";
 import { ProductsFindManyArgs } from "./ProductsFindManyArgs";
 import { ProductsWhereUniqueInput } from "./ProductsWhereUniqueInput";
 import { ProductsUpdateInput } from "./ProductsUpdateInput";
+import { CategoryProductFindManyArgs } from "../../categoryProduct/base/CategoryProductFindManyArgs";
+import { CategoryProduct } from "../../categoryProduct/base/CategoryProduct";
+import { CategoryProductWhereUniqueInput } from "../../categoryProduct/base/CategoryProductWhereUniqueInput";
+import { ProductListsFindManyArgs } from "../../productLists/base/ProductListsFindManyArgs";
+import { ProductLists } from "../../productLists/base/ProductLists";
+import { ProductListsWhereUniqueInput } from "../../productLists/base/ProductListsWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -51,8 +57,18 @@ export class ProductsControllerBase {
     return await this.service.createProducts({
       data: data,
       select: {
+        barcode: true,
         createdAt: true,
+        deletedAt: true,
+        description: true,
         id: true,
+        isSerialized: true,
+        lowStockWarning: true,
+        minimumOrderQuantity: true,
+        name: true,
+        price: true,
+        quantity: true,
+        stockTakePeriod: true,
         updatedAt: true,
       },
     });
@@ -75,8 +91,18 @@ export class ProductsControllerBase {
     return this.service.productsItems({
       ...args,
       select: {
+        barcode: true,
         createdAt: true,
+        deletedAt: true,
+        description: true,
         id: true,
+        isSerialized: true,
+        lowStockWarning: true,
+        minimumOrderQuantity: true,
+        name: true,
+        price: true,
+        quantity: true,
+        stockTakePeriod: true,
         updatedAt: true,
       },
     });
@@ -100,8 +126,18 @@ export class ProductsControllerBase {
     const result = await this.service.products({
       where: params,
       select: {
+        barcode: true,
         createdAt: true,
+        deletedAt: true,
+        description: true,
         id: true,
+        isSerialized: true,
+        lowStockWarning: true,
+        minimumOrderQuantity: true,
+        name: true,
+        price: true,
+        quantity: true,
+        stockTakePeriod: true,
         updatedAt: true,
       },
     });
@@ -134,8 +170,18 @@ export class ProductsControllerBase {
         where: params,
         data: data,
         select: {
+          barcode: true,
           createdAt: true,
+          deletedAt: true,
+          description: true,
           id: true,
+          isSerialized: true,
+          lowStockWarning: true,
+          minimumOrderQuantity: true,
+          name: true,
+          price: true,
+          quantity: true,
+          stockTakePeriod: true,
           updatedAt: true,
         },
       });
@@ -167,8 +213,18 @@ export class ProductsControllerBase {
       return await this.service.deleteProducts({
         where: params,
         select: {
+          barcode: true,
           createdAt: true,
+          deletedAt: true,
+          description: true,
           id: true,
+          isSerialized: true,
+          lowStockWarning: true,
+          minimumOrderQuantity: true,
+          name: true,
+          price: true,
+          quantity: true,
+          stockTakePeriod: true,
           updatedAt: true,
         },
       });
@@ -180,5 +236,206 @@ export class ProductsControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/categoryProducts")
+  @ApiNestedQuery(CategoryProductFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "CategoryProduct",
+    action: "read",
+    possession: "any",
+  })
+  async findCategoryProducts(
+    @common.Req() request: Request,
+    @common.Param() params: ProductsWhereUniqueInput
+  ): Promise<CategoryProduct[]> {
+    const query = plainToClass(CategoryProductFindManyArgs, request.query);
+    const results = await this.service.findCategoryProducts(params.id, {
+      ...query,
+      select: {
+        categoryId: true,
+        createdAt: true,
+        id: true,
+
+        productI: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/categoryProducts")
+  @nestAccessControl.UseRoles({
+    resource: "Products",
+    action: "update",
+    possession: "any",
+  })
+  async connectCategoryProducts(
+    @common.Param() params: ProductsWhereUniqueInput,
+    @common.Body() body: CategoryProductWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      categoryProducts: {
+        connect: body,
+      },
+    };
+    await this.service.updateProducts({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/categoryProducts")
+  @nestAccessControl.UseRoles({
+    resource: "Products",
+    action: "update",
+    possession: "any",
+  })
+  async updateCategoryProducts(
+    @common.Param() params: ProductsWhereUniqueInput,
+    @common.Body() body: CategoryProductWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      categoryProducts: {
+        set: body,
+      },
+    };
+    await this.service.updateProducts({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/categoryProducts")
+  @nestAccessControl.UseRoles({
+    resource: "Products",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectCategoryProducts(
+    @common.Param() params: ProductsWhereUniqueInput,
+    @common.Body() body: CategoryProductWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      categoryProducts: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateProducts({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/productListsItems")
+  @ApiNestedQuery(ProductListsFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "ProductLists",
+    action: "read",
+    possession: "any",
+  })
+  async findProductListsItems(
+    @common.Req() request: Request,
+    @common.Param() params: ProductsWhereUniqueInput
+  ): Promise<ProductLists[]> {
+    const query = plainToClass(ProductListsFindManyArgs, request.query);
+    const results = await this.service.findProductListsItems(params.id, {
+      ...query,
+      select: {
+        barcode: true,
+        createdAt: true,
+        deletedAt: true,
+        id: true,
+        inStock: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/productListsItems")
+  @nestAccessControl.UseRoles({
+    resource: "Products",
+    action: "update",
+    possession: "any",
+  })
+  async connectProductListsItems(
+    @common.Param() params: ProductsWhereUniqueInput,
+    @common.Body() body: ProductListsWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productListsItems: {
+        connect: body,
+      },
+    };
+    await this.service.updateProducts({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/productListsItems")
+  @nestAccessControl.UseRoles({
+    resource: "Products",
+    action: "update",
+    possession: "any",
+  })
+  async updateProductListsItems(
+    @common.Param() params: ProductsWhereUniqueInput,
+    @common.Body() body: ProductListsWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productListsItems: {
+        set: body,
+      },
+    };
+    await this.service.updateProducts({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/productListsItems")
+  @nestAccessControl.UseRoles({
+    resource: "Products",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectProductListsItems(
+    @common.Param() params: ProductsWhereUniqueInput,
+    @common.Body() body: ProductListsWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productListsItems: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateProducts({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

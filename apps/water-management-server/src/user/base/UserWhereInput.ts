@@ -16,6 +16,7 @@ import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { LogsListRelationFilter } from "../../logs/base/LogsListRelationFilter";
 import { MeterListRelationFilter } from "../../meter/base/MeterListRelationFilter";
 import { RoleListRelationFilter } from "../../role/base/RoleListRelationFilter";
 import { TicketListRelationFilter } from "../../ticket/base/TicketListRelationFilter";
@@ -76,6 +77,18 @@ class UserWhereInput {
     nullable: true,
   })
   lastName?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => LogsListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => LogsListRelationFilter)
+  @IsOptional()
+  @Field(() => LogsListRelationFilter, {
+    nullable: true,
+  })
+  logsItems?: LogsListRelationFilter;
 
   @ApiProperty({
     required: false,

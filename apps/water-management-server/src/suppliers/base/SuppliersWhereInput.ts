@@ -11,15 +11,28 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { ContractListRelationFilter } from "../../contract/base/ContractListRelationFilter";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 
 @InputType()
 class SuppliersWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => ContractListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ContractListRelationFilter)
+  @IsOptional()
+  @Field(() => ContractListRelationFilter, {
+    nullable: true,
+  })
+  contracts?: ContractListRelationFilter;
+
   @ApiProperty({
     required: false,
     type: DateTimeNullableFilter,

@@ -1,3 +1,5 @@
+import { PremisesWaterSourceUpdateManyWithoutWaterSourcesItemsInput } from "./PremisesWaterSourceUpdateManyWithoutWaterSourcesItemsInput";
+
 export type WaterSourcesUpdateInput = {
   county?: string | null;
   deletedAt?: Date | null;
@@ -7,6 +9,7 @@ export type WaterSourcesUpdateInput = {
   longitude?: number | null;
   name?: string | null;
   numberField?: number | null;
+  premisesWaterSources?: PremisesWaterSourceUpdateManyWithoutWaterSourcesItemsInput;
   region?: string | null;
   subCounty?: string | null;
   supplierNumber?: string | null;

@@ -1,3 +1,5 @@
+import { PremisesWaterSource } from "../premisesWaterSource/PremisesWaterSource";
+
 export type WaterSources = {
   county: string | null;
   createdAt: Date;
@@ -9,6 +11,7 @@ export type WaterSources = {
   longitude: number | null;
   name: string | null;
   numberField: number | null;
+  premisesWaterSources?: Array<PremisesWaterSource>;
   region: string | null;
   subCounty: string | null;
   supplierNumber: string | null;

@@ -55,6 +55,8 @@ export class PaymentAccountsControllerBase {
       data: data,
       select: {
         createdAt: true,
+        deletedAt: true,
+        enabled: true,
         id: true,
         updatedAt: true,
       },
@@ -81,6 +83,8 @@ export class PaymentAccountsControllerBase {
       ...args,
       select: {
         createdAt: true,
+        deletedAt: true,
+        enabled: true,
         id: true,
         updatedAt: true,
       },
@@ -106,6 +110,8 @@ export class PaymentAccountsControllerBase {
       where: params,
       select: {
         createdAt: true,
+        deletedAt: true,
+        enabled: true,
         id: true,
         updatedAt: true,
       },
@@ -140,6 +146,8 @@ export class PaymentAccountsControllerBase {
         data: data,
         select: {
           createdAt: true,
+          deletedAt: true,
+          enabled: true,
           id: true,
           updatedAt: true,
         },
@@ -173,6 +181,8 @@ export class PaymentAccountsControllerBase {
         where: params,
         select: {
           createdAt: true,
+          deletedAt: true,
+          enabled: true,
           id: true,
           updatedAt: true,
         },

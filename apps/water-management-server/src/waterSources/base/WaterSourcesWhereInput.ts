@@ -13,11 +13,12 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { IsOptional, ValidateNested } from "class-validator";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { FloatNullableFilter } from "../../util/FloatNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { PremisesWaterSourceListRelationFilter } from "../../premisesWaterSource/base/PremisesWaterSourceListRelationFilter";
 
 @InputType()
 class WaterSourcesWhereInput {
@@ -119,6 +120,18 @@ class WaterSourcesWhereInput {
     nullable: true,
   })
   numberField?: IntNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PremisesWaterSourceListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PremisesWaterSourceListRelationFilter)
+  @IsOptional()
+  @Field(() => PremisesWaterSourceListRelationFilter, {
+    nullable: true,
+  })
+  premisesWaterSources?: PremisesWaterSourceListRelationFilter;
 
   @ApiProperty({
     required: false,

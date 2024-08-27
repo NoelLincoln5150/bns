@@ -11,8 +11,10 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString } from "class-validator";
+import { IsDate, ValidateNested, IsOptional, IsString } from "class-validator";
 import { Type } from "class-transformer";
+import { Documents } from "../../documents/base/Documents";
+import { PaymentTypes } from "../../paymentTypes/base/PaymentTypes";
 
 @ObjectType()
 class DocumentPayments {
@@ -25,12 +27,30 @@ class DocumentPayments {
   createdAt!: Date;
 
   @ApiProperty({
+    required: false,
+    type: () => Documents,
+  })
+  @ValidateNested()
+  @Type(() => Documents)
+  @IsOptional()
+  document?: Documents | null;
+
+  @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => [PaymentTypes],
+  })
+  @ValidateNested()
+  @Type(() => PaymentTypes)
+  @IsOptional()
+  paymentType?: Array<PaymentTypes>;
 
   @ApiProperty({
     required: true,

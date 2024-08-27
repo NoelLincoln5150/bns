@@ -1,3 +1,4 @@
+import { LogsCreateNestedManyWithoutUsersInput } from "./LogsCreateNestedManyWithoutUsersInput";
 import { MeterCreateNestedManyWithoutUsersInput } from "./MeterCreateNestedManyWithoutUsersInput";
 import { RoleCreateNestedManyWithoutUsersInput } from "./RoleCreateNestedManyWithoutUsersInput";
 import { InputJsonValue } from "../../types";
@@ -8,6 +9,7 @@ export type UserCreateInput = {
   emailVerifiedAt?: Date | null;
   firstName?: string | null;
   lastName?: string | null;
+  logsItems?: LogsCreateNestedManyWithoutUsersInput;
   meters?: MeterCreateNestedManyWithoutUsersInput;
   name?: string | null;
   password: string;

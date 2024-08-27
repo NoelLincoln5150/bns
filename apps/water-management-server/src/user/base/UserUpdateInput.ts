@@ -19,6 +19,7 @@ import {
   ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { LogsUpdateManyWithoutUsersInput } from "./LogsUpdateManyWithoutUsersInput";
 import { MeterUpdateManyWithoutUsersInput } from "./MeterUpdateManyWithoutUsersInput";
 import { RoleUpdateManyWithoutUsersInput } from "./RoleUpdateManyWithoutUsersInput";
 import { IsJSONValue } from "../../validators";
@@ -73,6 +74,18 @@ class UserUpdateInput {
     nullable: true,
   })
   lastName?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => LogsUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => LogsUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => LogsUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  logsItems?: LogsUpdateManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,

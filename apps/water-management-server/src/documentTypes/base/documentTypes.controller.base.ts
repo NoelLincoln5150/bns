@@ -26,6 +26,9 @@ import { DocumentTypes } from "./DocumentTypes";
 import { DocumentTypesFindManyArgs } from "./DocumentTypesFindManyArgs";
 import { DocumentTypesWhereUniqueInput } from "./DocumentTypesWhereUniqueInput";
 import { DocumentTypesUpdateInput } from "./DocumentTypesUpdateInput";
+import { DocumentsFindManyArgs } from "../../documents/base/DocumentsFindManyArgs";
+import { Documents } from "../../documents/base/Documents";
+import { DocumentsWhereUniqueInput } from "../../documents/base/DocumentsWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -51,8 +54,14 @@ export class DocumentTypesControllerBase {
     return await this.service.createDocumentTypes({
       data: data,
       select: {
+        code: true,
         createdAt: true,
+        deletedAt: true,
         id: true,
+        movement: true,
+        name: true,
+        requirePayment: true,
+        typeField: true,
         updatedAt: true,
       },
     });
@@ -77,8 +86,14 @@ export class DocumentTypesControllerBase {
     return this.service.documentTypesItems({
       ...args,
       select: {
+        code: true,
         createdAt: true,
+        deletedAt: true,
         id: true,
+        movement: true,
+        name: true,
+        requirePayment: true,
+        typeField: true,
         updatedAt: true,
       },
     });
@@ -102,8 +117,14 @@ export class DocumentTypesControllerBase {
     const result = await this.service.documentTypes({
       where: params,
       select: {
+        code: true,
         createdAt: true,
+        deletedAt: true,
         id: true,
+        movement: true,
+        name: true,
+        requirePayment: true,
+        typeField: true,
         updatedAt: true,
       },
     });
@@ -136,8 +157,14 @@ export class DocumentTypesControllerBase {
         where: params,
         data: data,
         select: {
+          code: true,
           createdAt: true,
+          deletedAt: true,
           id: true,
+          movement: true,
+          name: true,
+          requirePayment: true,
+          typeField: true,
           updatedAt: true,
         },
       });
@@ -169,8 +196,14 @@ export class DocumentTypesControllerBase {
       return await this.service.deleteDocumentTypes({
         where: params,
         select: {
+          code: true,
           createdAt: true,
+          deletedAt: true,
           id: true,
+          movement: true,
+          name: true,
+          requirePayment: true,
+          typeField: true,
           updatedAt: true,
         },
       });
@@ -182,5 +215,112 @@ export class DocumentTypesControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/documentsItems")
+  @ApiNestedQuery(DocumentsFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Documents",
+    action: "read",
+    possession: "any",
+  })
+  async findDocumentsItems(
+    @common.Req() request: Request,
+    @common.Param() params: DocumentTypesWhereUniqueInput
+  ): Promise<Documents[]> {
+    const query = plainToClass(DocumentsFindManyArgs, request.query);
+    const results = await this.service.findDocumentsItems(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        deletedAt: true,
+
+        documentType: {
+          select: {
+            id: true,
+          },
+        },
+
+        documentableId: true,
+        documentableType: true,
+        id: true,
+        numberField: true,
+        paid: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/documentsItems")
+  @nestAccessControl.UseRoles({
+    resource: "DocumentTypes",
+    action: "update",
+    possession: "any",
+  })
+  async connectDocumentsItems(
+    @common.Param() params: DocumentTypesWhereUniqueInput,
+    @common.Body() body: DocumentsWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      documentsItems: {
+        connect: body,
+      },
+    };
+    await this.service.updateDocumentTypes({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/documentsItems")
+  @nestAccessControl.UseRoles({
+    resource: "DocumentTypes",
+    action: "update",
+    possession: "any",
+  })
+  async updateDocumentsItems(
+    @common.Param() params: DocumentTypesWhereUniqueInput,
+    @common.Body() body: DocumentsWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      documentsItems: {
+        set: body,
+      },
+    };
+    await this.service.updateDocumentTypes({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/documentsItems")
+  @nestAccessControl.UseRoles({
+    resource: "DocumentTypes",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectDocumentsItems(
+    @common.Param() params: DocumentTypesWhereUniqueInput,
+    @common.Body() body: DocumentsWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      documentsItems: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateDocumentTypes({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

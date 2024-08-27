@@ -1,4 +1,7 @@
+import { ContractCreateNestedManyWithoutSuppliersItemsInput } from "./ContractCreateNestedManyWithoutSuppliersItemsInput";
+
 export type SuppliersCreateInput = {
+  contracts?: ContractCreateNestedManyWithoutSuppliersItemsInput;
   deletedAt?: Date | null;
   name?: string | null;
   numberField?: number | null;

@@ -9,5 +9,38 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-class DocumentPaymentsUpdateInput {}
+import { InputType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+import { DocumentsWhereUniqueInput } from "../../documents/base/DocumentsWhereUniqueInput";
+import { ValidateNested, IsOptional } from "class-validator";
+import { Type } from "class-transformer";
+import { PaymentTypesUpdateManyWithoutDocumentPaymentsItemsInput } from "./PaymentTypesUpdateManyWithoutDocumentPaymentsItemsInput";
+
+@InputType()
+class DocumentPaymentsUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: () => DocumentsWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => DocumentsWhereUniqueInput)
+  @IsOptional()
+  @Field(() => DocumentsWhereUniqueInput, {
+    nullable: true,
+  })
+  document?: DocumentsWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentTypesUpdateManyWithoutDocumentPaymentsItemsInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentTypesUpdateManyWithoutDocumentPaymentsItemsInput)
+  @IsOptional()
+  @Field(() => PaymentTypesUpdateManyWithoutDocumentPaymentsItemsInput, {
+    nullable: true,
+  })
+  paymentType?: PaymentTypesUpdateManyWithoutDocumentPaymentsItemsInput;
+}
+
 export { DocumentPaymentsUpdateInput as DocumentPaymentsUpdateInput };

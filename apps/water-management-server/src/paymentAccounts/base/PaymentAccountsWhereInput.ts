@@ -14,6 +14,8 @@ import { ApiProperty } from "@nestjs/swagger";
 import { B2bTransactionsListRelationFilter } from "../../b2bTransactions/base/B2bTransactionsListRelationFilter";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 
 @InputType()
@@ -29,6 +31,28 @@ class PaymentAccountsWhereInput {
     nullable: true,
   })
   b2bTransactionsItems?: B2bTransactionsListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: DateTimeNullableFilter,
+  })
+  @Type(() => DateTimeNullableFilter)
+  @IsOptional()
+  @Field(() => DateTimeNullableFilter, {
+    nullable: true,
+  })
+  deletedAt?: DateTimeNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanNullableFilter,
+  })
+  @Type(() => BooleanNullableFilter)
+  @IsOptional()
+  @Field(() => BooleanNullableFilter, {
+    nullable: true,
+  })
+  enabled?: BooleanNullableFilter;
 
   @ApiProperty({
     required: false,

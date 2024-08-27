@@ -10,7 +10,13 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, CustomerMeter as PrismaCustomerMeter } from "@prisma/client";
+
+import {
+  Prisma,
+  CustomerMeter as PrismaCustomerMeter,
+  Customers as PrismaCustomers,
+  Meter as PrismaMeter,
+} from "@prisma/client";
 
 export class CustomerMeterServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -45,5 +51,21 @@ export class CustomerMeterServiceBase {
     args: Prisma.CustomerMeterDeleteArgs
   ): Promise<PrismaCustomerMeter> {
     return this.prisma.customerMeter.delete(args);
+  }
+
+  async getCustomer(parentId: string): Promise<PrismaCustomers | null> {
+    return this.prisma.customerMeter
+      .findUnique({
+        where: { id: parentId },
+      })
+      .customer();
+  }
+
+  async getMeterId(parentId: string): Promise<PrismaMeter | null> {
+    return this.prisma.customerMeter
+      .findUnique({
+        where: { id: parentId },
+      })
+      .meterId();
   }
 }

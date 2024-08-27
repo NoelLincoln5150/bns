@@ -15,6 +15,7 @@ import {
   Prisma,
   Customers as PrismaCustomers,
   B2bTransactions as PrismaB2bTransactions,
+  CustomerMeter as PrismaCustomerMeter,
 } from "@prisma/client";
 
 export class CustomersServiceBase {
@@ -61,5 +62,16 @@ export class CustomersServiceBase {
         where: { id: parentId },
       })
       .b2bTransactionsItems(args);
+  }
+
+  async findCustomerMeters(
+    parentId: string,
+    args: Prisma.CustomerMeterFindManyArgs
+  ): Promise<PrismaCustomerMeter[]> {
+    return this.prisma.customers
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .customerMeters(args);
   }
 }

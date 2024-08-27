@@ -18,10 +18,13 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { FailedJobs } from "./FailedJobs";
 import { FailedJobsCountArgs } from "./FailedJobsCountArgs";
 import { FailedJobsFindManyArgs } from "./FailedJobsFindManyArgs";
 import { FailedJobsFindUniqueArgs } from "./FailedJobsFindUniqueArgs";
+import { CreateFailedJobsArgs } from "./CreateFailedJobsArgs";
+import { UpdateFailedJobsArgs } from "./UpdateFailedJobsArgs";
 import { DeleteFailedJobsArgs } from "./DeleteFailedJobsArgs";
 import { FailedJobsService } from "../failedJobs.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -75,6 +78,47 @@ export class FailedJobsResolverBase {
       return null;
     }
     return result;
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => FailedJobs)
+  @nestAccessControl.UseRoles({
+    resource: "FailedJobs",
+    action: "create",
+    possession: "any",
+  })
+  async createFailedJobs(
+    @graphql.Args() args: CreateFailedJobsArgs
+  ): Promise<FailedJobs> {
+    return await this.service.createFailedJobs({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => FailedJobs)
+  @nestAccessControl.UseRoles({
+    resource: "FailedJobs",
+    action: "update",
+    possession: "any",
+  })
+  async updateFailedJobs(
+    @graphql.Args() args: UpdateFailedJobsArgs
+  ): Promise<FailedJobs | null> {
+    try {
+      return await this.service.updateFailedJobs({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => FailedJobs)

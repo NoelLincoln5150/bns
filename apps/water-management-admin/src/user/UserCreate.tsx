@@ -11,6 +11,7 @@ import {
   PasswordInput,
 } from "react-admin";
 
+import { LogsTitle } from "../logs/LogsTitle";
 import { MeterTitle } from "../meter/MeterTitle";
 import { RoleTitle } from "../role/RoleTitle";
 import { TicketTitle } from "../ticket/TicketTitle";
@@ -24,6 +25,14 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
         <DateTimeInput label="email_verified_at" source="emailVerifiedAt" />
         <TextInput label="First Name" source="firstName" />
         <TextInput label="Last Name" source="lastName" />
+        <ReferenceArrayInput
+          source="logsItems"
+          reference="Logs"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={LogsTitle} />
+        </ReferenceArrayInput>
         <ReferenceArrayInput
           source="meters"
           reference="Meter"

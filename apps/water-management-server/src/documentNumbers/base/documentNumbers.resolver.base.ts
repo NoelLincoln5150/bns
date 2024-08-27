@@ -18,10 +18,13 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { DocumentNumbers } from "./DocumentNumbers";
 import { DocumentNumbersCountArgs } from "./DocumentNumbersCountArgs";
 import { DocumentNumbersFindManyArgs } from "./DocumentNumbersFindManyArgs";
 import { DocumentNumbersFindUniqueArgs } from "./DocumentNumbersFindUniqueArgs";
+import { CreateDocumentNumbersArgs } from "./CreateDocumentNumbersArgs";
+import { UpdateDocumentNumbersArgs } from "./UpdateDocumentNumbersArgs";
 import { DeleteDocumentNumbersArgs } from "./DeleteDocumentNumbersArgs";
 import { DocumentNumbersService } from "../documentNumbers.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -75,6 +78,47 @@ export class DocumentNumbersResolverBase {
       return null;
     }
     return result;
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => DocumentNumbers)
+  @nestAccessControl.UseRoles({
+    resource: "DocumentNumbers",
+    action: "create",
+    possession: "any",
+  })
+  async createDocumentNumbers(
+    @graphql.Args() args: CreateDocumentNumbersArgs
+  ): Promise<DocumentNumbers> {
+    return await this.service.createDocumentNumbers({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => DocumentNumbers)
+  @nestAccessControl.UseRoles({
+    resource: "DocumentNumbers",
+    action: "update",
+    possession: "any",
+  })
+  async updateDocumentNumbers(
+    @graphql.Args() args: UpdateDocumentNumbersArgs
+  ): Promise<DocumentNumbers | null> {
+    try {
+      return await this.service.updateDocumentNumbers({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => DocumentNumbers)

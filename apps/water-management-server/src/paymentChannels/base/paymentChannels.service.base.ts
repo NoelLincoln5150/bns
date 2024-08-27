@@ -10,9 +10,11 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
   PaymentChannels as PrismaPaymentChannels,
+  PaymentTypes as PrismaPaymentTypes,
 } from "@prisma/client";
 
 export class PaymentChannelsServiceBase {
@@ -48,5 +50,13 @@ export class PaymentChannelsServiceBase {
     args: Prisma.PaymentChannelsDeleteArgs
   ): Promise<PrismaPaymentChannels> {
     return this.prisma.paymentChannels.delete(args);
+  }
+
+  async getPaymentType(parentId: string): Promise<PrismaPaymentTypes | null> {
+    return this.prisma.paymentChannels
+      .findUnique({
+        where: { id: parentId },
+      })
+      .paymentType();
   }
 }

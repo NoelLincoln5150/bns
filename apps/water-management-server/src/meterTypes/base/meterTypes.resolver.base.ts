@@ -18,11 +18,16 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { MeterTypes } from "./MeterTypes";
 import { MeterTypesCountArgs } from "./MeterTypesCountArgs";
 import { MeterTypesFindManyArgs } from "./MeterTypesFindManyArgs";
 import { MeterTypesFindUniqueArgs } from "./MeterTypesFindUniqueArgs";
+import { CreateMeterTypesArgs } from "./CreateMeterTypesArgs";
+import { UpdateMeterTypesArgs } from "./UpdateMeterTypesArgs";
 import { DeleteMeterTypesArgs } from "./DeleteMeterTypesArgs";
+import { MeterFindManyArgs } from "../../meter/base/MeterFindManyArgs";
+import { Meter } from "../../meter/base/Meter";
 import { MeterTypesService } from "../meterTypes.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => MeterTypes)
@@ -77,6 +82,47 @@ export class MeterTypesResolverBase {
     return result;
   }
 
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => MeterTypes)
+  @nestAccessControl.UseRoles({
+    resource: "MeterTypes",
+    action: "create",
+    possession: "any",
+  })
+  async createMeterTypes(
+    @graphql.Args() args: CreateMeterTypesArgs
+  ): Promise<MeterTypes> {
+    return await this.service.createMeterTypes({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => MeterTypes)
+  @nestAccessControl.UseRoles({
+    resource: "MeterTypes",
+    action: "update",
+    possession: "any",
+  })
+  async updateMeterTypes(
+    @graphql.Args() args: UpdateMeterTypesArgs
+  ): Promise<MeterTypes | null> {
+    try {
+      return await this.service.updateMeterTypes({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
+  }
+
   @graphql.Mutation(() => MeterTypes)
   @nestAccessControl.UseRoles({
     resource: "MeterTypes",
@@ -96,5 +142,25 @@ export class MeterTypesResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Meter], { name: "meters" })
+  @nestAccessControl.UseRoles({
+    resource: "Meter",
+    action: "read",
+    possession: "any",
+  })
+  async findMeters(
+    @graphql.Parent() parent: MeterTypes,
+    @graphql.Args() args: MeterFindManyArgs
+  ): Promise<Meter[]> {
+    const results = await this.service.findMeters(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 }

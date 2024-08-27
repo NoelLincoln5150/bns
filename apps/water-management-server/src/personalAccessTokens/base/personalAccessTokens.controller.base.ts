@@ -51,8 +51,15 @@ export class PersonalAccessTokensControllerBase {
     return await this.service.createPersonalAccessTokens({
       data: data,
       select: {
+        abilities: true,
         createdAt: true,
+        expiresAt: true,
         id: true,
+        lastUsedAt: true,
+        name: true,
+        token: true,
+        tokenableId: true,
+        tokenableType: true,
         updatedAt: true,
       },
     });
@@ -77,8 +84,15 @@ export class PersonalAccessTokensControllerBase {
     return this.service.personalAccessTokensItems({
       ...args,
       select: {
+        abilities: true,
         createdAt: true,
+        expiresAt: true,
         id: true,
+        lastUsedAt: true,
+        name: true,
+        token: true,
+        tokenableId: true,
+        tokenableType: true,
         updatedAt: true,
       },
     });
@@ -102,8 +116,15 @@ export class PersonalAccessTokensControllerBase {
     const result = await this.service.personalAccessTokens({
       where: params,
       select: {
+        abilities: true,
         createdAt: true,
+        expiresAt: true,
         id: true,
+        lastUsedAt: true,
+        name: true,
+        token: true,
+        tokenableId: true,
+        tokenableType: true,
         updatedAt: true,
       },
     });
@@ -136,8 +157,15 @@ export class PersonalAccessTokensControllerBase {
         where: params,
         data: data,
         select: {
+          abilities: true,
           createdAt: true,
+          expiresAt: true,
           id: true,
+          lastUsedAt: true,
+          name: true,
+          token: true,
+          tokenableId: true,
+          tokenableType: true,
           updatedAt: true,
         },
       });
@@ -169,8 +197,15 @@ export class PersonalAccessTokensControllerBase {
       return await this.service.deletePersonalAccessTokens({
         where: params,
         select: {
+          abilities: true,
           createdAt: true,
+          expiresAt: true,
           id: true,
+          lastUsedAt: true,
+          name: true,
+          token: true,
+          tokenableId: true,
+          tokenableType: true,
           updatedAt: true,
         },
       });

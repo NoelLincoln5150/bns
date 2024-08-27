@@ -26,6 +26,9 @@ import { WaterSources } from "./WaterSources";
 import { WaterSourcesFindManyArgs } from "./WaterSourcesFindManyArgs";
 import { WaterSourcesWhereUniqueInput } from "./WaterSourcesWhereUniqueInput";
 import { WaterSourcesUpdateInput } from "./WaterSourcesUpdateInput";
+import { PremisesWaterSourceFindManyArgs } from "../../premisesWaterSource/base/PremisesWaterSourceFindManyArgs";
+import { PremisesWaterSource } from "../../premisesWaterSource/base/PremisesWaterSource";
+import { PremisesWaterSourceWhereUniqueInput } from "../../premisesWaterSource/base/PremisesWaterSourceWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -247,5 +250,107 @@ export class WaterSourcesControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/premisesWaterSources")
+  @ApiNestedQuery(PremisesWaterSourceFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "PremisesWaterSource",
+    action: "read",
+    possession: "any",
+  })
+  async findPremisesWaterSources(
+    @common.Req() request: Request,
+    @common.Param() params: WaterSourcesWhereUniqueInput
+  ): Promise<PremisesWaterSource[]> {
+    const query = plainToClass(PremisesWaterSourceFindManyArgs, request.query);
+    const results = await this.service.findPremisesWaterSources(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+        premisesId: true,
+        updatedAt: true,
+
+        waterSourceId: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/premisesWaterSources")
+  @nestAccessControl.UseRoles({
+    resource: "WaterSources",
+    action: "update",
+    possession: "any",
+  })
+  async connectPremisesWaterSources(
+    @common.Param() params: WaterSourcesWhereUniqueInput,
+    @common.Body() body: PremisesWaterSourceWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      premisesWaterSources: {
+        connect: body,
+      },
+    };
+    await this.service.updateWaterSources({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/premisesWaterSources")
+  @nestAccessControl.UseRoles({
+    resource: "WaterSources",
+    action: "update",
+    possession: "any",
+  })
+  async updatePremisesWaterSources(
+    @common.Param() params: WaterSourcesWhereUniqueInput,
+    @common.Body() body: PremisesWaterSourceWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      premisesWaterSources: {
+        set: body,
+      },
+    };
+    await this.service.updateWaterSources({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/premisesWaterSources")
+  @nestAccessControl.UseRoles({
+    resource: "WaterSources",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectPremisesWaterSources(
+    @common.Param() params: WaterSourcesWhereUniqueInput,
+    @common.Body() body: PremisesWaterSourceWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      premisesWaterSources: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateWaterSources({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

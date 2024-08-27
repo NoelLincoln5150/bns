@@ -18,10 +18,13 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { Migrations } from "./Migrations";
 import { MigrationsCountArgs } from "./MigrationsCountArgs";
 import { MigrationsFindManyArgs } from "./MigrationsFindManyArgs";
 import { MigrationsFindUniqueArgs } from "./MigrationsFindUniqueArgs";
+import { CreateMigrationsArgs } from "./CreateMigrationsArgs";
+import { UpdateMigrationsArgs } from "./UpdateMigrationsArgs";
 import { DeleteMigrationsArgs } from "./DeleteMigrationsArgs";
 import { MigrationsService } from "../migrations.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -75,6 +78,47 @@ export class MigrationsResolverBase {
       return null;
     }
     return result;
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Migrations)
+  @nestAccessControl.UseRoles({
+    resource: "Migrations",
+    action: "create",
+    possession: "any",
+  })
+  async createMigrations(
+    @graphql.Args() args: CreateMigrationsArgs
+  ): Promise<Migrations> {
+    return await this.service.createMigrations({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Migrations)
+  @nestAccessControl.UseRoles({
+    resource: "Migrations",
+    action: "update",
+    possession: "any",
+  })
+  async updateMigrations(
+    @graphql.Args() args: UpdateMigrationsArgs
+  ): Promise<Migrations | null> {
+    try {
+      return await this.service.updateMigrations({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => Migrations)

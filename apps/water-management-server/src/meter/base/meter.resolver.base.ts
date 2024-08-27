@@ -26,6 +26,9 @@ import { MeterFindUniqueArgs } from "./MeterFindUniqueArgs";
 import { CreateMeterArgs } from "./CreateMeterArgs";
 import { UpdateMeterArgs } from "./UpdateMeterArgs";
 import { DeleteMeterArgs } from "./DeleteMeterArgs";
+import { CustomerMeterFindManyArgs } from "../../customerMeter/base/CustomerMeterFindManyArgs";
+import { CustomerMeter } from "../../customerMeter/base/CustomerMeter";
+import { MeterTypes } from "../../meterTypes/base/MeterTypes";
 import { Usage } from "../../usage/base/Usage";
 import { User } from "../../user/base/User";
 import { MeterService } from "../meter.service";
@@ -93,6 +96,12 @@ export class MeterResolverBase {
       data: {
         ...args.data,
 
+        meterType: args.data.meterType
+          ? {
+              connect: args.data.meterType,
+            }
+          : undefined,
+
         usages: args.data.usages
           ? {
               connect: args.data.usages,
@@ -123,6 +132,12 @@ export class MeterResolverBase {
         ...args,
         data: {
           ...args.data,
+
+          meterType: args.data.meterType
+            ? {
+                connect: args.data.meterType,
+              }
+            : undefined,
 
           usages: args.data.usages
             ? {
@@ -166,6 +181,47 @@ export class MeterResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [CustomerMeter], { name: "customerMeters" })
+  @nestAccessControl.UseRoles({
+    resource: "CustomerMeter",
+    action: "read",
+    possession: "any",
+  })
+  async findCustomerMeters(
+    @graphql.Parent() parent: Meter,
+    @graphql.Args() args: CustomerMeterFindManyArgs
+  ): Promise<CustomerMeter[]> {
+    const results = await this.service.findCustomerMeters(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => MeterTypes, {
+    nullable: true,
+    name: "meterType",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "MeterTypes",
+    action: "read",
+    possession: "any",
+  })
+  async getMeterType(
+    @graphql.Parent() parent: Meter
+  ): Promise<MeterTypes | null> {
+    const result = await this.service.getMeterType(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

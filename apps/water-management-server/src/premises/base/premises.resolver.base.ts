@@ -18,10 +18,13 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { Premises } from "./Premises";
 import { PremisesCountArgs } from "./PremisesCountArgs";
 import { PremisesFindManyArgs } from "./PremisesFindManyArgs";
 import { PremisesFindUniqueArgs } from "./PremisesFindUniqueArgs";
+import { CreatePremisesArgs } from "./CreatePremisesArgs";
+import { UpdatePremisesArgs } from "./UpdatePremisesArgs";
 import { DeletePremisesArgs } from "./DeletePremisesArgs";
 import { PremisesService } from "../premises.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -75,6 +78,47 @@ export class PremisesResolverBase {
       return null;
     }
     return result;
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Premises)
+  @nestAccessControl.UseRoles({
+    resource: "Premises",
+    action: "create",
+    possession: "any",
+  })
+  async createPremises(
+    @graphql.Args() args: CreatePremisesArgs
+  ): Promise<Premises> {
+    return await this.service.createPremises({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Premises)
+  @nestAccessControl.UseRoles({
+    resource: "Premises",
+    action: "update",
+    possession: "any",
+  })
+  async updatePremises(
+    @graphql.Args() args: UpdatePremisesArgs
+  ): Promise<Premises | null> {
+    try {
+      return await this.service.updatePremises({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => Premises)

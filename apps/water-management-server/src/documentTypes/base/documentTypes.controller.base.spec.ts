@@ -18,25 +18,49 @@ import { DocumentTypesService } from "../documentTypes.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  code: "exampleCode",
   createdAt: new Date(),
+  deletedAt: new Date(),
   id: "exampleId",
+  movement: "exampleMovement",
+  name: "exampleName",
+  requirePayment: "exampleRequirePayment",
+  typeField: "exampleTypeField",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  code: "exampleCode",
   createdAt: new Date(),
+  deletedAt: new Date(),
   id: "exampleId",
+  movement: "exampleMovement",
+  name: "exampleName",
+  requirePayment: "exampleRequirePayment",
+  typeField: "exampleTypeField",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    code: "exampleCode",
     createdAt: new Date(),
+    deletedAt: new Date(),
     id: "exampleId",
+    movement: "exampleMovement",
+    name: "exampleName",
+    requirePayment: "exampleRequirePayment",
+    typeField: "exampleTypeField",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  code: "exampleCode",
   createdAt: new Date(),
+  deletedAt: new Date(),
   id: "exampleId",
+  movement: "exampleMovement",
+  name: "exampleName",
+  requirePayment: "exampleRequirePayment",
+  typeField: "exampleTypeField",
   updatedAt: new Date(),
 };
 
@@ -123,6 +147,7 @@ describe("DocumentTypes", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        deletedAt: CREATE_RESULT.deletedAt.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -135,6 +160,7 @@ describe("DocumentTypes", () => {
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
+          deletedAt: FIND_MANY_RESULT[0].deletedAt.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
@@ -158,6 +184,7 @@ describe("DocumentTypes", () => {
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
+        deletedAt: FIND_ONE_RESULT.deletedAt.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -171,6 +198,7 @@ describe("DocumentTypes", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        deletedAt: CREATE_RESULT.deletedAt.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {

@@ -47,11 +47,33 @@ export class LogsControllerBase {
   })
   async createLogs(@common.Body() data: LogsCreateInput): Promise<Logs> {
     return await this.service.createLogs({
-      data: data,
+      data: {
+        ...data,
+
+        userId: data.userId
+          ? {
+              connect: data.userId,
+            }
+          : undefined,
+      },
       select: {
+        action: true,
         createdAt: true,
+        deletedAt: true,
         id: true,
+        ipAddress: true,
+        message: true,
+        requestPayload: true,
+        resourceId: true,
+        resourceModel: true,
+        updateValues: true,
         updatedAt: true,
+
+        userId: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -73,9 +95,23 @@ export class LogsControllerBase {
     return this.service.logsItems({
       ...args,
       select: {
+        action: true,
         createdAt: true,
+        deletedAt: true,
         id: true,
+        ipAddress: true,
+        message: true,
+        requestPayload: true,
+        resourceId: true,
+        resourceModel: true,
+        updateValues: true,
         updatedAt: true,
+
+        userId: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -98,9 +134,23 @@ export class LogsControllerBase {
     const result = await this.service.logs({
       where: params,
       select: {
+        action: true,
         createdAt: true,
+        deletedAt: true,
         id: true,
+        ipAddress: true,
+        message: true,
+        requestPayload: true,
+        resourceId: true,
+        resourceModel: true,
+        updateValues: true,
         updatedAt: true,
+
+        userId: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     if (result === null) {
@@ -130,11 +180,33 @@ export class LogsControllerBase {
     try {
       return await this.service.updateLogs({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          userId: data.userId
+            ? {
+                connect: data.userId,
+              }
+            : undefined,
+        },
         select: {
+          action: true,
           createdAt: true,
+          deletedAt: true,
           id: true,
+          ipAddress: true,
+          message: true,
+          requestPayload: true,
+          resourceId: true,
+          resourceModel: true,
+          updateValues: true,
           updatedAt: true,
+
+          userId: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
@@ -165,9 +237,23 @@ export class LogsControllerBase {
       return await this.service.deleteLogs({
         where: params,
         select: {
+          action: true,
           createdAt: true,
+          deletedAt: true,
           id: true,
+          ipAddress: true,
+          message: true,
+          requestPayload: true,
+          resourceId: true,
+          resourceModel: true,
+          updateValues: true,
           updatedAt: true,
+
+          userId: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {

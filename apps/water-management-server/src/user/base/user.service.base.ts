@@ -14,6 +14,7 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   User as PrismaUser,
+  Logs as PrismaLogs,
   Meter as PrismaMeter,
   Role as PrismaRole,
   Ticket as PrismaTicket,
@@ -66,6 +67,17 @@ export class UserServiceBase {
   }
   async deleteUser(args: Prisma.UserDeleteArgs): Promise<PrismaUser> {
     return this.prisma.user.delete(args);
+  }
+
+  async findLogsItems(
+    parentId: string,
+    args: Prisma.LogsFindManyArgs
+  ): Promise<PrismaLogs[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .logsItems(args);
   }
 
   async findMeters(

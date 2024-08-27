@@ -1,11 +1,15 @@
 import * as React from "react";
+
 import {
   Create,
   SimpleForm,
   CreateProps,
   ReferenceArrayInput,
   SelectArrayInput,
+  DateTimeInput,
+  BooleanInput,
 } from "react-admin";
+
 import { B2bTransactionsTitle } from "../b2bTransactions/B2bTransactionsTitle";
 
 export const PaymentAccountsCreate = (
@@ -22,6 +26,8 @@ export const PaymentAccountsCreate = (
         >
           <SelectArrayInput optionText={B2bTransactionsTitle} />
         </ReferenceArrayInput>
+        <DateTimeInput label="deleted_at" source="deletedAt" />
+        <BooleanInput label="enabled" source="enabled" />
       </SimpleForm>
     </Create>
   );

@@ -19,24 +19,44 @@ const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
   createdAt: new Date(),
+  deletedAt: "exampleDeletedAt",
+  documentableId: "exampleDocumentableId",
+  documentableType: "exampleDocumentableType",
   id: "exampleId",
+  numberField: "exampleNumberField",
+  paid: "true",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
   createdAt: new Date(),
+  deletedAt: "exampleDeletedAt",
+  documentableId: "exampleDocumentableId",
+  documentableType: "exampleDocumentableType",
   id: "exampleId",
+  numberField: "exampleNumberField",
+  paid: "true",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
     createdAt: new Date(),
+    deletedAt: "exampleDeletedAt",
+    documentableId: "exampleDocumentableId",
+    documentableType: "exampleDocumentableType",
     id: "exampleId",
+    numberField: "exampleNumberField",
+    paid: "true",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
   createdAt: new Date(),
+  deletedAt: "exampleDeletedAt",
+  documentableId: "exampleDocumentableId",
+  documentableType: "exampleDocumentableType",
   id: "exampleId",
+  numberField: "exampleNumberField",
+  paid: "true",
   updatedAt: new Date(),
 };
 

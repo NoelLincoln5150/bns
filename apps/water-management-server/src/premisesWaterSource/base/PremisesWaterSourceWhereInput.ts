@@ -13,7 +13,9 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { IsOptional, ValidateNested } from "class-validator";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { WaterSourcesWhereUniqueInput } from "../../waterSources/base/WaterSourcesWhereUniqueInput";
 
 @InputType()
 class PremisesWaterSourceWhereInput {
@@ -27,6 +29,29 @@ class PremisesWaterSourceWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  premisesId?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => WaterSourcesWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => WaterSourcesWhereUniqueInput)
+  @IsOptional()
+  @Field(() => WaterSourcesWhereUniqueInput, {
+    nullable: true,
+  })
+  waterSourceId?: WaterSourcesWhereUniqueInput;
 }
 
 export { PremisesWaterSourceWhereInput as PremisesWaterSourceWhereInput };

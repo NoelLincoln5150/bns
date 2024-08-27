@@ -18,11 +18,16 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { CustomerMeter } from "./CustomerMeter";
 import { CustomerMeterCountArgs } from "./CustomerMeterCountArgs";
 import { CustomerMeterFindManyArgs } from "./CustomerMeterFindManyArgs";
 import { CustomerMeterFindUniqueArgs } from "./CustomerMeterFindUniqueArgs";
+import { CreateCustomerMeterArgs } from "./CreateCustomerMeterArgs";
+import { UpdateCustomerMeterArgs } from "./UpdateCustomerMeterArgs";
 import { DeleteCustomerMeterArgs } from "./DeleteCustomerMeterArgs";
+import { Customers } from "../../customers/base/Customers";
+import { Meter } from "../../meter/base/Meter";
 import { CustomerMeterService } from "../customerMeter.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => CustomerMeter)
@@ -77,6 +82,75 @@ export class CustomerMeterResolverBase {
     return result;
   }
 
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => CustomerMeter)
+  @nestAccessControl.UseRoles({
+    resource: "CustomerMeter",
+    action: "create",
+    possession: "any",
+  })
+  async createCustomerMeter(
+    @graphql.Args() args: CreateCustomerMeterArgs
+  ): Promise<CustomerMeter> {
+    return await this.service.createCustomerMeter({
+      ...args,
+      data: {
+        ...args.data,
+
+        customer: args.data.customer
+          ? {
+              connect: args.data.customer,
+            }
+          : undefined,
+
+        meterId: args.data.meterId
+          ? {
+              connect: args.data.meterId,
+            }
+          : undefined,
+      },
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => CustomerMeter)
+  @nestAccessControl.UseRoles({
+    resource: "CustomerMeter",
+    action: "update",
+    possession: "any",
+  })
+  async updateCustomerMeter(
+    @graphql.Args() args: UpdateCustomerMeterArgs
+  ): Promise<CustomerMeter | null> {
+    try {
+      return await this.service.updateCustomerMeter({
+        ...args,
+        data: {
+          ...args.data,
+
+          customer: args.data.customer
+            ? {
+                connect: args.data.customer,
+              }
+            : undefined,
+
+          meterId: args.data.meterId
+            ? {
+                connect: args.data.meterId,
+              }
+            : undefined,
+        },
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
+  }
+
   @graphql.Mutation(() => CustomerMeter)
   @nestAccessControl.UseRoles({
     resource: "CustomerMeter",
@@ -96,5 +170,47 @@ export class CustomerMeterResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Customers, {
+    nullable: true,
+    name: "customer",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Customers",
+    action: "read",
+    possession: "any",
+  })
+  async getCustomer(
+    @graphql.Parent() parent: CustomerMeter
+  ): Promise<Customers | null> {
+    const result = await this.service.getCustomer(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Meter, {
+    nullable: true,
+    name: "meterId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Meter",
+    action: "read",
+    possession: "any",
+  })
+  async getMeterId(
+    @graphql.Parent() parent: CustomerMeter
+  ): Promise<Meter | null> {
+    const result = await this.service.getMeterId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

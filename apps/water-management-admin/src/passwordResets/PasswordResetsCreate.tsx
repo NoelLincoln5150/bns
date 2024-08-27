@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Create, SimpleForm, CreateProps } from "react-admin";
+import { Create, SimpleForm, CreateProps, TextInput } from "react-admin";
 
 export const PasswordResetsCreate = (
   props: CreateProps
@@ -7,7 +7,8 @@ export const PasswordResetsCreate = (
   return (
     <Create {...props}>
       <SimpleForm>
-        <div />
+        <TextInput label="email" source="email" type="email" />
+        <TextInput label="token" source="token" />
       </SimpleForm>
     </Create>
   );

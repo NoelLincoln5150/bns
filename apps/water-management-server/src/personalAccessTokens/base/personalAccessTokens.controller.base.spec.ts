@@ -18,25 +18,53 @@ import { PersonalAccessTokensService } from "../personalAccessTokens.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  abilities: "exampleAbilities",
   createdAt: new Date(),
+  expiresAt: "exampleExpiresAt",
   id: "exampleId",
+  lastUsedAt: "exampleLastUsedAt",
+  name: "exampleName",
+  token: "exampleToken",
+  tokenableId: "exampleTokenableId",
+  tokenableType: "exampleTokenableType",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  abilities: "exampleAbilities",
   createdAt: new Date(),
+  expiresAt: "exampleExpiresAt",
   id: "exampleId",
+  lastUsedAt: "exampleLastUsedAt",
+  name: "exampleName",
+  token: "exampleToken",
+  tokenableId: "exampleTokenableId",
+  tokenableType: "exampleTokenableType",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    abilities: "exampleAbilities",
     createdAt: new Date(),
+    expiresAt: "exampleExpiresAt",
     id: "exampleId",
+    lastUsedAt: "exampleLastUsedAt",
+    name: "exampleName",
+    token: "exampleToken",
+    tokenableId: "exampleTokenableId",
+    tokenableType: "exampleTokenableType",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  abilities: "exampleAbilities",
   createdAt: new Date(),
+  expiresAt: "exampleExpiresAt",
   id: "exampleId",
+  lastUsedAt: "exampleLastUsedAt",
+  name: "exampleName",
+  token: "exampleToken",
+  tokenableId: "exampleTokenableId",
+  tokenableType: "exampleTokenableType",
   updatedAt: new Date(),
 };
 

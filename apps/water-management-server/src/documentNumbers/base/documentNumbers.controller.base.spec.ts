@@ -18,26 +18,50 @@ import { DocumentNumbersService } from "../documentNumbers.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  code: "exampleCode",
+  count: "exampleCount",
   createdAt: new Date(),
+  deletedAt: "exampleDeletedAt",
+  description: "exampleDescription",
   id: "exampleId",
+  name: "exampleName",
   updatedAt: new Date(),
+  year: new Date(),
 };
 const CREATE_RESULT = {
+  code: "exampleCode",
+  count: "exampleCount",
   createdAt: new Date(),
+  deletedAt: "exampleDeletedAt",
+  description: "exampleDescription",
   id: "exampleId",
+  name: "exampleName",
   updatedAt: new Date(),
+  year: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    code: "exampleCode",
+    count: "exampleCount",
     createdAt: new Date(),
+    deletedAt: "exampleDeletedAt",
+    description: "exampleDescription",
     id: "exampleId",
+    name: "exampleName",
     updatedAt: new Date(),
+    year: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  code: "exampleCode",
+  count: "exampleCount",
   createdAt: new Date(),
+  deletedAt: "exampleDeletedAt",
+  description: "exampleDescription",
   id: "exampleId",
+  name: "exampleName",
   updatedAt: new Date(),
+  year: new Date(),
 };
 
 const service = {
@@ -124,6 +148,7 @@ describe("DocumentNumbers", () => {
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
+        year: CREATE_RESULT.year.toISOString(),
       });
   });
 
@@ -136,6 +161,7 @@ describe("DocumentNumbers", () => {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
+          year: FIND_MANY_RESULT[0].year.toISOString(),
         },
       ]);
   });
@@ -159,6 +185,7 @@ describe("DocumentNumbers", () => {
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
+        year: FIND_ONE_RESULT.year.toISOString(),
       });
   });
 
@@ -172,6 +199,7 @@ describe("DocumentNumbers", () => {
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
+        year: CREATE_RESULT.year.toISOString(),
       })
       .then(function () {
         agent

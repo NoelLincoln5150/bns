@@ -51,9 +51,15 @@ export class DocumentNumbersControllerBase {
     return await this.service.createDocumentNumbers({
       data: data,
       select: {
+        code: true,
+        count: true,
         createdAt: true,
+        deletedAt: true,
+        description: true,
         id: true,
+        name: true,
         updatedAt: true,
+        year: true,
       },
     });
   }
@@ -77,9 +83,15 @@ export class DocumentNumbersControllerBase {
     return this.service.documentNumbersItems({
       ...args,
       select: {
+        code: true,
+        count: true,
         createdAt: true,
+        deletedAt: true,
+        description: true,
         id: true,
+        name: true,
         updatedAt: true,
+        year: true,
       },
     });
   }
@@ -102,9 +114,15 @@ export class DocumentNumbersControllerBase {
     const result = await this.service.documentNumbers({
       where: params,
       select: {
+        code: true,
+        count: true,
         createdAt: true,
+        deletedAt: true,
+        description: true,
         id: true,
+        name: true,
         updatedAt: true,
+        year: true,
       },
     });
     if (result === null) {
@@ -136,9 +154,15 @@ export class DocumentNumbersControllerBase {
         where: params,
         data: data,
         select: {
+          code: true,
+          count: true,
           createdAt: true,
+          deletedAt: true,
+          description: true,
           id: true,
+          name: true,
           updatedAt: true,
+          year: true,
         },
       });
     } catch (error) {
@@ -169,9 +193,15 @@ export class DocumentNumbersControllerBase {
       return await this.service.deleteDocumentNumbers({
         where: params,
         select: {
+          code: true,
+          count: true,
           createdAt: true,
+          deletedAt: true,
+          description: true,
           id: true,
+          name: true,
           updatedAt: true,
+          year: true,
         },
       });
     } catch (error) {

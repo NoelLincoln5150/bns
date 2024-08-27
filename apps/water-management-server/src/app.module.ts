@@ -1,49 +1,54 @@
 import { Module } from "@nestjs/common";
-import { MeterModule } from "./meter/meter.module";
 import { TicketModule } from "./ticket/ticket.module";
+import { MeterModule } from "./meter/meter.module";
 import { UsageModule } from "./usage/usage.module";
 import { RoleModule } from "./role/role.module";
 import { UserModule } from "./user/user.module";
-import { AlertModule } from "./alert/alert.module";
-import { PrepaidMeterModule } from "./prepaidMeter/prepaidMeter.module";
 import { MeterDataModule } from "./meterData/meterData.module";
 import { CommandModule } from "./command/command.module";
-import { CustomerMeterModule } from "./customerMeter/customerMeter.module";
+import { AlertModule } from "./alert/alert.module";
+import { PrepaidMeterModule } from "./prepaidMeter/prepaidMeter.module";
 import { DocumentsModule } from "./documents/documents.module";
 import { CustomersModule } from "./customers/customers.module";
-import { StocksModule } from "./stocks/stocks.module";
-import { PremisesModule } from "./premises/premises.module";
+import { CustomerMeterModule } from "./customerMeter/customerMeter.module";
 import { PersonalAccessTokensModule } from "./personalAccessTokens/personalAccessTokens.module";
 import { SuppliersModule } from "./suppliers/suppliers.module";
+import { PremisesModule } from "./premises/premises.module";
 import { TaxablesModule } from "./taxables/taxables.module";
-import { PaymentAccountsModule } from "./paymentAccounts/paymentAccounts.module";
-import { PasswordResetTokensModule } from "./passwordResetTokens/passwordResetTokens.module";
-import { ShortCodesModule } from "./shortCodes/shortCodes.module";
-import { PremisesWaterSourceModule } from "./premisesWaterSource/premisesWaterSource.module";
-import { DocumentNumbersModule } from "./documentNumbers/documentNumbers.module";
-import { DocumentTypesModule } from "./documentTypes/documentTypes.module";
-import { RevenueSharesModule } from "./revenueShares/revenueShares.module";
-import { MetersModule } from "./meters/meters.module";
+import { StocksModule } from "./stocks/stocks.module";
 import { DocumentPaymentsModule } from "./documentPayments/documentPayments.module";
+import { RevenueSharesModule } from "./revenueShares/revenueShares.module";
+import { PremisesWaterSourceModule } from "./premisesWaterSource/premisesWaterSource.module";
+import { ProductListsModule } from "./productLists/productLists.module";
+import { MetersModule } from "./meters/meters.module";
 import { ProductListStockModule } from "./productListStock/productListStock.module";
 import { TaxesModule } from "./taxes/taxes.module";
-import { WaterTokensModule } from "./waterTokens/waterTokens.module";
-import { LogsModule } from "./logs/logs.module";
-import { TransactionCostsModule } from "./transactionCosts/transactionCosts.module";
-import { WaterSourcesModule } from "./waterSources/waterSources.module";
 import { ProductsModule } from "./products/products.module";
+import { WaterTokensModule } from "./waterTokens/waterTokens.module";
+import { TransactionCostsModule } from "./transactionCosts/transactionCosts.module";
+import { PaymentAccountsModule } from "./paymentAccounts/paymentAccounts.module";
+import { DocumentNumbersModule } from "./documentNumbers/documentNumbers.module";
+import { LogsModule } from "./logs/logs.module";
 import { FailedJobsModule } from "./failedJobs/failedJobs.module";
-import { ProductListsModule } from "./productLists/productLists.module";
+import { PasswordResetTokensModule } from "./passwordResetTokens/passwordResetTokens.module";
+import { DocumentTypesModule } from "./documentTypes/documentTypes.module";
+import { WaterSourcesModule } from "./waterSources/waterSources.module";
+import { ShortCodesModule } from "./shortCodes/shortCodes.module";
 import { MeterTypesModule } from "./meterTypes/meterTypes.module";
-import { OtpsModule } from "./otps/otps.module";
-import { PasswordResetsModule } from "./passwordResets/passwordResets.module";
 import { PaymentTypesModule } from "./paymentTypes/paymentTypes.module";
-import { MigrationsModule } from "./migrations/migrations.module";
+import { OtpsModule } from "./otps/otps.module";
 import { PaymentChannelsModule } from "./paymentChannels/paymentChannels.module";
+import { PasswordResetsModule } from "./passwordResets/passwordResets.module";
 import { NotesModule } from "./notes/notes.module";
+import { MigrationsModule } from "./migrations/migrations.module";
 import { B2bTransactionsModule } from "./b2bTransactions/b2bTransactions.module";
 import { BankPaybillModule } from "./bankPaybill/bankPaybill.module";
 import { C2bTransactionsModule } from "./c2bTransactions/c2bTransactions.module";
+import { ContractPartyModule } from "./contractParty/contractParty.module";
+import { ContractModule } from "./contract/contract.module";
+import { ContactModule } from "./contact/contact.module";
+import { CategoryModule } from "./category/category.module";
+import { CategoryProductModule } from "./categoryProduct/categoryProduct.module";
 import { IoTModule } from "./iot/iot.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
@@ -66,51 +71,56 @@ import { AuthModule } from "./auth/auth.module";
     AuthModule,
     MqttModule,
     KafkaModule,
-    MeterModule,
     TicketModule,
+    MeterModule,
     UsageModule,
     RoleModule,
     UserModule,
-    AlertModule,
-    PrepaidMeterModule,
     MeterDataModule,
     CommandModule,
-    CustomerMeterModule,
+    AlertModule,
+    PrepaidMeterModule,
     DocumentsModule,
     CustomersModule,
-    StocksModule,
-    PremisesModule,
+    CustomerMeterModule,
     PersonalAccessTokensModule,
     SuppliersModule,
+    PremisesModule,
     TaxablesModule,
-    PaymentAccountsModule,
-    PasswordResetTokensModule,
-    ShortCodesModule,
-    PremisesWaterSourceModule,
-    DocumentNumbersModule,
-    DocumentTypesModule,
-    RevenueSharesModule,
-    MetersModule,
+    StocksModule,
     DocumentPaymentsModule,
+    RevenueSharesModule,
+    PremisesWaterSourceModule,
+    ProductListsModule,
+    MetersModule,
     ProductListStockModule,
     TaxesModule,
-    WaterTokensModule,
-    LogsModule,
-    TransactionCostsModule,
-    WaterSourcesModule,
     ProductsModule,
+    WaterTokensModule,
+    TransactionCostsModule,
+    PaymentAccountsModule,
+    DocumentNumbersModule,
+    LogsModule,
     FailedJobsModule,
-    ProductListsModule,
+    PasswordResetTokensModule,
+    DocumentTypesModule,
+    WaterSourcesModule,
+    ShortCodesModule,
     MeterTypesModule,
-    OtpsModule,
-    PasswordResetsModule,
     PaymentTypesModule,
-    MigrationsModule,
+    OtpsModule,
     PaymentChannelsModule,
+    PasswordResetsModule,
     NotesModule,
+    MigrationsModule,
     B2bTransactionsModule,
     BankPaybillModule,
     C2bTransactionsModule,
+    ContractPartyModule,
+    ContractModule,
+    ContactModule,
+    CategoryModule,
+    CategoryProductModule,
     IoTModule,
     HealthModule,
     PrismaModule,

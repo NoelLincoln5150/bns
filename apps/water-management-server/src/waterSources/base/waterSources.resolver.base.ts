@@ -26,6 +26,8 @@ import { WaterSourcesFindUniqueArgs } from "./WaterSourcesFindUniqueArgs";
 import { CreateWaterSourcesArgs } from "./CreateWaterSourcesArgs";
 import { UpdateWaterSourcesArgs } from "./UpdateWaterSourcesArgs";
 import { DeleteWaterSourcesArgs } from "./DeleteWaterSourcesArgs";
+import { PremisesWaterSourceFindManyArgs } from "../../premisesWaterSource/base/PremisesWaterSourceFindManyArgs";
+import { PremisesWaterSource } from "../../premisesWaterSource/base/PremisesWaterSource";
 import { WaterSourcesService } from "../waterSources.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => WaterSources)
@@ -140,5 +142,30 @@ export class WaterSourcesResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [PremisesWaterSource], {
+    name: "premisesWaterSources",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "PremisesWaterSource",
+    action: "read",
+    possession: "any",
+  })
+  async findPremisesWaterSources(
+    @graphql.Parent() parent: WaterSources,
+    @graphql.Args() args: PremisesWaterSourceFindManyArgs
+  ): Promise<PremisesWaterSource[]> {
+    const results = await this.service.findPremisesWaterSources(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 }

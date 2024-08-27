@@ -1,3 +1,4 @@
+import { Logs } from "../logs/Logs";
 import { Meter } from "../meter/Meter";
 import { Role } from "../role/Role";
 import { JsonValue } from "type-fest";
@@ -10,6 +11,7 @@ export type User = {
   firstName: string | null;
   id: string;
   lastName: string | null;
+  logsItems?: Array<Logs>;
   meters?: Array<Meter>;
   name: string | null;
   rememberToken: string | null;

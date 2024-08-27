@@ -11,8 +11,17 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString } from "class-validator";
+import {
+  IsDate,
+  IsString,
+  MaxLength,
+  IsOptional,
+  ValidateNested,
+  IsBoolean,
+} from "class-validator";
 import { Type } from "class-transformer";
+import { DocumentPayments } from "../../documentPayments/base/DocumentPayments";
+import { DocumentTypes } from "../../documentTypes/base/DocumentTypes";
 
 @ObjectType()
 class Documents {
@@ -25,12 +34,89 @@ class Documents {
   createdAt!: Date;
 
   @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  deletedAt!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [DocumentPayments],
+  })
+  @ValidateNested()
+  @Type(() => DocumentPayments)
+  @IsOptional()
+  documentPaymentsItems?: Array<DocumentPayments>;
+
+  @ApiProperty({
+    required: false,
+    type: () => DocumentTypes,
+  })
+  @ValidateNested()
+  @Type(() => DocumentTypes)
+  @IsOptional()
+  documentType?: DocumentTypes | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  documentableId!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  documentableType!: string | null;
+
+  @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  numberField!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  paid!: boolean | null;
 
   @ApiProperty({
     required: true,

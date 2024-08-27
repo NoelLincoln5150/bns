@@ -26,6 +26,8 @@ import { SuppliersFindUniqueArgs } from "./SuppliersFindUniqueArgs";
 import { CreateSuppliersArgs } from "./CreateSuppliersArgs";
 import { UpdateSuppliersArgs } from "./UpdateSuppliersArgs";
 import { DeleteSuppliersArgs } from "./DeleteSuppliersArgs";
+import { ContractFindManyArgs } from "../../contract/base/ContractFindManyArgs";
+import { Contract } from "../../contract/base/Contract";
 import { SuppliersService } from "../suppliers.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Suppliers)
@@ -140,5 +142,25 @@ export class SuppliersResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Contract], { name: "contracts" })
+  @nestAccessControl.UseRoles({
+    resource: "Contract",
+    action: "read",
+    possession: "any",
+  })
+  async findContracts(
+    @graphql.Parent() parent: Suppliers,
+    @graphql.Args() args: ContractFindManyArgs
+  ): Promise<Contract[]> {
+    const results = await this.service.findContracts(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 }

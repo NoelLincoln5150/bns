@@ -13,9 +13,11 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { JsonFilter } from "../../util/JsonFilter";
 import { Type } from "class-transformer";
-import { IsOptional, IsEnum, ValidateNested } from "class-validator";
+import { IsOptional, ValidateNested, IsEnum } from "class-validator";
+import { CustomerMeterListRelationFilter } from "../../customerMeter/base/CustomerMeterListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { MeterTypesWhereUniqueInput } from "../../meterTypes/base/MeterTypesWhereUniqueInput";
 import { EnumMeterStatus } from "./EnumMeterStatus";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { UsageWhereUniqueInput } from "../../usage/base/UsageWhereUniqueInput";
@@ -33,6 +35,18 @@ class MeterWhereInput {
     nullable: true,
   })
   coordinates?: JsonFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => CustomerMeterListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => CustomerMeterListRelationFilter)
+  @IsOptional()
+  @Field(() => CustomerMeterListRelationFilter, {
+    nullable: true,
+  })
+  customerMeters?: CustomerMeterListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -55,6 +69,18 @@ class MeterWhereInput {
     nullable: true,
   })
   installationDate?: DateTimeNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => MeterTypesWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => MeterTypesWhereUniqueInput)
+  @IsOptional()
+  @Field(() => MeterTypesWhereUniqueInput, {
+    nullable: true,
+  })
+  meterType?: MeterTypesWhereUniqueInput;
 
   @ApiProperty({
     required: false,

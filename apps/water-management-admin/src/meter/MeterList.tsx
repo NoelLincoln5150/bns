@@ -8,6 +8,7 @@ import {
   ReferenceField,
 } from "react-admin";
 import Pagination from "../Components/Pagination";
+import { METERTYPES_TITLE_FIELD } from "../meterTypes/MeterTypesTitle";
 import { USAGE_TITLE_FIELD } from "../usage/UsageTitle";
 import { USER_TITLE_FIELD } from "../user/UserTitle";
 
@@ -25,6 +26,13 @@ export const MeterList = (props: ListProps): React.ReactElement => {
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
         <TextField label="installationDate" source="installationDate" />
+        <ReferenceField
+          label="meter_type"
+          source="metertypes.id"
+          reference="MeterTypes"
+        >
+          <TextField source={METERTYPES_TITLE_FIELD} />
+        </ReferenceField>
         <TextField label="status" source="status" />
         <TextField label="tokenBalance" source="tokenBalance" />
         <DateField source="updatedAt" label="Updated At" />

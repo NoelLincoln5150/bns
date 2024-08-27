@@ -11,12 +11,71 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { IsOptional, ValidateNested } from "class-validator";
+import { DocumentPaymentsListRelationFilter } from "../../documentPayments/base/DocumentPaymentsListRelationFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { PaymentChannelsListRelationFilter } from "../../paymentChannels/base/PaymentChannelsListRelationFilter";
 
 @InputType()
 class PaymentTypesWhereInput {
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  canSettle?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  deletedAt?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  displayName?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => DocumentPaymentsListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => DocumentPaymentsListRelationFilter)
+  @IsOptional()
+  @Field(() => DocumentPaymentsListRelationFilter, {
+    nullable: true,
+  })
+  documentPaymentsItems?: DocumentPaymentsListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  enabled?: StringNullableFilter;
+
   @ApiProperty({
     required: false,
     type: StringFilter,
@@ -27,6 +86,29 @@ class PaymentTypesWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  name?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentChannelsListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PaymentChannelsListRelationFilter)
+  @IsOptional()
+  @Field(() => PaymentChannelsListRelationFilter, {
+    nullable: true,
+  })
+  paymentChannelsItems?: PaymentChannelsListRelationFilter;
 }
 
 export { PaymentTypesWhereInput as PaymentTypesWhereInput };

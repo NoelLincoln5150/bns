@@ -18,11 +18,17 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { DocumentPayments } from "./DocumentPayments";
 import { DocumentPaymentsCountArgs } from "./DocumentPaymentsCountArgs";
 import { DocumentPaymentsFindManyArgs } from "./DocumentPaymentsFindManyArgs";
 import { DocumentPaymentsFindUniqueArgs } from "./DocumentPaymentsFindUniqueArgs";
+import { CreateDocumentPaymentsArgs } from "./CreateDocumentPaymentsArgs";
+import { UpdateDocumentPaymentsArgs } from "./UpdateDocumentPaymentsArgs";
 import { DeleteDocumentPaymentsArgs } from "./DeleteDocumentPaymentsArgs";
+import { PaymentTypesFindManyArgs } from "../../paymentTypes/base/PaymentTypesFindManyArgs";
+import { PaymentTypes } from "../../paymentTypes/base/PaymentTypes";
+import { Documents } from "../../documents/base/Documents";
 import { DocumentPaymentsService } from "../documentPayments.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => DocumentPayments)
@@ -77,6 +83,63 @@ export class DocumentPaymentsResolverBase {
     return result;
   }
 
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => DocumentPayments)
+  @nestAccessControl.UseRoles({
+    resource: "DocumentPayments",
+    action: "create",
+    possession: "any",
+  })
+  async createDocumentPayments(
+    @graphql.Args() args: CreateDocumentPaymentsArgs
+  ): Promise<DocumentPayments> {
+    return await this.service.createDocumentPayments({
+      ...args,
+      data: {
+        ...args.data,
+
+        document: args.data.document
+          ? {
+              connect: args.data.document,
+            }
+          : undefined,
+      },
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => DocumentPayments)
+  @nestAccessControl.UseRoles({
+    resource: "DocumentPayments",
+    action: "update",
+    possession: "any",
+  })
+  async updateDocumentPayments(
+    @graphql.Args() args: UpdateDocumentPaymentsArgs
+  ): Promise<DocumentPayments | null> {
+    try {
+      return await this.service.updateDocumentPayments({
+        ...args,
+        data: {
+          ...args.data,
+
+          document: args.data.document
+            ? {
+                connect: args.data.document,
+              }
+            : undefined,
+        },
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
+  }
+
   @graphql.Mutation(() => DocumentPayments)
   @nestAccessControl.UseRoles({
     resource: "DocumentPayments",
@@ -96,5 +159,46 @@ export class DocumentPaymentsResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [PaymentTypes], { name: "paymentType" })
+  @nestAccessControl.UseRoles({
+    resource: "PaymentTypes",
+    action: "read",
+    possession: "any",
+  })
+  async findPaymentType(
+    @graphql.Parent() parent: DocumentPayments,
+    @graphql.Args() args: PaymentTypesFindManyArgs
+  ): Promise<PaymentTypes[]> {
+    const results = await this.service.findPaymentType(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Documents, {
+    nullable: true,
+    name: "document",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Documents",
+    action: "read",
+    possession: "any",
+  })
+  async getDocument(
+    @graphql.Parent() parent: DocumentPayments
+  ): Promise<Documents | null> {
+    const result = await this.service.getDocument(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

@@ -18,11 +18,15 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { PremisesWaterSource } from "./PremisesWaterSource";
 import { PremisesWaterSourceCountArgs } from "./PremisesWaterSourceCountArgs";
 import { PremisesWaterSourceFindManyArgs } from "./PremisesWaterSourceFindManyArgs";
 import { PremisesWaterSourceFindUniqueArgs } from "./PremisesWaterSourceFindUniqueArgs";
+import { CreatePremisesWaterSourceArgs } from "./CreatePremisesWaterSourceArgs";
+import { UpdatePremisesWaterSourceArgs } from "./UpdatePremisesWaterSourceArgs";
 import { DeletePremisesWaterSourceArgs } from "./DeletePremisesWaterSourceArgs";
+import { WaterSources } from "../../waterSources/base/WaterSources";
 import { PremisesWaterSourceService } from "../premisesWaterSource.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => PremisesWaterSource)
@@ -77,6 +81,63 @@ export class PremisesWaterSourceResolverBase {
     return result;
   }
 
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => PremisesWaterSource)
+  @nestAccessControl.UseRoles({
+    resource: "PremisesWaterSource",
+    action: "create",
+    possession: "any",
+  })
+  async createPremisesWaterSource(
+    @graphql.Args() args: CreatePremisesWaterSourceArgs
+  ): Promise<PremisesWaterSource> {
+    return await this.service.createPremisesWaterSource({
+      ...args,
+      data: {
+        ...args.data,
+
+        waterSourceId: args.data.waterSourceId
+          ? {
+              connect: args.data.waterSourceId,
+            }
+          : undefined,
+      },
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => PremisesWaterSource)
+  @nestAccessControl.UseRoles({
+    resource: "PremisesWaterSource",
+    action: "update",
+    possession: "any",
+  })
+  async updatePremisesWaterSource(
+    @graphql.Args() args: UpdatePremisesWaterSourceArgs
+  ): Promise<PremisesWaterSource | null> {
+    try {
+      return await this.service.updatePremisesWaterSource({
+        ...args,
+        data: {
+          ...args.data,
+
+          waterSourceId: args.data.waterSourceId
+            ? {
+                connect: args.data.waterSourceId,
+              }
+            : undefined,
+        },
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
+  }
+
   @graphql.Mutation(() => PremisesWaterSource)
   @nestAccessControl.UseRoles({
     resource: "PremisesWaterSource",
@@ -96,5 +157,26 @@ export class PremisesWaterSourceResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => WaterSources, {
+    nullable: true,
+    name: "waterSourceId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "WaterSources",
+    action: "read",
+    possession: "any",
+  })
+  async getWaterSourceId(
+    @graphql.Parent() parent: PremisesWaterSource
+  ): Promise<WaterSources | null> {
+    const result = await this.service.getWaterSourceId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

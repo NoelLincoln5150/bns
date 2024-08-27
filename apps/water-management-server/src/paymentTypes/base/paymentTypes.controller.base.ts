@@ -26,6 +26,12 @@ import { PaymentTypes } from "./PaymentTypes";
 import { PaymentTypesFindManyArgs } from "./PaymentTypesFindManyArgs";
 import { PaymentTypesWhereUniqueInput } from "./PaymentTypesWhereUniqueInput";
 import { PaymentTypesUpdateInput } from "./PaymentTypesUpdateInput";
+import { DocumentPaymentsFindManyArgs } from "../../documentPayments/base/DocumentPaymentsFindManyArgs";
+import { DocumentPayments } from "../../documentPayments/base/DocumentPayments";
+import { DocumentPaymentsWhereUniqueInput } from "../../documentPayments/base/DocumentPaymentsWhereUniqueInput";
+import { PaymentChannelsFindManyArgs } from "../../paymentChannels/base/PaymentChannelsFindManyArgs";
+import { PaymentChannels } from "../../paymentChannels/base/PaymentChannels";
+import { PaymentChannelsWhereUniqueInput } from "../../paymentChannels/base/PaymentChannelsWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -51,8 +57,13 @@ export class PaymentTypesControllerBase {
     return await this.service.createPaymentTypes({
       data: data,
       select: {
+        canSettle: true,
         createdAt: true,
+        deletedAt: true,
+        displayName: true,
+        enabled: true,
         id: true,
+        name: true,
         updatedAt: true,
       },
     });
@@ -77,8 +88,13 @@ export class PaymentTypesControllerBase {
     return this.service.paymentTypesItems({
       ...args,
       select: {
+        canSettle: true,
         createdAt: true,
+        deletedAt: true,
+        displayName: true,
+        enabled: true,
         id: true,
+        name: true,
         updatedAt: true,
       },
     });
@@ -102,8 +118,13 @@ export class PaymentTypesControllerBase {
     const result = await this.service.paymentTypes({
       where: params,
       select: {
+        canSettle: true,
         createdAt: true,
+        deletedAt: true,
+        displayName: true,
+        enabled: true,
         id: true,
+        name: true,
         updatedAt: true,
       },
     });
@@ -136,8 +157,13 @@ export class PaymentTypesControllerBase {
         where: params,
         data: data,
         select: {
+          canSettle: true,
           createdAt: true,
+          deletedAt: true,
+          displayName: true,
+          enabled: true,
           id: true,
+          name: true,
           updatedAt: true,
         },
       });
@@ -169,8 +195,13 @@ export class PaymentTypesControllerBase {
       return await this.service.deletePaymentTypes({
         where: params,
         select: {
+          canSettle: true,
           createdAt: true,
+          deletedAt: true,
+          displayName: true,
+          enabled: true,
           id: true,
+          name: true,
           updatedAt: true,
         },
       });
@@ -182,5 +213,215 @@ export class PaymentTypesControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/documentPaymentsItems")
+  @ApiNestedQuery(DocumentPaymentsFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "DocumentPayments",
+    action: "read",
+    possession: "any",
+  })
+  async findDocumentPaymentsItems(
+    @common.Req() request: Request,
+    @common.Param() params: PaymentTypesWhereUniqueInput
+  ): Promise<DocumentPayments[]> {
+    const query = plainToClass(DocumentPaymentsFindManyArgs, request.query);
+    const results = await this.service.findDocumentPaymentsItems(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+
+        document: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/documentPaymentsItems")
+  @nestAccessControl.UseRoles({
+    resource: "PaymentTypes",
+    action: "update",
+    possession: "any",
+  })
+  async connectDocumentPaymentsItems(
+    @common.Param() params: PaymentTypesWhereUniqueInput,
+    @common.Body() body: DocumentPaymentsWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      documentPaymentsItems: {
+        connect: body,
+      },
+    };
+    await this.service.updatePaymentTypes({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/documentPaymentsItems")
+  @nestAccessControl.UseRoles({
+    resource: "PaymentTypes",
+    action: "update",
+    possession: "any",
+  })
+  async updateDocumentPaymentsItems(
+    @common.Param() params: PaymentTypesWhereUniqueInput,
+    @common.Body() body: DocumentPaymentsWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      documentPaymentsItems: {
+        set: body,
+      },
+    };
+    await this.service.updatePaymentTypes({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/documentPaymentsItems")
+  @nestAccessControl.UseRoles({
+    resource: "PaymentTypes",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectDocumentPaymentsItems(
+    @common.Param() params: PaymentTypesWhereUniqueInput,
+    @common.Body() body: DocumentPaymentsWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      documentPaymentsItems: {
+        disconnect: body,
+      },
+    };
+    await this.service.updatePaymentTypes({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/paymentChannelsItems")
+  @ApiNestedQuery(PaymentChannelsFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "PaymentChannels",
+    action: "read",
+    possession: "any",
+  })
+  async findPaymentChannelsItems(
+    @common.Req() request: Request,
+    @common.Param() params: PaymentTypesWhereUniqueInput
+  ): Promise<PaymentChannels[]> {
+    const query = plainToClass(PaymentChannelsFindManyArgs, request.query);
+    const results = await this.service.findPaymentChannelsItems(params.id, {
+      ...query,
+      select: {
+        accountNumber: true,
+        channel: true,
+        createdAt: true,
+        deletedAt: true,
+        enabled: true,
+        id: true,
+        payableId: true,
+        payableType: true,
+
+        paymentType: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/paymentChannelsItems")
+  @nestAccessControl.UseRoles({
+    resource: "PaymentTypes",
+    action: "update",
+    possession: "any",
+  })
+  async connectPaymentChannelsItems(
+    @common.Param() params: PaymentTypesWhereUniqueInput,
+    @common.Body() body: PaymentChannelsWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentChannelsItems: {
+        connect: body,
+      },
+    };
+    await this.service.updatePaymentTypes({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/paymentChannelsItems")
+  @nestAccessControl.UseRoles({
+    resource: "PaymentTypes",
+    action: "update",
+    possession: "any",
+  })
+  async updatePaymentChannelsItems(
+    @common.Param() params: PaymentTypesWhereUniqueInput,
+    @common.Body() body: PaymentChannelsWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentChannelsItems: {
+        set: body,
+      },
+    };
+    await this.service.updatePaymentTypes({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/paymentChannelsItems")
+  @nestAccessControl.UseRoles({
+    resource: "PaymentTypes",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectPaymentChannelsItems(
+    @common.Param() params: PaymentTypesWhereUniqueInput,
+    @common.Body() body: PaymentChannelsWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentChannelsItems: {
+        disconnect: body,
+      },
+    };
+    await this.service.updatePaymentTypes({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

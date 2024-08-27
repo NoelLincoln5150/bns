@@ -26,6 +26,9 @@ import { User } from "./User";
 import { UserFindManyArgs } from "./UserFindManyArgs";
 import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
 import { UserUpdateInput } from "./UserUpdateInput";
+import { LogsFindManyArgs } from "../../logs/base/LogsFindManyArgs";
+import { Logs } from "../../logs/base/Logs";
+import { LogsWhereUniqueInput } from "../../logs/base/LogsWhereUniqueInput";
 import { MeterFindManyArgs } from "../../meter/base/MeterFindManyArgs";
 import { Meter } from "../../meter/base/Meter";
 import { MeterWhereUniqueInput } from "../../meter/base/MeterWhereUniqueInput";
@@ -230,6 +233,115 @@ export class UserControllerBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/logsItems")
+  @ApiNestedQuery(LogsFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Logs",
+    action: "read",
+    possession: "any",
+  })
+  async findLogsItems(
+    @common.Req() request: Request,
+    @common.Param() params: UserWhereUniqueInput
+  ): Promise<Logs[]> {
+    const query = plainToClass(LogsFindManyArgs, request.query);
+    const results = await this.service.findLogsItems(params.id, {
+      ...query,
+      select: {
+        action: true,
+        createdAt: true,
+        deletedAt: true,
+        id: true,
+        ipAddress: true,
+        message: true,
+        requestPayload: true,
+        resourceId: true,
+        resourceModel: true,
+        updateValues: true,
+        updatedAt: true,
+
+        userId: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/logsItems")
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  async connectLogsItems(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: LogsWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      logsItems: {
+        connect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/logsItems")
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  async updateLogsItems(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: LogsWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      logsItems: {
+        set: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/logsItems")
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectLogsItems(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: LogsWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      logsItems: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @common.Get("/:id/meters")
   @ApiNestedQuery(MeterFindManyArgs)
   @nestAccessControl.UseRoles({
@@ -249,6 +361,13 @@ export class UserControllerBase {
         createdAt: true,
         id: true,
         installationDate: true,
+
+        meterType: {
+          select: {
+            id: true,
+          },
+        },
+
         status: true,
         tokenBalance: true,
         updatedAt: true,

@@ -10,7 +10,11 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, DocumentTypes as PrismaDocumentTypes } from "@prisma/client";
+import {
+  Prisma,
+  DocumentTypes as PrismaDocumentTypes,
+  Documents as PrismaDocuments,
+} from "@prisma/client";
 
 export class DocumentTypesServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -45,5 +49,16 @@ export class DocumentTypesServiceBase {
     args: Prisma.DocumentTypesDeleteArgs
   ): Promise<PrismaDocumentTypes> {
     return this.prisma.documentTypes.delete(args);
+  }
+
+  async findDocumentsItems(
+    parentId: string,
+    args: Prisma.DocumentsFindManyArgs
+  ): Promise<PrismaDocuments[]> {
+    return this.prisma.documentTypes
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .documentsItems(args);
   }
 }

@@ -26,6 +26,8 @@ import { UserFindUniqueArgs } from "./UserFindUniqueArgs";
 import { CreateUserArgs } from "./CreateUserArgs";
 import { UpdateUserArgs } from "./UpdateUserArgs";
 import { DeleteUserArgs } from "./DeleteUserArgs";
+import { LogsFindManyArgs } from "../../logs/base/LogsFindManyArgs";
+import { Logs } from "../../logs/base/Logs";
 import { MeterFindManyArgs } from "../../meter/base/MeterFindManyArgs";
 import { Meter } from "../../meter/base/Meter";
 import { RoleFindManyArgs } from "../../role/base/RoleFindManyArgs";
@@ -136,6 +138,26 @@ export class UserResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Logs], { name: "logsItems" })
+  @nestAccessControl.UseRoles({
+    resource: "Logs",
+    action: "read",
+    possession: "any",
+  })
+  async findLogsItems(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: LogsFindManyArgs
+  ): Promise<Logs[]> {
+    const results = await this.service.findLogsItems(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

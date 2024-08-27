@@ -18,11 +18,18 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { PaymentTypes } from "./PaymentTypes";
 import { PaymentTypesCountArgs } from "./PaymentTypesCountArgs";
 import { PaymentTypesFindManyArgs } from "./PaymentTypesFindManyArgs";
 import { PaymentTypesFindUniqueArgs } from "./PaymentTypesFindUniqueArgs";
+import { CreatePaymentTypesArgs } from "./CreatePaymentTypesArgs";
+import { UpdatePaymentTypesArgs } from "./UpdatePaymentTypesArgs";
 import { DeletePaymentTypesArgs } from "./DeletePaymentTypesArgs";
+import { DocumentPaymentsFindManyArgs } from "../../documentPayments/base/DocumentPaymentsFindManyArgs";
+import { DocumentPayments } from "../../documentPayments/base/DocumentPayments";
+import { PaymentChannelsFindManyArgs } from "../../paymentChannels/base/PaymentChannelsFindManyArgs";
+import { PaymentChannels } from "../../paymentChannels/base/PaymentChannels";
 import { PaymentTypesService } from "../paymentTypes.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => PaymentTypes)
@@ -77,6 +84,47 @@ export class PaymentTypesResolverBase {
     return result;
   }
 
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => PaymentTypes)
+  @nestAccessControl.UseRoles({
+    resource: "PaymentTypes",
+    action: "create",
+    possession: "any",
+  })
+  async createPaymentTypes(
+    @graphql.Args() args: CreatePaymentTypesArgs
+  ): Promise<PaymentTypes> {
+    return await this.service.createPaymentTypes({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => PaymentTypes)
+  @nestAccessControl.UseRoles({
+    resource: "PaymentTypes",
+    action: "update",
+    possession: "any",
+  })
+  async updatePaymentTypes(
+    @graphql.Args() args: UpdatePaymentTypesArgs
+  ): Promise<PaymentTypes | null> {
+    try {
+      return await this.service.updatePaymentTypes({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
+  }
+
   @graphql.Mutation(() => PaymentTypes)
   @nestAccessControl.UseRoles({
     resource: "PaymentTypes",
@@ -96,5 +144,55 @@ export class PaymentTypesResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [DocumentPayments], {
+    name: "documentPaymentsItems",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "DocumentPayments",
+    action: "read",
+    possession: "any",
+  })
+  async findDocumentPaymentsItems(
+    @graphql.Parent() parent: PaymentTypes,
+    @graphql.Args() args: DocumentPaymentsFindManyArgs
+  ): Promise<DocumentPayments[]> {
+    const results = await this.service.findDocumentPaymentsItems(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [PaymentChannels], {
+    name: "paymentChannelsItems",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "PaymentChannels",
+    action: "read",
+    possession: "any",
+  })
+  async findPaymentChannelsItems(
+    @graphql.Parent() parent: PaymentTypes,
+    @graphql.Args() args: PaymentChannelsFindManyArgs
+  ): Promise<PaymentChannels[]> {
+    const results = await this.service.findPaymentChannelsItems(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 }

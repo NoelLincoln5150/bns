@@ -49,10 +49,38 @@ export class CustomerMeterControllerBase {
     @common.Body() data: CustomerMeterCreateInput
   ): Promise<CustomerMeter> {
     return await this.service.createCustomerMeter({
-      data: data,
+      data: {
+        ...data,
+
+        customer: data.customer
+          ? {
+              connect: data.customer,
+            }
+          : undefined,
+
+        meterId: data.meterId
+          ? {
+              connect: data.meterId,
+            }
+          : undefined,
+      },
       select: {
         createdAt: true,
+
+        customer: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
+
+        meterId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -78,7 +106,21 @@ export class CustomerMeterControllerBase {
       ...args,
       select: {
         createdAt: true,
+
+        customer: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
+
+        meterId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -103,7 +145,21 @@ export class CustomerMeterControllerBase {
       where: params,
       select: {
         createdAt: true,
+
+        customer: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
+
+        meterId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -134,10 +190,38 @@ export class CustomerMeterControllerBase {
     try {
       return await this.service.updateCustomerMeter({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          customer: data.customer
+            ? {
+                connect: data.customer,
+              }
+            : undefined,
+
+          meterId: data.meterId
+            ? {
+                connect: data.meterId,
+              }
+            : undefined,
+        },
         select: {
           createdAt: true,
+
+          customer: {
+            select: {
+              id: true,
+            },
+          },
+
           id: true,
+
+          meterId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -170,7 +254,21 @@ export class CustomerMeterControllerBase {
         where: params,
         select: {
           createdAt: true,
+
+          customer: {
+            select: {
+              id: true,
+            },
+          },
+
           id: true,
+
+          meterId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });

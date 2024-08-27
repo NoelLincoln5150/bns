@@ -1,7 +1,7 @@
 import { DocumentTypes as TDocumentTypes } from "../api/documentTypes/DocumentTypes";
 
-export const DOCUMENTTYPES_TITLE_FIELD = "id";
+export const DOCUMENTTYPES_TITLE_FIELD = "name";
 
 export const DocumentTypesTitle = (record: TDocumentTypes): string => {
-  return record.id?.toString() || String(record.id);
+  return record.name?.toString() || String(record.id);
 };
