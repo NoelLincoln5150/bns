@@ -10,5 +10,5 @@ export type PrepaidMeterWhereInput = {
   id?: StringFilter;
   meterDataItems?: MeterDataListRelationFilter;
   meterNumber?: StringNullableFilter;
-  status?: "Option1";
+  status?: "Active" | "Inactive" | "Suspended" | "Closed";
 };

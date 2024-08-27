@@ -89,7 +89,7 @@ class PrepaidMeterWhereInput {
   @Field(() => EnumPrepaidMeterStatus, {
     nullable: true,
   })
-  status?: "Option1";
+  status?: "Active" | "Inactive" | "Suspended" | "Closed";
 }
 
 export { PrepaidMeterWhereInput as PrepaidMeterWhereInput };

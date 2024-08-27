@@ -25,10 +25,6 @@ import { UserList } from "./user/UserList";
 import { UserCreate } from "./user/UserCreate";
 import { UserEdit } from "./user/UserEdit";
 import { UserShow } from "./user/UserShow";
-import { PrepaidMeterList } from "./prepaidMeter/PrepaidMeterList";
-import { PrepaidMeterCreate } from "./prepaidMeter/PrepaidMeterCreate";
-import { PrepaidMeterEdit } from "./prepaidMeter/PrepaidMeterEdit";
-import { PrepaidMeterShow } from "./prepaidMeter/PrepaidMeterShow";
 import { MeterDataList } from "./meterData/MeterDataList";
 import { MeterDataCreate } from "./meterData/MeterDataCreate";
 import { MeterDataEdit } from "./meterData/MeterDataEdit";
@@ -41,6 +37,10 @@ import { AlertList } from "./alert/AlertList";
 import { AlertCreate } from "./alert/AlertCreate";
 import { AlertEdit } from "./alert/AlertEdit";
 import { AlertShow } from "./alert/AlertShow";
+import { PrepaidMeterList } from "./prepaidMeter/PrepaidMeterList";
+import { PrepaidMeterCreate } from "./prepaidMeter/PrepaidMeterCreate";
+import { PrepaidMeterEdit } from "./prepaidMeter/PrepaidMeterEdit";
+import { PrepaidMeterShow } from "./prepaidMeter/PrepaidMeterShow";
 import { httpAuthProvider } from "./auth-provider/ra-auth-http";
 
 const App = (): React.ReactElement => {
@@ -103,13 +103,6 @@ const App = (): React.ReactElement => {
           show={UserShow}
         />
         <Resource
-          name="PrepaidMeter"
-          list={PrepaidMeterList}
-          edit={PrepaidMeterEdit}
-          create={PrepaidMeterCreate}
-          show={PrepaidMeterShow}
-        />
-        <Resource
           name="MeterData"
           list={MeterDataList}
           edit={MeterDataEdit}
@@ -129,6 +122,13 @@ const App = (): React.ReactElement => {
           edit={AlertEdit}
           create={AlertCreate}
           show={AlertShow}
+        />
+        <Resource
+          name="PrepaidMeter"
+          list={PrepaidMeterList}
+          edit={PrepaidMeterEdit}
+          create={PrepaidMeterCreate}
+          show={PrepaidMeterShow}
         />
       </Admin>
     </div>

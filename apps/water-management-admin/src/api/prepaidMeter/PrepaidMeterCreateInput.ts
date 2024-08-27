@@ -7,5 +7,5 @@ export type PrepaidMeterCreateInput = {
   commands?: CommandCreateNestedManyWithoutPrepaidMetersInput;
   meterDataItems?: MeterDataCreateNestedManyWithoutPrepaidMetersInput;
   meterNumber?: string | null;
-  status?: "Option1" | null;
+  status?: "Active" | "Inactive" | "Suspended" | "Closed" | null;
 };

@@ -69,17 +69,6 @@ model User {
   username  String   @unique
 }
 
-model PrepaidMeter {
-  alerts         Alert[]
-  commands       Command[]
-  createdAt      DateTime                @default(now())
-  id             String                  @id @default(cuid())
-  meterDataItems MeterData[]
-  meterNumber    String?
-  status         EnumPrepaidMeterStatus?
-  updatedAt      DateTime                @updatedAt
-}
-
 model MeterData {
   createdAt      DateTime      @default(now())
   id             String        @id @default(cuid())
@@ -111,6 +100,17 @@ model Alert {
   updatedAt      DateTime        @updatedAt
 }
 
+model PrepaidMeter {
+  alerts         Alert[]
+  commands       Command[]
+  createdAt      DateTime                @default(now())
+  id             String                  @id @default(cuid())
+  meterDataItems MeterData[]
+  meterNumber    String?
+  status         EnumPrepaidMeterStatus?
+  updatedAt      DateTime                @updatedAt
+}
+
 enum EnumMeterStatus {
   Active
   Inactive
@@ -126,10 +126,6 @@ enum EnumTicketStatus {
   Option1
 }
 
-enum EnumPrepaidMeterStatus {
-  Option1
-}
-
 enum EnumCommandCommandType {
   Open
   Close
@@ -142,4 +138,11 @@ enum EnumAlertLevel {
   Urgent
   Error
   Critical
+}
+
+enum EnumPrepaidMeterStatus {
+  Active
+  Inactive
+  Suspended
+  Closed
 }

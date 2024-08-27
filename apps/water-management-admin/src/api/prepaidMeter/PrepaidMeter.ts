@@ -9,6 +9,6 @@ export type PrepaidMeter = {
   id: string;
   meterDataItems?: Array<MeterData>;
   meterNumber: string | null;
-  status?: "Option1" | null;
+  status?: "Active" | "Inactive" | "Suspended" | "Closed" | null;
   updatedAt: Date;
 };

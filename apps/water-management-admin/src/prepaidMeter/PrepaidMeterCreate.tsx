@@ -46,7 +46,12 @@ export const PrepaidMeterCreate = (props: CreateProps): React.ReactElement => {
         <SelectInput
           source="status"
           label="status"
-          choices={[{ label: "Option 1", value: "Option1" }]}
+          choices={[
+            { label: "ACTIVE", value: "Active" },
+            { label: "INACTIVE", value: "Inactive" },
+            { label: "SUSPENDED", value: "Suspended" },
+            { label: "CLOSED", value: "Closed" },
+          ]}
           optionText="label"
           allowEmpty
           optionValue="value"

@@ -4,10 +4,10 @@ import { MeterModule } from "./meter/meter.module";
 import { TicketModule } from "./ticket/ticket.module";
 import { RoleModule } from "./role/role.module";
 import { UserModule } from "./user/user.module";
-import { PrepaidMeterModule } from "./prepaidMeter/prepaidMeter.module";
 import { MeterDataModule } from "./meterData/meterData.module";
 import { CommandModule } from "./command/command.module";
 import { AlertModule } from "./alert/alert.module";
+import { PrepaidMeterModule } from "./prepaidMeter/prepaidMeter.module";
 import { IoTModule } from "./iot/iot.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
@@ -35,10 +35,10 @@ import { AuthModule } from "./auth/auth.module";
     TicketModule,
     RoleModule,
     UserModule,
-    PrepaidMeterModule,
     MeterDataModule,
     CommandModule,
     AlertModule,
+    PrepaidMeterModule,
     IoTModule,
     HealthModule,
     PrismaModule,

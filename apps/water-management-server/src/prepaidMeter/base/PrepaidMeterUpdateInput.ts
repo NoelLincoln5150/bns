@@ -83,7 +83,7 @@ class PrepaidMeterUpdateInput {
   @Field(() => EnumPrepaidMeterStatus, {
     nullable: true,
   })
-  status?: "Option1" | null;
+  status?: "Active" | "Inactive" | "Suspended" | "Closed" | null;
 }
 
 export { PrepaidMeterUpdateInput as PrepaidMeterUpdateInput };
