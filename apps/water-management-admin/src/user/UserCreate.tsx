@@ -8,8 +8,6 @@ import {
   ReferenceArrayInput,
   SelectArrayInput,
   PasswordInput,
-  ReferenceInput,
-  SelectInput,
 } from "react-admin";
 
 import { MeterTitle } from "../meter/MeterTitle";
@@ -33,9 +31,14 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
           <SelectArrayInput optionText={MeterTitle} />
         </ReferenceArrayInput>
         <PasswordInput label="Password" source="password" />
-        <ReferenceInput source="role.id" reference="Role" label="role">
-          <SelectInput optionText={RoleTitle} />
-        </ReferenceInput>
+        <ReferenceArrayInput
+          source="role"
+          reference="Role"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={RoleTitle} />
+        </ReferenceArrayInput>
         <SelectArrayInput
           source="roles"
           choices={ROLES_OPTIONS}
@@ -50,7 +53,6 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={TicketTitle} />
         </ReferenceArrayInput>
-        <TextInput label="userRole" source="userRole" />
         <TextInput label="Username" source="username" />
       </SimpleForm>
     </Create>

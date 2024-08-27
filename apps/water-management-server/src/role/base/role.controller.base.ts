@@ -214,16 +214,8 @@ export class RoleControllerBase {
         firstName: true,
         id: true,
         lastName: true,
-
-        role: {
-          select: {
-            id: true,
-          },
-        },
-
         roles: true,
         updatedAt: true,
-        userRole: true,
         username: true,
       },
     });

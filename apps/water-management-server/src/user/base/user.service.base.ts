@@ -15,8 +15,8 @@ import {
   Prisma,
   User as PrismaUser,
   Meter as PrismaMeter,
-  Ticket as PrismaTicket,
   Role as PrismaRole,
+  Ticket as PrismaTicket,
 } from "@prisma/client";
 
 import { PasswordService } from "../../auth/password.service";
@@ -79,6 +79,17 @@ export class UserServiceBase {
       .meters(args);
   }
 
+  async findRole(
+    parentId: string,
+    args: Prisma.RoleFindManyArgs
+  ): Promise<PrismaRole[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .role(args);
+  }
+
   async findTickets(
     parentId: string,
     args: Prisma.TicketFindManyArgs
@@ -88,13 +99,5 @@ export class UserServiceBase {
         where: { id: parentId },
       })
       .tickets(args);
-  }
-
-  async getRole(parentId: string): Promise<PrismaRole | null> {
-    return this.prisma.user
-      .findUnique({
-        where: { id: parentId },
-      })
-      .role();
   }
 }

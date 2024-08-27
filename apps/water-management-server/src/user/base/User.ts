@@ -90,12 +90,12 @@ class User {
 
   @ApiProperty({
     required: false,
-    type: () => Role,
+    type: () => [Role],
   })
   @ValidateNested()
   @Type(() => Role)
   @IsOptional()
-  role?: Role | null;
+  role?: Array<Role>;
 
   @ApiProperty({
     required: true,
@@ -120,18 +120,6 @@ class User {
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  userRole!: string | null;
 
   @ApiProperty({
     required: true,

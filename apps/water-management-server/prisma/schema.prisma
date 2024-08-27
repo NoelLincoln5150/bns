@@ -60,12 +60,10 @@ model User {
   lastName  String?
   meters    Meter[]
   password  String
-  role      Role?    @relation(fields: [roleId], references: [id])
-  roleId    String?
+  role      Role[]
   roles     Json
   tickets   Ticket[]
   updatedAt DateTime @updatedAt
-  userRole  String?
   username  String   @unique
 }
 

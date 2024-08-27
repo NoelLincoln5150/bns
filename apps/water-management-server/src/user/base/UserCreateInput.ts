@@ -19,7 +19,7 @@ import {
 } from "class-validator";
 import { MeterCreateNestedManyWithoutUsersInput } from "./MeterCreateNestedManyWithoutUsersInput";
 import { Type } from "class-transformer";
-import { RoleWhereUniqueInput } from "../../role/base/RoleWhereUniqueInput";
+import { RoleCreateNestedManyWithoutUsersInput } from "./RoleCreateNestedManyWithoutUsersInput";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
@@ -84,15 +84,15 @@ class UserCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => RoleWhereUniqueInput,
+    type: () => RoleCreateNestedManyWithoutUsersInput,
   })
   @ValidateNested()
-  @Type(() => RoleWhereUniqueInput)
+  @Type(() => RoleCreateNestedManyWithoutUsersInput)
   @IsOptional()
-  @Field(() => RoleWhereUniqueInput, {
+  @Field(() => RoleCreateNestedManyWithoutUsersInput, {
     nullable: true,
   })
-  role?: RoleWhereUniqueInput | null;
+  role?: RoleCreateNestedManyWithoutUsersInput;
 
   @ApiProperty({
     required: true,
@@ -112,18 +112,6 @@ class UserCreateInput {
     nullable: true,
   })
   tickets?: TicketCreateNestedManyWithoutUsersInput;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  userRole?: string | null;
 
   @ApiProperty({
     required: true,

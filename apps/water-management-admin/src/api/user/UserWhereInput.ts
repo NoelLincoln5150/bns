@@ -1,7 +1,7 @@
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { MeterListRelationFilter } from "../meter/MeterListRelationFilter";
-import { RoleWhereUniqueInput } from "../role/RoleWhereUniqueInput";
+import { RoleListRelationFilter } from "../role/RoleListRelationFilter";
 import { TicketListRelationFilter } from "../ticket/TicketListRelationFilter";
 
 export type UserWhereInput = {
@@ -10,8 +10,7 @@ export type UserWhereInput = {
   id?: StringFilter;
   lastName?: StringNullableFilter;
   meters?: MeterListRelationFilter;
-  role?: RoleWhereUniqueInput;
+  role?: RoleListRelationFilter;
   tickets?: TicketListRelationFilter;
-  userRole?: StringNullableFilter;
   username?: StringFilter;
 };

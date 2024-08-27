@@ -16,7 +16,7 @@ import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
 import { MeterListRelationFilter } from "../../meter/base/MeterListRelationFilter";
-import { RoleWhereUniqueInput } from "../../role/base/RoleWhereUniqueInput";
+import { RoleListRelationFilter } from "../../role/base/RoleListRelationFilter";
 import { TicketListRelationFilter } from "../../ticket/base/TicketListRelationFilter";
 
 @InputType()
@@ -79,15 +79,15 @@ class UserWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => RoleWhereUniqueInput,
+    type: () => RoleListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => RoleWhereUniqueInput)
+  @Type(() => RoleListRelationFilter)
   @IsOptional()
-  @Field(() => RoleWhereUniqueInput, {
+  @Field(() => RoleListRelationFilter, {
     nullable: true,
   })
-  role?: RoleWhereUniqueInput;
+  role?: RoleListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -100,17 +100,6 @@ class UserWhereInput {
     nullable: true,
   })
   tickets?: TicketListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  userRole?: StringNullableFilter;
 
   @ApiProperty({
     required: false,

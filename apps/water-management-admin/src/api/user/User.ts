@@ -10,10 +10,9 @@ export type User = {
   id: string;
   lastName: string | null;
   meters?: Array<Meter>;
-  role?: Role | null;
+  role?: Array<Role>;
   roles: JsonValue;
   tickets?: Array<Ticket>;
   updatedAt: Date;
-  userRole: string | null;
   username: string;
 };

@@ -28,9 +28,10 @@ import { UpdateUserArgs } from "./UpdateUserArgs";
 import { DeleteUserArgs } from "./DeleteUserArgs";
 import { MeterFindManyArgs } from "../../meter/base/MeterFindManyArgs";
 import { Meter } from "../../meter/base/Meter";
+import { RoleFindManyArgs } from "../../role/base/RoleFindManyArgs";
+import { Role } from "../../role/base/Role";
 import { TicketFindManyArgs } from "../../ticket/base/TicketFindManyArgs";
 import { Ticket } from "../../ticket/base/Ticket";
-import { Role } from "../../role/base/Role";
 import { UserService } from "../user.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => User)
@@ -91,15 +92,7 @@ export class UserResolverBase {
   async createUser(@graphql.Args() args: CreateUserArgs): Promise<User> {
     return await this.service.createUser({
       ...args,
-      data: {
-        ...args.data,
-
-        role: args.data.role
-          ? {
-              connect: args.data.role,
-            }
-          : undefined,
-      },
+      data: args.data,
     });
   }
 
@@ -114,15 +107,7 @@ export class UserResolverBase {
     try {
       return await this.service.updateUser({
         ...args,
-        data: {
-          ...args.data,
-
-          role: args.data.role
-            ? {
-                connect: args.data.role,
-              }
-            : undefined,
-        },
+        data: args.data,
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -174,6 +159,26 @@ export class UserResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Role], { name: "role" })
+  @nestAccessControl.UseRoles({
+    resource: "Role",
+    action: "read",
+    possession: "any",
+  })
+  async findRole(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: RoleFindManyArgs
+  ): Promise<Role[]> {
+    const results = await this.service.findRole(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => [Ticket], { name: "tickets" })
   @nestAccessControl.UseRoles({
     resource: "Ticket",
@@ -191,24 +196,5 @@ export class UserResolverBase {
     }
 
     return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => Role, {
-    nullable: true,
-    name: "role",
-  })
-  @nestAccessControl.UseRoles({
-    resource: "Role",
-    action: "read",
-    possession: "any",
-  })
-  async getRole(@graphql.Parent() parent: User): Promise<Role | null> {
-    const result = await this.service.getRole(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return result;
   }
 }

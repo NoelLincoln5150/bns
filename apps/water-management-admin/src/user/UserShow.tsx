@@ -6,14 +6,13 @@ import {
   ShowProps,
   DateField,
   TextField,
-  ReferenceField,
   ReferenceManyField,
   Datagrid,
+  ReferenceField,
 } from "react-admin";
 
 import { USAGE_TITLE_FIELD } from "../usage/UsageTitle";
 import { USER_TITLE_FIELD } from "./UserTitle";
-import { ROLE_TITLE_FIELD } from "../role/RoleTitle";
 
 export const UserShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -24,12 +23,8 @@ export const UserShow = (props: ShowProps): React.ReactElement => {
         <TextField label="First Name" source="firstName" />
         <TextField label="ID" source="id" />
         <TextField label="Last Name" source="lastName" />
-        <ReferenceField label="role" source="role.id" reference="Role">
-          <TextField source={ROLE_TITLE_FIELD} />
-        </ReferenceField>
         <TextField label="Roles" source="roles" />
         <DateField source="updatedAt" label="Updated At" />
-        <TextField label="userRole" source="userRole" />
         <TextField label="Username" source="username" />
         <ReferenceManyField reference="Meter" target="userId" label="Meters">
           <Datagrid rowClick="show">

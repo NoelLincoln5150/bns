@@ -29,6 +29,9 @@ import { UserUpdateInput } from "./UserUpdateInput";
 import { MeterFindManyArgs } from "../../meter/base/MeterFindManyArgs";
 import { Meter } from "../../meter/base/Meter";
 import { MeterWhereUniqueInput } from "../../meter/base/MeterWhereUniqueInput";
+import { RoleFindManyArgs } from "../../role/base/RoleFindManyArgs";
+import { Role } from "../../role/base/Role";
+import { RoleWhereUniqueInput } from "../../role/base/RoleWhereUniqueInput";
 import { TicketFindManyArgs } from "../../ticket/base/TicketFindManyArgs";
 import { Ticket } from "../../ticket/base/Ticket";
 import { TicketWhereUniqueInput } from "../../ticket/base/TicketWhereUniqueInput";
@@ -53,31 +56,15 @@ export class UserControllerBase {
   })
   async createUser(@common.Body() data: UserCreateInput): Promise<User> {
     return await this.service.createUser({
-      data: {
-        ...data,
-
-        role: data.role
-          ? {
-              connect: data.role,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
         createdAt: true,
         email: true,
         firstName: true,
         id: true,
         lastName: true,
-
-        role: {
-          select: {
-            id: true,
-          },
-        },
-
         roles: true,
         updatedAt: true,
-        userRole: true,
         username: true,
       },
     });
@@ -105,16 +92,8 @@ export class UserControllerBase {
         firstName: true,
         id: true,
         lastName: true,
-
-        role: {
-          select: {
-            id: true,
-          },
-        },
-
         roles: true,
         updatedAt: true,
-        userRole: true,
         username: true,
       },
     });
@@ -143,16 +122,8 @@ export class UserControllerBase {
         firstName: true,
         id: true,
         lastName: true,
-
-        role: {
-          select: {
-            id: true,
-          },
-        },
-
         roles: true,
         updatedAt: true,
-        userRole: true,
         username: true,
       },
     });
@@ -183,31 +154,15 @@ export class UserControllerBase {
     try {
       return await this.service.updateUser({
         where: params,
-        data: {
-          ...data,
-
-          role: data.role
-            ? {
-                connect: data.role,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
           createdAt: true,
           email: true,
           firstName: true,
           id: true,
           lastName: true,
-
-          role: {
-            select: {
-              id: true,
-            },
-          },
-
           roles: true,
           updatedAt: true,
-          userRole: true,
           username: true,
         },
       });
@@ -244,16 +199,8 @@ export class UserControllerBase {
           firstName: true,
           id: true,
           lastName: true,
-
-          role: {
-            select: {
-              id: true,
-            },
-          },
-
           roles: true,
           updatedAt: true,
-          userRole: true,
           username: true,
         },
       });
@@ -368,6 +315,103 @@ export class UserControllerBase {
   ): Promise<void> {
     const data = {
       meters: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/role")
+  @ApiNestedQuery(RoleFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Role",
+    action: "read",
+    possession: "any",
+  })
+  async findRole(
+    @common.Req() request: Request,
+    @common.Param() params: UserWhereUniqueInput
+  ): Promise<Role[]> {
+    const query = plainToClass(RoleFindManyArgs, request.query);
+    const results = await this.service.findRole(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        description: true,
+        id: true,
+        name: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/role")
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  async connectRole(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: RoleWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      role: {
+        connect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/role")
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  async updateRole(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: RoleWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      role: {
+        set: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/role")
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectRole(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: RoleWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      role: {
         disconnect: body,
       },
     };
