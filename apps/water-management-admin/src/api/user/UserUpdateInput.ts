@@ -5,10 +5,13 @@ import { TicketUpdateManyWithoutUsersInput } from "./TicketUpdateManyWithoutUser
 
 export type UserUpdateInput = {
   email?: string | null;
+  emailVerifiedAt?: Date | null;
   firstName?: string | null;
   lastName?: string | null;
   meters?: MeterUpdateManyWithoutUsersInput;
+  name?: string | null;
   password?: string;
+  rememberToken?: string | null;
   role?: RoleUpdateManyWithoutUsersInput;
   roles?: InputJsonValue;
   tickets?: TicketUpdateManyWithoutUsersInput;

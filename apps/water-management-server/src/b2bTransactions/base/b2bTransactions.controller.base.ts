@@ -66,6 +66,11 @@ export class B2bTransactionsControllerBase {
       },
       select: {
         amount: true,
+        c2bTransactionId: true,
+        completed: true,
+        confirmed: true,
+        contractNumber: true,
+        conversationId: true,
         createdAt: true,
 
         customer: {
@@ -74,7 +79,12 @@ export class B2bTransactionsControllerBase {
           },
         },
 
+        deletedAt: true,
         id: true,
+        initiated: true,
+        initiatedPayload: true,
+        message: true,
+        payload: true,
 
         paymentAccount: {
           select: {
@@ -82,8 +92,11 @@ export class B2bTransactionsControllerBase {
           },
         },
 
+        paymentChannelId: true,
+        share: true,
         status: true,
         transactionDate: true,
+        transactionFee: true,
         updatedAt: true,
       },
     });
@@ -109,6 +122,11 @@ export class B2bTransactionsControllerBase {
       ...args,
       select: {
         amount: true,
+        c2bTransactionId: true,
+        completed: true,
+        confirmed: true,
+        contractNumber: true,
+        conversationId: true,
         createdAt: true,
 
         customer: {
@@ -117,7 +135,12 @@ export class B2bTransactionsControllerBase {
           },
         },
 
+        deletedAt: true,
         id: true,
+        initiated: true,
+        initiatedPayload: true,
+        message: true,
+        payload: true,
 
         paymentAccount: {
           select: {
@@ -125,8 +148,11 @@ export class B2bTransactionsControllerBase {
           },
         },
 
+        paymentChannelId: true,
+        share: true,
         status: true,
         transactionDate: true,
+        transactionFee: true,
         updatedAt: true,
       },
     });
@@ -151,6 +177,11 @@ export class B2bTransactionsControllerBase {
       where: params,
       select: {
         amount: true,
+        c2bTransactionId: true,
+        completed: true,
+        confirmed: true,
+        contractNumber: true,
+        conversationId: true,
         createdAt: true,
 
         customer: {
@@ -159,7 +190,12 @@ export class B2bTransactionsControllerBase {
           },
         },
 
+        deletedAt: true,
         id: true,
+        initiated: true,
+        initiatedPayload: true,
+        message: true,
+        payload: true,
 
         paymentAccount: {
           select: {
@@ -167,8 +203,11 @@ export class B2bTransactionsControllerBase {
           },
         },
 
+        paymentChannelId: true,
+        share: true,
         status: true,
         transactionDate: true,
+        transactionFee: true,
         updatedAt: true,
       },
     });
@@ -216,6 +255,11 @@ export class B2bTransactionsControllerBase {
         },
         select: {
           amount: true,
+          c2bTransactionId: true,
+          completed: true,
+          confirmed: true,
+          contractNumber: true,
+          conversationId: true,
           createdAt: true,
 
           customer: {
@@ -224,7 +268,12 @@ export class B2bTransactionsControllerBase {
             },
           },
 
+          deletedAt: true,
           id: true,
+          initiated: true,
+          initiatedPayload: true,
+          message: true,
+          payload: true,
 
           paymentAccount: {
             select: {
@@ -232,8 +281,11 @@ export class B2bTransactionsControllerBase {
             },
           },
 
+          paymentChannelId: true,
+          share: true,
           status: true,
           transactionDate: true,
+          transactionFee: true,
           updatedAt: true,
         },
       });
@@ -266,6 +318,11 @@ export class B2bTransactionsControllerBase {
         where: params,
         select: {
           amount: true,
+          c2bTransactionId: true,
+          completed: true,
+          confirmed: true,
+          contractNumber: true,
+          conversationId: true,
           createdAt: true,
 
           customer: {
@@ -274,7 +331,12 @@ export class B2bTransactionsControllerBase {
             },
           },
 
+          deletedAt: true,
           id: true,
+          initiated: true,
+          initiatedPayload: true,
+          message: true,
+          payload: true,
 
           paymentAccount: {
             select: {
@@ -282,8 +344,11 @@ export class B2bTransactionsControllerBase {
             },
           },
 
+          paymentChannelId: true,
+          share: true,
           status: true,
           transactionDate: true,
+          transactionFee: true,
           updatedAt: true,
         },
       });

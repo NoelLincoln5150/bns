@@ -18,10 +18,13 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { WaterSources } from "./WaterSources";
 import { WaterSourcesCountArgs } from "./WaterSourcesCountArgs";
 import { WaterSourcesFindManyArgs } from "./WaterSourcesFindManyArgs";
 import { WaterSourcesFindUniqueArgs } from "./WaterSourcesFindUniqueArgs";
+import { CreateWaterSourcesArgs } from "./CreateWaterSourcesArgs";
+import { UpdateWaterSourcesArgs } from "./UpdateWaterSourcesArgs";
 import { DeleteWaterSourcesArgs } from "./DeleteWaterSourcesArgs";
 import { WaterSourcesService } from "../waterSources.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -75,6 +78,47 @@ export class WaterSourcesResolverBase {
       return null;
     }
     return result;
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => WaterSources)
+  @nestAccessControl.UseRoles({
+    resource: "WaterSources",
+    action: "create",
+    possession: "any",
+  })
+  async createWaterSources(
+    @graphql.Args() args: CreateWaterSourcesArgs
+  ): Promise<WaterSources> {
+    return await this.service.createWaterSources({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => WaterSources)
+  @nestAccessControl.UseRoles({
+    resource: "WaterSources",
+    action: "update",
+    possession: "any",
+  })
+  async updateWaterSources(
+    @graphql.Args() args: UpdateWaterSourcesArgs
+  ): Promise<WaterSources | null> {
+    try {
+      return await this.service.updateWaterSources({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => WaterSources)

@@ -14,11 +14,13 @@ import { ApiProperty } from "@nestjs/swagger";
 import { FloatNullableFilter } from "../../util/FloatNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested, IsEnum } from "class-validator";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { CustomersWhereUniqueInput } from "../../customers/base/CustomersWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
+import { JsonFilter } from "../../util/JsonFilter";
 import { PaymentAccountsWhereUniqueInput } from "../../paymentAccounts/base/PaymentAccountsWhereUniqueInput";
 import { EnumB2bTransactionsStatus } from "./EnumB2bTransactionsStatus";
-import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 
 @InputType()
 class B2bTransactionsWhereInput {
@@ -35,6 +37,61 @@ class B2bTransactionsWhereInput {
 
   @ApiProperty({
     required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  c2bTransactionId?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: DateTimeNullableFilter,
+  })
+  @Type(() => DateTimeNullableFilter)
+  @IsOptional()
+  @Field(() => DateTimeNullableFilter, {
+    nullable: true,
+  })
+  completed?: DateTimeNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: DateTimeNullableFilter,
+  })
+  @Type(() => DateTimeNullableFilter)
+  @IsOptional()
+  @Field(() => DateTimeNullableFilter, {
+    nullable: true,
+  })
+  confirmed?: DateTimeNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  contractNumber?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  conversationId?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
     type: () => CustomersWhereUniqueInput,
   })
   @ValidateNested()
@@ -44,6 +101,17 @@ class B2bTransactionsWhereInput {
     nullable: true,
   })
   customer?: CustomersWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: DateTimeNullableFilter,
+  })
+  @Type(() => DateTimeNullableFilter)
+  @IsOptional()
+  @Field(() => DateTimeNullableFilter, {
+    nullable: true,
+  })
+  deletedAt?: DateTimeNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -58,6 +126,50 @@ class B2bTransactionsWhereInput {
 
   @ApiProperty({
     required: false,
+    type: DateTimeNullableFilter,
+  })
+  @Type(() => DateTimeNullableFilter)
+  @IsOptional()
+  @Field(() => DateTimeNullableFilter, {
+    nullable: true,
+  })
+  initiated?: DateTimeNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: JsonFilter,
+  })
+  @Type(() => JsonFilter)
+  @IsOptional()
+  @Field(() => JsonFilter, {
+    nullable: true,
+  })
+  initiatedPayload?: JsonFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  message?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: JsonFilter,
+  })
+  @Type(() => JsonFilter)
+  @IsOptional()
+  @Field(() => JsonFilter, {
+    nullable: true,
+  })
+  payload?: JsonFilter;
+
+  @ApiProperty({
+    required: false,
     type: () => PaymentAccountsWhereUniqueInput,
   })
   @ValidateNested()
@@ -67,6 +179,28 @@ class B2bTransactionsWhereInput {
     nullable: true,
   })
   paymentAccount?: PaymentAccountsWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  paymentChannelId?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: FloatNullableFilter,
+  })
+  @Type(() => FloatNullableFilter)
+  @IsOptional()
+  @Field(() => FloatNullableFilter, {
+    nullable: true,
+  })
+  share?: FloatNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -89,6 +223,17 @@ class B2bTransactionsWhereInput {
     nullable: true,
   })
   transactionDate?: DateTimeNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: FloatNullableFilter,
+  })
+  @Type(() => FloatNullableFilter)
+  @IsOptional()
+  @Field(() => FloatNullableFilter, {
+    nullable: true,
+  })
+  transactionFee?: FloatNullableFilter;
 }
 
 export { B2bTransactionsWhereInput as B2bTransactionsWhereInput };

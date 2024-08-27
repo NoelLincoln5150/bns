@@ -18,10 +18,13 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { Suppliers } from "./Suppliers";
 import { SuppliersCountArgs } from "./SuppliersCountArgs";
 import { SuppliersFindManyArgs } from "./SuppliersFindManyArgs";
 import { SuppliersFindUniqueArgs } from "./SuppliersFindUniqueArgs";
+import { CreateSuppliersArgs } from "./CreateSuppliersArgs";
+import { UpdateSuppliersArgs } from "./UpdateSuppliersArgs";
 import { DeleteSuppliersArgs } from "./DeleteSuppliersArgs";
 import { SuppliersService } from "../suppliers.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -75,6 +78,47 @@ export class SuppliersResolverBase {
       return null;
     }
     return result;
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Suppliers)
+  @nestAccessControl.UseRoles({
+    resource: "Suppliers",
+    action: "create",
+    possession: "any",
+  })
+  async createSuppliers(
+    @graphql.Args() args: CreateSuppliersArgs
+  ): Promise<Suppliers> {
+    return await this.service.createSuppliers({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Suppliers)
+  @nestAccessControl.UseRoles({
+    resource: "Suppliers",
+    action: "update",
+    possession: "any",
+  })
+  async updateSuppliers(
+    @graphql.Args() args: UpdateSuppliersArgs
+  ): Promise<Suppliers | null> {
+    try {
+      return await this.service.updateSuppliers({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => Suppliers)

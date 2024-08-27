@@ -13,6 +13,8 @@ export const ProductListStockShow = (props: ShowProps): React.ReactElement => {
       <SimpleShowLayout>
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
+        <TextField label="product_list_id" source="productListId" />
+        <TextField label="stock_id" source="stockId" />
         <DateField source="updatedAt" label="Updated At" />
       </SimpleShowLayout>
     </Show>

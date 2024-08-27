@@ -18,10 +18,13 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { Taxables } from "./Taxables";
 import { TaxablesCountArgs } from "./TaxablesCountArgs";
 import { TaxablesFindManyArgs } from "./TaxablesFindManyArgs";
 import { TaxablesFindUniqueArgs } from "./TaxablesFindUniqueArgs";
+import { CreateTaxablesArgs } from "./CreateTaxablesArgs";
+import { UpdateTaxablesArgs } from "./UpdateTaxablesArgs";
 import { DeleteTaxablesArgs } from "./DeleteTaxablesArgs";
 import { TaxablesService } from "../taxables.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -75,6 +78,47 @@ export class TaxablesResolverBase {
       return null;
     }
     return result;
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Taxables)
+  @nestAccessControl.UseRoles({
+    resource: "Taxables",
+    action: "create",
+    possession: "any",
+  })
+  async createTaxables(
+    @graphql.Args() args: CreateTaxablesArgs
+  ): Promise<Taxables> {
+    return await this.service.createTaxables({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Taxables)
+  @nestAccessControl.UseRoles({
+    resource: "Taxables",
+    action: "update",
+    possession: "any",
+  })
+  async updateTaxables(
+    @graphql.Args() args: UpdateTaxablesArgs
+  ): Promise<Taxables | null> {
+    try {
+      return await this.service.updateTaxables({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => Taxables)

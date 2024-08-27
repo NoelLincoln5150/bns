@@ -9,5 +9,49 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-class TransactionCostsCreateInput {}
+import { InputType, Field, Float } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+import { IsNumber, Max, IsOptional, Min } from "class-validator";
+import { Decimal } from "decimal.js";
+
+@InputType()
+class TransactionCostsCreateInput {
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Max(99999999999)
+  @IsOptional()
+  @Field(() => Float, {
+    nullable: true,
+  })
+  fee?: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Max(99999999999)
+  @IsOptional()
+  @Field(() => Float, {
+    nullable: true,
+  })
+  max?: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Min(30)
+  @Max(99999999999)
+  @IsOptional()
+  @Field(() => Float, {
+    nullable: true,
+  })
+  min?: Decimal | null;
+}
+
 export { TransactionCostsCreateInput as TransactionCostsCreateInput };

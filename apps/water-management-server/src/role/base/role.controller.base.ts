@@ -211,9 +211,12 @@ export class RoleControllerBase {
       select: {
         createdAt: true,
         email: true,
+        emailVerifiedAt: true,
         firstName: true,
         id: true,
         lastName: true,
+        name: true,
+        rememberToken: true,
         roles: true,
         updatedAt: true,
         username: true,

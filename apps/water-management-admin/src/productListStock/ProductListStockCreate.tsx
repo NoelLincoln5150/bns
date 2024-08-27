@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Create, SimpleForm, CreateProps } from "react-admin";
+import { Create, SimpleForm, CreateProps, TextInput } from "react-admin";
 
 export const ProductListStockCreate = (
   props: CreateProps
@@ -7,7 +7,8 @@ export const ProductListStockCreate = (
   return (
     <Create {...props}>
       <SimpleForm>
-        <div />
+        <TextInput label="product_list_id" source="productListId" />
+        <TextInput label="stock_id" source="stockId" />
       </SimpleForm>
     </Create>
   );

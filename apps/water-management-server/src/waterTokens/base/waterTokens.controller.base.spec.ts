@@ -18,25 +18,49 @@ import { WaterTokensService } from "../waterTokens.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  c2bTransactionId: "exampleC2bTransactionId",
+  charges: 42.42,
   createdAt: new Date(),
+  deletedAt: new Date(),
+  expired: new Date(),
   id: "exampleId",
+  liters: 42.42,
+  tokenAmount: 42.42,
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  c2bTransactionId: "exampleC2bTransactionId",
+  charges: 42.42,
   createdAt: new Date(),
+  deletedAt: new Date(),
+  expired: new Date(),
   id: "exampleId",
+  liters: 42.42,
+  tokenAmount: 42.42,
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    c2bTransactionId: "exampleC2bTransactionId",
+    charges: 42.42,
     createdAt: new Date(),
+    deletedAt: new Date(),
+    expired: new Date(),
     id: "exampleId",
+    liters: 42.42,
+    tokenAmount: 42.42,
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  c2bTransactionId: "exampleC2bTransactionId",
+  charges: 42.42,
   createdAt: new Date(),
+  deletedAt: new Date(),
+  expired: new Date(),
   id: "exampleId",
+  liters: 42.42,
+  tokenAmount: 42.42,
   updatedAt: new Date(),
 };
 
@@ -123,6 +147,8 @@ describe("WaterTokens", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        deletedAt: CREATE_RESULT.deletedAt.toISOString(),
+        expired: CREATE_RESULT.expired.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -135,6 +161,8 @@ describe("WaterTokens", () => {
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
+          deletedAt: FIND_MANY_RESULT[0].deletedAt.toISOString(),
+          expired: FIND_MANY_RESULT[0].expired.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
@@ -158,6 +186,8 @@ describe("WaterTokens", () => {
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
+        deletedAt: FIND_ONE_RESULT.deletedAt.toISOString(),
+        expired: FIND_ONE_RESULT.expired.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -171,6 +201,8 @@ describe("WaterTokens", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        deletedAt: CREATE_RESULT.deletedAt.toISOString(),
+        expired: CREATE_RESULT.expired.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {

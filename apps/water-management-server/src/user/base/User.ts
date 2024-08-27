@@ -49,6 +49,17 @@ class User {
 
   @ApiProperty({
     required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  emailVerifiedAt!: Date | null;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -87,6 +98,30 @@ class User {
   @Type(() => Meter)
   @IsOptional()
   meters?: Array<Meter>;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  name!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  rememberToken!: string | null;
 
   @ApiProperty({
     required: false,

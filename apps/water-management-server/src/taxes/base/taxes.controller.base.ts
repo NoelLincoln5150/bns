@@ -49,8 +49,13 @@ export class TaxesControllerBase {
     return await this.service.createTaxes({
       data: data,
       select: {
+        apply: true,
         createdAt: true,
+        deletedAt: true,
+        fixed: true,
         id: true,
+        name: true,
+        rate: true,
         updatedAt: true,
       },
     });
@@ -73,8 +78,13 @@ export class TaxesControllerBase {
     return this.service.taxesItems({
       ...args,
       select: {
+        apply: true,
         createdAt: true,
+        deletedAt: true,
+        fixed: true,
         id: true,
+        name: true,
+        rate: true,
         updatedAt: true,
       },
     });
@@ -98,8 +108,13 @@ export class TaxesControllerBase {
     const result = await this.service.taxes({
       where: params,
       select: {
+        apply: true,
         createdAt: true,
+        deletedAt: true,
+        fixed: true,
         id: true,
+        name: true,
+        rate: true,
         updatedAt: true,
       },
     });
@@ -132,8 +147,13 @@ export class TaxesControllerBase {
         where: params,
         data: data,
         select: {
+          apply: true,
           createdAt: true,
+          deletedAt: true,
+          fixed: true,
           id: true,
+          name: true,
+          rate: true,
           updatedAt: true,
         },
       });
@@ -165,8 +185,13 @@ export class TaxesControllerBase {
       return await this.service.deleteTaxes({
         where: params,
         select: {
+          apply: true,
           createdAt: true,
+          deletedAt: true,
+          fixed: true,
           id: true,
+          name: true,
+          rate: true,
           updatedAt: true,
         },
       });

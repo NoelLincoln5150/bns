@@ -19,32 +19,76 @@ const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
   amount: 42.42,
+  c2bTransactionId: "exampleC2bTransactionId",
+  completed: new Date(),
+  confirmed: new Date(),
+  contractNumber: "exampleContractNumber",
+  conversationId: "exampleConversationId",
   createdAt: new Date(),
+  deletedAt: new Date(),
   id: "exampleId",
+  initiated: new Date(),
+  message: "exampleMessage",
+  paymentChannelId: "examplePaymentChannelId",
+  share: 42.42,
   transactionDate: new Date(),
+  transactionFee: 42.42,
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
   amount: 42.42,
+  c2bTransactionId: "exampleC2bTransactionId",
+  completed: new Date(),
+  confirmed: new Date(),
+  contractNumber: "exampleContractNumber",
+  conversationId: "exampleConversationId",
   createdAt: new Date(),
+  deletedAt: new Date(),
   id: "exampleId",
+  initiated: new Date(),
+  message: "exampleMessage",
+  paymentChannelId: "examplePaymentChannelId",
+  share: 42.42,
   transactionDate: new Date(),
+  transactionFee: 42.42,
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
     amount: 42.42,
+    c2bTransactionId: "exampleC2bTransactionId",
+    completed: new Date(),
+    confirmed: new Date(),
+    contractNumber: "exampleContractNumber",
+    conversationId: "exampleConversationId",
     createdAt: new Date(),
+    deletedAt: new Date(),
     id: "exampleId",
+    initiated: new Date(),
+    message: "exampleMessage",
+    paymentChannelId: "examplePaymentChannelId",
+    share: 42.42,
     transactionDate: new Date(),
+    transactionFee: 42.42,
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
   amount: 42.42,
+  c2bTransactionId: "exampleC2bTransactionId",
+  completed: new Date(),
+  confirmed: new Date(),
+  contractNumber: "exampleContractNumber",
+  conversationId: "exampleConversationId",
   createdAt: new Date(),
+  deletedAt: new Date(),
   id: "exampleId",
+  initiated: new Date(),
+  message: "exampleMessage",
+  paymentChannelId: "examplePaymentChannelId",
+  share: 42.42,
   transactionDate: new Date(),
+  transactionFee: 42.42,
   updatedAt: new Date(),
 };
 
@@ -130,7 +174,11 @@ describe("B2bTransactions", () => {
       .expect(HttpStatus.CREATED)
       .expect({
         ...CREATE_RESULT,
+        completed: CREATE_RESULT.completed.toISOString(),
+        confirmed: CREATE_RESULT.confirmed.toISOString(),
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        deletedAt: CREATE_RESULT.deletedAt.toISOString(),
+        initiated: CREATE_RESULT.initiated.toISOString(),
         transactionDate: CREATE_RESULT.transactionDate.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
@@ -143,7 +191,11 @@ describe("B2bTransactions", () => {
       .expect([
         {
           ...FIND_MANY_RESULT[0],
+          completed: FIND_MANY_RESULT[0].completed.toISOString(),
+          confirmed: FIND_MANY_RESULT[0].confirmed.toISOString(),
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
+          deletedAt: FIND_MANY_RESULT[0].deletedAt.toISOString(),
+          initiated: FIND_MANY_RESULT[0].initiated.toISOString(),
           transactionDate: FIND_MANY_RESULT[0].transactionDate.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
@@ -167,7 +219,11 @@ describe("B2bTransactions", () => {
       .expect(HttpStatus.OK)
       .expect({
         ...FIND_ONE_RESULT,
+        completed: FIND_ONE_RESULT.completed.toISOString(),
+        confirmed: FIND_ONE_RESULT.confirmed.toISOString(),
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
+        deletedAt: FIND_ONE_RESULT.deletedAt.toISOString(),
+        initiated: FIND_ONE_RESULT.initiated.toISOString(),
         transactionDate: FIND_ONE_RESULT.transactionDate.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
@@ -181,7 +237,11 @@ describe("B2bTransactions", () => {
       .expect(HttpStatus.CREATED)
       .expect({
         ...CREATE_RESULT,
+        completed: CREATE_RESULT.completed.toISOString(),
+        confirmed: CREATE_RESULT.confirmed.toISOString(),
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        deletedAt: CREATE_RESULT.deletedAt.toISOString(),
+        initiated: CREATE_RESULT.initiated.toISOString(),
         transactionDate: CREATE_RESULT.transactionDate.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })

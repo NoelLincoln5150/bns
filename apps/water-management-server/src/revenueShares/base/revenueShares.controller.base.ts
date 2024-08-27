@@ -51,8 +51,16 @@ export class RevenueSharesControllerBase {
     return await this.service.createRevenueShares({
       data: data,
       select: {
+        applyTransactionFee: true,
+        approved: true,
+        contractNumber: true,
         createdAt: true,
+        deletedAt: true,
         id: true,
+        isCharge: true,
+        numberField: true,
+        paymentChannelId: true,
+        share: true,
         updatedAt: true,
       },
     });
@@ -77,8 +85,16 @@ export class RevenueSharesControllerBase {
     return this.service.revenueSharesItems({
       ...args,
       select: {
+        applyTransactionFee: true,
+        approved: true,
+        contractNumber: true,
         createdAt: true,
+        deletedAt: true,
         id: true,
+        isCharge: true,
+        numberField: true,
+        paymentChannelId: true,
+        share: true,
         updatedAt: true,
       },
     });
@@ -102,8 +118,16 @@ export class RevenueSharesControllerBase {
     const result = await this.service.revenueShares({
       where: params,
       select: {
+        applyTransactionFee: true,
+        approved: true,
+        contractNumber: true,
         createdAt: true,
+        deletedAt: true,
         id: true,
+        isCharge: true,
+        numberField: true,
+        paymentChannelId: true,
+        share: true,
         updatedAt: true,
       },
     });
@@ -136,8 +160,16 @@ export class RevenueSharesControllerBase {
         where: params,
         data: data,
         select: {
+          applyTransactionFee: true,
+          approved: true,
+          contractNumber: true,
           createdAt: true,
+          deletedAt: true,
           id: true,
+          isCharge: true,
+          numberField: true,
+          paymentChannelId: true,
+          share: true,
           updatedAt: true,
         },
       });
@@ -169,8 +201,16 @@ export class RevenueSharesControllerBase {
       return await this.service.deleteRevenueShares({
         where: params,
         select: {
+          applyTransactionFee: true,
+          approved: true,
+          contractNumber: true,
           createdAt: true,
+          deletedAt: true,
           id: true,
+          isCharge: true,
+          numberField: true,
+          paymentChannelId: true,
+          share: true,
           updatedAt: true,
         },
       });

@@ -18,25 +18,49 @@ import { TaxablesService } from "../taxables.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  apply: "exampleApply",
   createdAt: new Date(),
   id: "exampleId",
+  included: "true",
+  rate: 42.42,
+  taxId: "exampleTaxId",
+  taxableId: "exampleTaxableId",
+  taxableType: "exampleTaxableType",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  apply: "exampleApply",
   createdAt: new Date(),
   id: "exampleId",
+  included: "true",
+  rate: 42.42,
+  taxId: "exampleTaxId",
+  taxableId: "exampleTaxableId",
+  taxableType: "exampleTaxableType",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    apply: "exampleApply",
     createdAt: new Date(),
     id: "exampleId",
+    included: "true",
+    rate: 42.42,
+    taxId: "exampleTaxId",
+    taxableId: "exampleTaxableId",
+    taxableType: "exampleTaxableType",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  apply: "exampleApply",
   createdAt: new Date(),
   id: "exampleId",
+  included: "true",
+  rate: 42.42,
+  taxId: "exampleTaxId",
+  taxableId: "exampleTaxableId",
+  taxableType: "exampleTaxableType",
   updatedAt: new Date(),
 };
 

@@ -49,8 +49,14 @@ export class StocksControllerBase {
     return await this.service.createStocks({
       data: data,
       select: {
+        count: true,
         createdAt: true,
+        deletedAt: true,
+        documentId: true,
         id: true,
+        price: true,
+        productId: true,
+        quantity: true,
         updatedAt: true,
       },
     });
@@ -73,8 +79,14 @@ export class StocksControllerBase {
     return this.service.stocksItems({
       ...args,
       select: {
+        count: true,
         createdAt: true,
+        deletedAt: true,
+        documentId: true,
         id: true,
+        price: true,
+        productId: true,
+        quantity: true,
         updatedAt: true,
       },
     });
@@ -98,8 +110,14 @@ export class StocksControllerBase {
     const result = await this.service.stocks({
       where: params,
       select: {
+        count: true,
         createdAt: true,
+        deletedAt: true,
+        documentId: true,
         id: true,
+        price: true,
+        productId: true,
+        quantity: true,
         updatedAt: true,
       },
     });
@@ -132,8 +150,14 @@ export class StocksControllerBase {
         where: params,
         data: data,
         select: {
+          count: true,
           createdAt: true,
+          deletedAt: true,
+          documentId: true,
           id: true,
+          price: true,
+          productId: true,
+          quantity: true,
           updatedAt: true,
         },
       });
@@ -165,8 +189,14 @@ export class StocksControllerBase {
       return await this.service.deleteStocks({
         where: params,
         select: {
+          count: true,
           createdAt: true,
+          deletedAt: true,
+          documentId: true,
           id: true,
+          price: true,
+          productId: true,
+          quantity: true,
           updatedAt: true,
         },
       });

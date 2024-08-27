@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { MeterListRelationFilter } from "../../meter/base/MeterListRelationFilter";
 import { RoleListRelationFilter } from "../../role/base/RoleListRelationFilter";
@@ -31,6 +32,17 @@ class UserWhereInput {
     nullable: true,
   })
   email?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: DateTimeNullableFilter,
+  })
+  @Type(() => DateTimeNullableFilter)
+  @IsOptional()
+  @Field(() => DateTimeNullableFilter, {
+    nullable: true,
+  })
+  emailVerifiedAt?: DateTimeNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -76,6 +88,28 @@ class UserWhereInput {
     nullable: true,
   })
   meters?: MeterListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  name?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  rememberToken?: StringNullableFilter;
 
   @ApiProperty({
     required: false,

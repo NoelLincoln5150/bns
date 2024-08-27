@@ -52,7 +52,12 @@ export class SuppliersControllerBase {
       data: data,
       select: {
         createdAt: true,
+        deletedAt: true,
         id: true,
+        name: true,
+        numberField: true,
+        taxNumber: true,
+        typeField: true,
         updatedAt: true,
       },
     });
@@ -76,7 +81,12 @@ export class SuppliersControllerBase {
       ...args,
       select: {
         createdAt: true,
+        deletedAt: true,
         id: true,
+        name: true,
+        numberField: true,
+        taxNumber: true,
+        typeField: true,
         updatedAt: true,
       },
     });
@@ -101,7 +111,12 @@ export class SuppliersControllerBase {
       where: params,
       select: {
         createdAt: true,
+        deletedAt: true,
         id: true,
+        name: true,
+        numberField: true,
+        taxNumber: true,
+        typeField: true,
         updatedAt: true,
       },
     });
@@ -135,7 +150,12 @@ export class SuppliersControllerBase {
         data: data,
         select: {
           createdAt: true,
+          deletedAt: true,
           id: true,
+          name: true,
+          numberField: true,
+          taxNumber: true,
+          typeField: true,
           updatedAt: true,
         },
       });
@@ -168,7 +188,12 @@ export class SuppliersControllerBase {
         where: params,
         select: {
           createdAt: true,
+          deletedAt: true,
           id: true,
+          name: true,
+          numberField: true,
+          taxNumber: true,
+          typeField: true,
           updatedAt: true,
         },
       });

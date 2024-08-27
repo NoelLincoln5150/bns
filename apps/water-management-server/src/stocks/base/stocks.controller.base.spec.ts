@@ -18,25 +18,49 @@ import { StocksService } from "../stocks.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  count: 42,
   createdAt: new Date(),
+  deletedAt: new Date(),
+  documentId: "exampleDocumentId",
   id: "exampleId",
+  price: 42.42,
+  productId: "exampleProductId",
+  quantity: 42,
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  count: 42,
   createdAt: new Date(),
+  deletedAt: new Date(),
+  documentId: "exampleDocumentId",
   id: "exampleId",
+  price: 42.42,
+  productId: "exampleProductId",
+  quantity: 42,
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    count: 42,
     createdAt: new Date(),
+    deletedAt: new Date(),
+    documentId: "exampleDocumentId",
     id: "exampleId",
+    price: 42.42,
+    productId: "exampleProductId",
+    quantity: 42,
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  count: 42,
   createdAt: new Date(),
+  deletedAt: new Date(),
+  documentId: "exampleDocumentId",
   id: "exampleId",
+  price: 42.42,
+  productId: "exampleProductId",
+  quantity: 42,
   updatedAt: new Date(),
 };
 
@@ -123,6 +147,7 @@ describe("Stocks", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        deletedAt: CREATE_RESULT.deletedAt.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -135,6 +160,7 @@ describe("Stocks", () => {
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
+          deletedAt: FIND_MANY_RESULT[0].deletedAt.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
@@ -158,6 +184,7 @@ describe("Stocks", () => {
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
+        deletedAt: FIND_ONE_RESULT.deletedAt.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -171,6 +198,7 @@ describe("Stocks", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        deletedAt: CREATE_RESULT.deletedAt.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {

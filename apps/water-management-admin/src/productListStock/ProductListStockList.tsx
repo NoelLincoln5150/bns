@@ -14,6 +14,8 @@ export const ProductListStockList = (props: ListProps): React.ReactElement => {
       <Datagrid rowClick="show">
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
+        <TextField label="product_list_id" source="productListId" />
+        <TextField label="stock_id" source="stockId" />
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>
     </List>

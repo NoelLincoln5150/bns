@@ -18,10 +18,13 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { ShortCodes } from "./ShortCodes";
 import { ShortCodesCountArgs } from "./ShortCodesCountArgs";
 import { ShortCodesFindManyArgs } from "./ShortCodesFindManyArgs";
 import { ShortCodesFindUniqueArgs } from "./ShortCodesFindUniqueArgs";
+import { CreateShortCodesArgs } from "./CreateShortCodesArgs";
+import { UpdateShortCodesArgs } from "./UpdateShortCodesArgs";
 import { DeleteShortCodesArgs } from "./DeleteShortCodesArgs";
 import { ShortCodesService } from "../shortCodes.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -75,6 +78,47 @@ export class ShortCodesResolverBase {
       return null;
     }
     return result;
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => ShortCodes)
+  @nestAccessControl.UseRoles({
+    resource: "ShortCodes",
+    action: "create",
+    possession: "any",
+  })
+  async createShortCodes(
+    @graphql.Args() args: CreateShortCodesArgs
+  ): Promise<ShortCodes> {
+    return await this.service.createShortCodes({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => ShortCodes)
+  @nestAccessControl.UseRoles({
+    resource: "ShortCodes",
+    action: "update",
+    possession: "any",
+  })
+  async updateShortCodes(
+    @graphql.Args() args: UpdateShortCodesArgs
+  ): Promise<ShortCodes | null> {
+    try {
+      return await this.service.updateShortCodes({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => ShortCodes)

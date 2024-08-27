@@ -5,9 +5,10 @@ import {
   SimpleForm,
   EditProps,
   NumberInput,
+  TextInput,
+  DateTimeInput,
   ReferenceInput,
   SelectInput,
-  DateTimeInput,
 } from "react-admin";
 
 import { CustomersTitle } from "../customers/CustomersTitle";
@@ -18,6 +19,11 @@ export const B2bTransactionsEdit = (props: EditProps): React.ReactElement => {
     <Edit {...props}>
       <SimpleForm>
         <NumberInput label="amount" source="amount" />
+        <TextInput label="c2b_transaction_id" source="c2bTransactionId" />
+        <DateTimeInput label="completed" source="completed" />
+        <DateTimeInput label="confirmed" source="confirmed" />
+        <TextInput label="contract_number" source="contractNumber" />
+        <TextInput label="conversation_id" source="conversationId" />
         <ReferenceInput
           source="customer.id"
           reference="Customers"
@@ -25,6 +31,11 @@ export const B2bTransactionsEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectInput optionText={CustomersTitle} />
         </ReferenceInput>
+        <DateTimeInput label="deleted_at" source="deletedAt" />
+        <DateTimeInput label="initiated" source="initiated" />
+        <div />
+        <TextInput label="message" multiline source="message" />
+        <div />
         <ReferenceInput
           source="paymentAccount.id"
           reference="PaymentAccounts"
@@ -32,6 +43,8 @@ export const B2bTransactionsEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectInput optionText={PaymentAccountsTitle} />
         </ReferenceInput>
+        <TextInput label="payment_channel_id" source="paymentChannelId" />
+        <NumberInput label="share" source="share" />
         <SelectInput
           source="status"
           label="status"
@@ -41,6 +54,7 @@ export const B2bTransactionsEdit = (props: EditProps): React.ReactElement => {
           optionValue="value"
         />
         <DateTimeInput label="transactionDate" source="transactionDate" />
+        <NumberInput label="transaction_fee" source="transactionFee" />
       </SimpleForm>
     </Edit>
   );

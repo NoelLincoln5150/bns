@@ -53,6 +53,8 @@ export class ProductListStockControllerBase {
       select: {
         createdAt: true,
         id: true,
+        productListId: true,
+        stockId: true,
         updatedAt: true,
       },
     });
@@ -79,6 +81,8 @@ export class ProductListStockControllerBase {
       select: {
         createdAt: true,
         id: true,
+        productListId: true,
+        stockId: true,
         updatedAt: true,
       },
     });
@@ -104,6 +108,8 @@ export class ProductListStockControllerBase {
       select: {
         createdAt: true,
         id: true,
+        productListId: true,
+        stockId: true,
         updatedAt: true,
       },
     });
@@ -138,6 +144,8 @@ export class ProductListStockControllerBase {
         select: {
           createdAt: true,
           id: true,
+          productListId: true,
+          stockId: true,
           updatedAt: true,
         },
       });
@@ -171,6 +179,8 @@ export class ProductListStockControllerBase {
         select: {
           createdAt: true,
           id: true,
+          productListId: true,
+          stockId: true,
           updatedAt: true,
         },
       });

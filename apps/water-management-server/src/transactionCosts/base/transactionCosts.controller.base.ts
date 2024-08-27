@@ -52,7 +52,10 @@ export class TransactionCostsControllerBase {
       data: data,
       select: {
         createdAt: true,
+        fee: true,
         id: true,
+        max: true,
+        min: true,
         updatedAt: true,
       },
     });
@@ -78,7 +81,10 @@ export class TransactionCostsControllerBase {
       ...args,
       select: {
         createdAt: true,
+        fee: true,
         id: true,
+        max: true,
+        min: true,
         updatedAt: true,
       },
     });
@@ -103,7 +109,10 @@ export class TransactionCostsControllerBase {
       where: params,
       select: {
         createdAt: true,
+        fee: true,
         id: true,
+        max: true,
+        min: true,
         updatedAt: true,
       },
     });
@@ -137,7 +146,10 @@ export class TransactionCostsControllerBase {
         data: data,
         select: {
           createdAt: true,
+          fee: true,
           id: true,
+          max: true,
+          min: true,
           updatedAt: true,
         },
       });
@@ -170,7 +182,10 @@ export class TransactionCostsControllerBase {
         where: params,
         select: {
           createdAt: true,
+          fee: true,
           id: true,
+          max: true,
+          min: true,
           updatedAt: true,
         },
       });

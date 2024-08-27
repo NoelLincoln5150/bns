@@ -51,8 +51,15 @@ export class WaterTokensControllerBase {
     return await this.service.createWaterTokens({
       data: data,
       select: {
+        c2bTransactionId: true,
+        charges: true,
         createdAt: true,
+        deletedAt: true,
+        expired: true,
         id: true,
+        liters: true,
+        tokenAmount: true,
+        tokenRequests: true,
         updatedAt: true,
       },
     });
@@ -77,8 +84,15 @@ export class WaterTokensControllerBase {
     return this.service.waterTokensItems({
       ...args,
       select: {
+        c2bTransactionId: true,
+        charges: true,
         createdAt: true,
+        deletedAt: true,
+        expired: true,
         id: true,
+        liters: true,
+        tokenAmount: true,
+        tokenRequests: true,
         updatedAt: true,
       },
     });
@@ -102,8 +116,15 @@ export class WaterTokensControllerBase {
     const result = await this.service.waterTokens({
       where: params,
       select: {
+        c2bTransactionId: true,
+        charges: true,
         createdAt: true,
+        deletedAt: true,
+        expired: true,
         id: true,
+        liters: true,
+        tokenAmount: true,
+        tokenRequests: true,
         updatedAt: true,
       },
     });
@@ -136,8 +157,15 @@ export class WaterTokensControllerBase {
         where: params,
         data: data,
         select: {
+          c2bTransactionId: true,
+          charges: true,
           createdAt: true,
+          deletedAt: true,
+          expired: true,
           id: true,
+          liters: true,
+          tokenAmount: true,
+          tokenRequests: true,
           updatedAt: true,
         },
       });
@@ -169,8 +197,15 @@ export class WaterTokensControllerBase {
       return await this.service.deleteWaterTokens({
         where: params,
         select: {
+          c2bTransactionId: true,
+          charges: true,
           createdAt: true,
+          deletedAt: true,
+          expired: true,
           id: true,
+          liters: true,
+          tokenAmount: true,
+          tokenRequests: true,
           updatedAt: true,
         },
       });

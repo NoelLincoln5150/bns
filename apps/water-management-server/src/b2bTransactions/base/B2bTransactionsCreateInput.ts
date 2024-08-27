@@ -11,17 +11,24 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+
 import {
   IsNumber,
   Min,
   Max,
   IsOptional,
+  IsString,
+  MaxLength,
+  IsDate,
   ValidateNested,
   IsEnum,
-  IsDate,
 } from "class-validator";
-import { CustomersWhereUniqueInput } from "../../customers/base/CustomersWhereUniqueInput";
+
 import { Type } from "class-transformer";
+import { CustomersWhereUniqueInput } from "../../customers/base/CustomersWhereUniqueInput";
+import { IsJSONValue } from "../../validators";
+import { GraphQLJSON } from "graphql-type-json";
+import { InputJsonValue } from "../../types";
 import { PaymentAccountsWhereUniqueInput } from "../../paymentAccounts/base/PaymentAccountsWhereUniqueInput";
 import { EnumB2bTransactionsStatus } from "./EnumB2bTransactionsStatus";
 
@@ -42,6 +49,64 @@ class B2bTransactionsCreateInput {
 
   @ApiProperty({
     required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  c2bTransactionId?: string | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  completed?: Date | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  confirmed?: Date | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  contractNumber?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  conversationId?: string | null;
+
+  @ApiProperty({
+    required: false,
     type: () => CustomersWhereUniqueInput,
   })
   @ValidateNested()
@@ -54,6 +119,60 @@ class B2bTransactionsCreateInput {
 
   @ApiProperty({
     required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  deletedAt?: Date | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  initiated?: Date | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsJSONValue()
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  initiatedPayload?: InputJsonValue;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  message?: string | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsJSONValue()
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  payload?: InputJsonValue;
+
+  @ApiProperty({
+    required: false,
     type: () => PaymentAccountsWhereUniqueInput,
   })
   @ValidateNested()
@@ -63,6 +182,31 @@ class B2bTransactionsCreateInput {
     nullable: true,
   })
   paymentAccount?: PaymentAccountsWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  paymentChannelId?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Min(-999999999)
+  @Max(999999999)
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  share?: number | null;
 
   @ApiProperty({
     required: false,
@@ -85,6 +229,19 @@ class B2bTransactionsCreateInput {
     nullable: true,
   })
   transactionDate?: Date | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Min(-999999999)
+  @Max(999999999)
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  transactionFee?: number | null;
 }
 
 export { B2bTransactionsCreateInput as B2bTransactionsCreateInput };

@@ -13,7 +13,10 @@ export const TransactionCostsList = (props: ListProps): React.ReactElement => {
     >
       <Datagrid rowClick="show">
         <DateField source="createdAt" label="Created At" />
+        <TextField label="fee" source="fee" />
         <TextField label="ID" source="id" />
+        <TextField label="max" source="max" />
+        <TextField label="min" source="min" />
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>
     </List>

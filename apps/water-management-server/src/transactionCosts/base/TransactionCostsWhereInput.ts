@@ -11,12 +11,24 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional } from "class-validator";
+import { StringFilter } from "../../util/StringFilter";
 
 @InputType()
 class TransactionCostsWhereInput {
+  @ApiProperty({
+    required: false,
+    type: DecimalNullableFilter,
+  })
+  @Type(() => DecimalNullableFilter)
+  @IsOptional()
+  @Field(() => DecimalNullableFilter, {
+    nullable: true,
+  })
+  fee?: DecimalNullableFilter;
+
   @ApiProperty({
     required: false,
     type: StringFilter,
@@ -27,6 +39,28 @@ class TransactionCostsWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: DecimalNullableFilter,
+  })
+  @Type(() => DecimalNullableFilter)
+  @IsOptional()
+  @Field(() => DecimalNullableFilter, {
+    nullable: true,
+  })
+  max?: DecimalNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: DecimalNullableFilter,
+  })
+  @Type(() => DecimalNullableFilter)
+  @IsOptional()
+  @Field(() => DecimalNullableFilter, {
+    nullable: true,
+  })
+  min?: DecimalNullableFilter;
 }
 
 export { TransactionCostsWhereInput as TransactionCostsWhereInput };

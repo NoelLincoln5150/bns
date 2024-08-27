@@ -18,10 +18,13 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { Taxes } from "./Taxes";
 import { TaxesCountArgs } from "./TaxesCountArgs";
 import { TaxesFindManyArgs } from "./TaxesFindManyArgs";
 import { TaxesFindUniqueArgs } from "./TaxesFindUniqueArgs";
+import { CreateTaxesArgs } from "./CreateTaxesArgs";
+import { UpdateTaxesArgs } from "./UpdateTaxesArgs";
 import { DeleteTaxesArgs } from "./DeleteTaxesArgs";
 import { TaxesService } from "../taxes.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -73,6 +76,45 @@ export class TaxesResolverBase {
       return null;
     }
     return result;
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Taxes)
+  @nestAccessControl.UseRoles({
+    resource: "Taxes",
+    action: "create",
+    possession: "any",
+  })
+  async createTaxes(@graphql.Args() args: CreateTaxesArgs): Promise<Taxes> {
+    return await this.service.createTaxes({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Taxes)
+  @nestAccessControl.UseRoles({
+    resource: "Taxes",
+    action: "update",
+    possession: "any",
+  })
+  async updateTaxes(
+    @graphql.Args() args: UpdateTaxesArgs
+  ): Promise<Taxes | null> {
+    try {
+      return await this.service.updateTaxes({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => Taxes)

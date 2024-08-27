@@ -18,25 +18,45 @@ import { TaxesService } from "../taxes.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  apply: "exampleApply",
   createdAt: new Date(),
+  deletedAt: new Date(),
+  fixed: 42.42,
   id: "exampleId",
+  name: "exampleName",
+  rate: 42.42,
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  apply: "exampleApply",
   createdAt: new Date(),
+  deletedAt: new Date(),
+  fixed: 42.42,
   id: "exampleId",
+  name: "exampleName",
+  rate: 42.42,
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    apply: "exampleApply",
     createdAt: new Date(),
+    deletedAt: new Date(),
+    fixed: 42.42,
     id: "exampleId",
+    name: "exampleName",
+    rate: 42.42,
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  apply: "exampleApply",
   createdAt: new Date(),
+  deletedAt: new Date(),
+  fixed: 42.42,
   id: "exampleId",
+  name: "exampleName",
+  rate: 42.42,
   updatedAt: new Date(),
 };
 
@@ -123,6 +143,7 @@ describe("Taxes", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        deletedAt: CREATE_RESULT.deletedAt.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -135,6 +156,7 @@ describe("Taxes", () => {
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
+          deletedAt: FIND_MANY_RESULT[0].deletedAt.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
@@ -158,6 +180,7 @@ describe("Taxes", () => {
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
+        deletedAt: FIND_ONE_RESULT.deletedAt.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -171,6 +194,7 @@ describe("Taxes", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        deletedAt: CREATE_RESULT.deletedAt.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {

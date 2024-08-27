@@ -18,10 +18,13 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { Stocks } from "./Stocks";
 import { StocksCountArgs } from "./StocksCountArgs";
 import { StocksFindManyArgs } from "./StocksFindManyArgs";
 import { StocksFindUniqueArgs } from "./StocksFindUniqueArgs";
+import { CreateStocksArgs } from "./CreateStocksArgs";
+import { UpdateStocksArgs } from "./UpdateStocksArgs";
 import { DeleteStocksArgs } from "./DeleteStocksArgs";
 import { StocksService } from "../stocks.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -75,6 +78,45 @@ export class StocksResolverBase {
       return null;
     }
     return result;
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Stocks)
+  @nestAccessControl.UseRoles({
+    resource: "Stocks",
+    action: "create",
+    possession: "any",
+  })
+  async createStocks(@graphql.Args() args: CreateStocksArgs): Promise<Stocks> {
+    return await this.service.createStocks({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Stocks)
+  @nestAccessControl.UseRoles({
+    resource: "Stocks",
+    action: "update",
+    possession: "any",
+  })
+  async updateStocks(
+    @graphql.Args() args: UpdateStocksArgs
+  ): Promise<Stocks | null> {
+    try {
+      return await this.service.updateStocks({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => Stocks)

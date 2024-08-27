@@ -51,8 +51,17 @@ export class ShortCodesControllerBase {
     return await this.service.createShortCodes({
       data: data,
       select: {
+        consumerKey: true,
+        consumerSecret: true,
         createdAt: true,
+        deletedAt: true,
+        displayName: true,
+        enabled: true,
         id: true,
+        name: true,
+        registered: true,
+        shortcode: true,
+        typeField: true,
         updatedAt: true,
       },
     });
@@ -75,8 +84,17 @@ export class ShortCodesControllerBase {
     return this.service.shortCodesItems({
       ...args,
       select: {
+        consumerKey: true,
+        consumerSecret: true,
         createdAt: true,
+        deletedAt: true,
+        displayName: true,
+        enabled: true,
         id: true,
+        name: true,
+        registered: true,
+        shortcode: true,
+        typeField: true,
         updatedAt: true,
       },
     });
@@ -100,8 +118,17 @@ export class ShortCodesControllerBase {
     const result = await this.service.shortCodes({
       where: params,
       select: {
+        consumerKey: true,
+        consumerSecret: true,
         createdAt: true,
+        deletedAt: true,
+        displayName: true,
+        enabled: true,
         id: true,
+        name: true,
+        registered: true,
+        shortcode: true,
+        typeField: true,
         updatedAt: true,
       },
     });
@@ -134,8 +161,17 @@ export class ShortCodesControllerBase {
         where: params,
         data: data,
         select: {
+          consumerKey: true,
+          consumerSecret: true,
           createdAt: true,
+          deletedAt: true,
+          displayName: true,
+          enabled: true,
           id: true,
+          name: true,
+          registered: true,
+          shortcode: true,
+          typeField: true,
           updatedAt: true,
         },
       });
@@ -167,8 +203,17 @@ export class ShortCodesControllerBase {
       return await this.service.deleteShortCodes({
         where: params,
         select: {
+          consumerKey: true,
+          consumerSecret: true,
           createdAt: true,
+          deletedAt: true,
+          displayName: true,
+          enabled: true,
           id: true,
+          name: true,
+          registered: true,
+          shortcode: true,
+          typeField: true,
           updatedAt: true,
         },
       });

@@ -204,6 +204,11 @@ export class PaymentAccountsControllerBase {
       ...query,
       select: {
         amount: true,
+        c2bTransactionId: true,
+        completed: true,
+        confirmed: true,
+        contractNumber: true,
+        conversationId: true,
         createdAt: true,
 
         customer: {
@@ -212,7 +217,12 @@ export class PaymentAccountsControllerBase {
           },
         },
 
+        deletedAt: true,
         id: true,
+        initiated: true,
+        initiatedPayload: true,
+        message: true,
+        payload: true,
 
         paymentAccount: {
           select: {
@@ -220,8 +230,11 @@ export class PaymentAccountsControllerBase {
           },
         },
 
+        paymentChannelId: true,
+        share: true,
         status: true,
         transactionDate: true,
+        transactionFee: true,
         updatedAt: true,
       },
     });

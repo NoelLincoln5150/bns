@@ -9,10 +9,18 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { ObjectType, Field } from "@nestjs/graphql";
+import { ObjectType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString } from "class-validator";
+import {
+  IsDate,
+  IsNumber,
+  Max,
+  IsOptional,
+  IsString,
+  Min,
+} from "class-validator";
 import { Type } from "class-transformer";
+import { Decimal } from "decimal.js";
 
 @ObjectType()
 class TransactionCosts {
@@ -25,12 +33,49 @@ class TransactionCosts {
   createdAt!: Date;
 
   @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Max(99999999999)
+  @IsOptional()
+  @Field(() => Float, {
+    nullable: true,
+  })
+  fee!: Decimal | null;
+
+  @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Max(99999999999)
+  @IsOptional()
+  @Field(() => Float, {
+    nullable: true,
+  })
+  max!: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Min(30)
+  @Max(99999999999)
+  @IsOptional()
+  @Field(() => Float, {
+    nullable: true,
+  })
+  min!: Decimal | null;
 
   @ApiProperty({
     required: true,

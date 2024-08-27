@@ -18,25 +18,77 @@ import { WaterSourcesService } from "../waterSources.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  county: "exampleCounty",
   createdAt: new Date(),
+  deletedAt: new Date(),
+  elevation: 42.42,
   id: "exampleId",
+  latitude: 42.42,
+  localAddress: "exampleLocalAddress",
+  longitude: 42.42,
+  name: "exampleName",
+  numberField: 42,
+  region: "exampleRegion",
+  subCounty: "exampleSubCounty",
+  supplierNumber: "exampleSupplierNumber",
+  town: "exampleTown",
+  typeField: "exampleTypeField",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  county: "exampleCounty",
   createdAt: new Date(),
+  deletedAt: new Date(),
+  elevation: 42.42,
   id: "exampleId",
+  latitude: 42.42,
+  localAddress: "exampleLocalAddress",
+  longitude: 42.42,
+  name: "exampleName",
+  numberField: 42,
+  region: "exampleRegion",
+  subCounty: "exampleSubCounty",
+  supplierNumber: "exampleSupplierNumber",
+  town: "exampleTown",
+  typeField: "exampleTypeField",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    county: "exampleCounty",
     createdAt: new Date(),
+    deletedAt: new Date(),
+    elevation: 42.42,
     id: "exampleId",
+    latitude: 42.42,
+    localAddress: "exampleLocalAddress",
+    longitude: 42.42,
+    name: "exampleName",
+    numberField: 42,
+    region: "exampleRegion",
+    subCounty: "exampleSubCounty",
+    supplierNumber: "exampleSupplierNumber",
+    town: "exampleTown",
+    typeField: "exampleTypeField",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  county: "exampleCounty",
   createdAt: new Date(),
+  deletedAt: new Date(),
+  elevation: 42.42,
   id: "exampleId",
+  latitude: 42.42,
+  localAddress: "exampleLocalAddress",
+  longitude: 42.42,
+  name: "exampleName",
+  numberField: 42,
+  region: "exampleRegion",
+  subCounty: "exampleSubCounty",
+  supplierNumber: "exampleSupplierNumber",
+  town: "exampleTown",
+  typeField: "exampleTypeField",
   updatedAt: new Date(),
 };
 
@@ -123,6 +175,7 @@ describe("WaterSources", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        deletedAt: CREATE_RESULT.deletedAt.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -135,6 +188,7 @@ describe("WaterSources", () => {
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
+          deletedAt: FIND_MANY_RESULT[0].deletedAt.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
@@ -158,6 +212,7 @@ describe("WaterSources", () => {
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
+        deletedAt: FIND_ONE_RESULT.deletedAt.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -171,6 +226,7 @@ describe("WaterSources", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        deletedAt: CREATE_RESULT.deletedAt.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {

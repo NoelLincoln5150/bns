@@ -18,10 +18,13 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { RevenueShares } from "./RevenueShares";
 import { RevenueSharesCountArgs } from "./RevenueSharesCountArgs";
 import { RevenueSharesFindManyArgs } from "./RevenueSharesFindManyArgs";
 import { RevenueSharesFindUniqueArgs } from "./RevenueSharesFindUniqueArgs";
+import { CreateRevenueSharesArgs } from "./CreateRevenueSharesArgs";
+import { UpdateRevenueSharesArgs } from "./UpdateRevenueSharesArgs";
 import { DeleteRevenueSharesArgs } from "./DeleteRevenueSharesArgs";
 import { RevenueSharesService } from "../revenueShares.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -75,6 +78,47 @@ export class RevenueSharesResolverBase {
       return null;
     }
     return result;
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => RevenueShares)
+  @nestAccessControl.UseRoles({
+    resource: "RevenueShares",
+    action: "create",
+    possession: "any",
+  })
+  async createRevenueShares(
+    @graphql.Args() args: CreateRevenueSharesArgs
+  ): Promise<RevenueShares> {
+    return await this.service.createRevenueShares({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => RevenueShares)
+  @nestAccessControl.UseRoles({
+    resource: "RevenueShares",
+    action: "update",
+    possession: "any",
+  })
+  async updateRevenueShares(
+    @graphql.Args() args: UpdateRevenueSharesArgs
+  ): Promise<RevenueShares | null> {
+    try {
+      return await this.service.updateRevenueShares({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => RevenueShares)

@@ -18,10 +18,13 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { TransactionCosts } from "./TransactionCosts";
 import { TransactionCostsCountArgs } from "./TransactionCostsCountArgs";
 import { TransactionCostsFindManyArgs } from "./TransactionCostsFindManyArgs";
 import { TransactionCostsFindUniqueArgs } from "./TransactionCostsFindUniqueArgs";
+import { CreateTransactionCostsArgs } from "./CreateTransactionCostsArgs";
+import { UpdateTransactionCostsArgs } from "./UpdateTransactionCostsArgs";
 import { DeleteTransactionCostsArgs } from "./DeleteTransactionCostsArgs";
 import { TransactionCostsService } from "../transactionCosts.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -75,6 +78,47 @@ export class TransactionCostsResolverBase {
       return null;
     }
     return result;
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => TransactionCosts)
+  @nestAccessControl.UseRoles({
+    resource: "TransactionCosts",
+    action: "create",
+    possession: "any",
+  })
+  async createTransactionCosts(
+    @graphql.Args() args: CreateTransactionCostsArgs
+  ): Promise<TransactionCosts> {
+    return await this.service.createTransactionCosts({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => TransactionCosts)
+  @nestAccessControl.UseRoles({
+    resource: "TransactionCosts",
+    action: "update",
+    possession: "any",
+  })
+  async updateTransactionCosts(
+    @graphql.Args() args: UpdateTransactionCostsArgs
+  ): Promise<TransactionCosts | null> {
+    try {
+      return await this.service.updateTransactionCosts({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => TransactionCosts)

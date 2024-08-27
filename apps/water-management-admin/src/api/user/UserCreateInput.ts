@@ -5,10 +5,13 @@ import { TicketCreateNestedManyWithoutUsersInput } from "./TicketCreateNestedMan
 
 export type UserCreateInput = {
   email?: string | null;
+  emailVerifiedAt?: Date | null;
   firstName?: string | null;
   lastName?: string | null;
   meters?: MeterCreateNestedManyWithoutUsersInput;
+  name?: string | null;
   password: string;
+  rememberToken?: string | null;
   role?: RoleCreateNestedManyWithoutUsersInput;
   roles: InputJsonValue;
   tickets?: TicketCreateNestedManyWithoutUsersInput;

@@ -5,6 +5,7 @@ import {
   SimpleForm,
   EditProps,
   TextInput,
+  DateTimeInput,
   ReferenceArrayInput,
   SelectArrayInput,
   PasswordInput,
@@ -20,6 +21,7 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
     <Edit {...props}>
       <SimpleForm>
         <TextInput label="Email" source="email" type="email" />
+        <DateTimeInput label="email_verified_at" source="emailVerifiedAt" />
         <TextInput label="First Name" source="firstName" />
         <TextInput label="Last Name" source="lastName" />
         <ReferenceArrayInput
@@ -30,7 +32,9 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={MeterTitle} />
         </ReferenceArrayInput>
+        <TextInput label="name" source="name" />
         <PasswordInput label="Password" source="password" />
+        <TextInput label="remember_token" source="rememberToken" />
         <ReferenceArrayInput
           source="role"
           reference="Role"

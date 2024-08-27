@@ -14,11 +14,12 @@ import { ApiProperty } from "@nestjs/swagger";
 import {
   IsString,
   IsOptional,
+  IsDate,
   MaxLength,
   ValidateNested,
 } from "class-validator";
-import { MeterCreateNestedManyWithoutUsersInput } from "./MeterCreateNestedManyWithoutUsersInput";
 import { Type } from "class-transformer";
+import { MeterCreateNestedManyWithoutUsersInput } from "./MeterCreateNestedManyWithoutUsersInput";
 import { RoleCreateNestedManyWithoutUsersInput } from "./RoleCreateNestedManyWithoutUsersInput";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
@@ -37,6 +38,17 @@ class UserCreateInput {
     nullable: true,
   })
   email?: string | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  emailVerifiedAt?: Date | null;
 
   @ApiProperty({
     required: false,
@@ -75,12 +87,36 @@ class UserCreateInput {
   meters?: MeterCreateNestedManyWithoutUsersInput;
 
   @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  name?: string | null;
+
+  @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
   @Field(() => String)
   password!: string;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  rememberToken?: string | null;
 
   @ApiProperty({
     required: false,

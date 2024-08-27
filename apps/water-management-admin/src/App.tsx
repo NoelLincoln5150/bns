@@ -25,14 +25,6 @@ import { UserList } from "./user/UserList";
 import { UserCreate } from "./user/UserCreate";
 import { UserEdit } from "./user/UserEdit";
 import { UserShow } from "./user/UserShow";
-import { MeterDataList } from "./meterData/MeterDataList";
-import { MeterDataCreate } from "./meterData/MeterDataCreate";
-import { MeterDataEdit } from "./meterData/MeterDataEdit";
-import { MeterDataShow } from "./meterData/MeterDataShow";
-import { CommandList } from "./command/CommandList";
-import { CommandCreate } from "./command/CommandCreate";
-import { CommandEdit } from "./command/CommandEdit";
-import { CommandShow } from "./command/CommandShow";
 import { AlertList } from "./alert/AlertList";
 import { AlertCreate } from "./alert/AlertCreate";
 import { AlertEdit } from "./alert/AlertEdit";
@@ -41,6 +33,14 @@ import { PrepaidMeterList } from "./prepaidMeter/PrepaidMeterList";
 import { PrepaidMeterCreate } from "./prepaidMeter/PrepaidMeterCreate";
 import { PrepaidMeterEdit } from "./prepaidMeter/PrepaidMeterEdit";
 import { PrepaidMeterShow } from "./prepaidMeter/PrepaidMeterShow";
+import { MeterDataList } from "./meterData/MeterDataList";
+import { MeterDataCreate } from "./meterData/MeterDataCreate";
+import { MeterDataEdit } from "./meterData/MeterDataEdit";
+import { MeterDataShow } from "./meterData/MeterDataShow";
+import { CommandList } from "./command/CommandList";
+import { CommandCreate } from "./command/CommandCreate";
+import { CommandEdit } from "./command/CommandEdit";
+import { CommandShow } from "./command/CommandShow";
 import { CustomerMeterList } from "./customerMeter/CustomerMeterList";
 import { CustomerMeterCreate } from "./customerMeter/CustomerMeterCreate";
 import { CustomerMeterEdit } from "./customerMeter/CustomerMeterEdit";
@@ -53,14 +53,14 @@ import { CustomersList } from "./customers/CustomersList";
 import { CustomersCreate } from "./customers/CustomersCreate";
 import { CustomersEdit } from "./customers/CustomersEdit";
 import { CustomersShow } from "./customers/CustomersShow";
-import { PremisesList } from "./premises/PremisesList";
-import { PremisesCreate } from "./premises/PremisesCreate";
-import { PremisesEdit } from "./premises/PremisesEdit";
-import { PremisesShow } from "./premises/PremisesShow";
 import { StocksList } from "./stocks/StocksList";
 import { StocksCreate } from "./stocks/StocksCreate";
 import { StocksEdit } from "./stocks/StocksEdit";
 import { StocksShow } from "./stocks/StocksShow";
+import { PremisesList } from "./premises/PremisesList";
+import { PremisesCreate } from "./premises/PremisesCreate";
+import { PremisesEdit } from "./premises/PremisesEdit";
+import { PremisesShow } from "./premises/PremisesShow";
 import { PersonalAccessTokensList } from "./personalAccessTokens/PersonalAccessTokensList";
 import { PersonalAccessTokensCreate } from "./personalAccessTokens/PersonalAccessTokensCreate";
 import { PersonalAccessTokensEdit } from "./personalAccessTokens/PersonalAccessTokensEdit";
@@ -73,6 +73,18 @@ import { TaxablesList } from "./taxables/TaxablesList";
 import { TaxablesCreate } from "./taxables/TaxablesCreate";
 import { TaxablesEdit } from "./taxables/TaxablesEdit";
 import { TaxablesShow } from "./taxables/TaxablesShow";
+import { PaymentAccountsList } from "./paymentAccounts/PaymentAccountsList";
+import { PaymentAccountsCreate } from "./paymentAccounts/PaymentAccountsCreate";
+import { PaymentAccountsEdit } from "./paymentAccounts/PaymentAccountsEdit";
+import { PaymentAccountsShow } from "./paymentAccounts/PaymentAccountsShow";
+import { PasswordResetTokensList } from "./passwordResetTokens/PasswordResetTokensList";
+import { PasswordResetTokensCreate } from "./passwordResetTokens/PasswordResetTokensCreate";
+import { PasswordResetTokensEdit } from "./passwordResetTokens/PasswordResetTokensEdit";
+import { PasswordResetTokensShow } from "./passwordResetTokens/PasswordResetTokensShow";
+import { ShortCodesList } from "./shortCodes/ShortCodesList";
+import { ShortCodesCreate } from "./shortCodes/ShortCodesCreate";
+import { ShortCodesEdit } from "./shortCodes/ShortCodesEdit";
+import { ShortCodesShow } from "./shortCodes/ShortCodesShow";
 import { PremisesWaterSourceList } from "./premisesWaterSource/PremisesWaterSourceList";
 import { PremisesWaterSourceCreate } from "./premisesWaterSource/PremisesWaterSourceCreate";
 import { PremisesWaterSourceEdit } from "./premisesWaterSource/PremisesWaterSourceEdit";
@@ -85,6 +97,10 @@ import { DocumentTypesList } from "./documentTypes/DocumentTypesList";
 import { DocumentTypesCreate } from "./documentTypes/DocumentTypesCreate";
 import { DocumentTypesEdit } from "./documentTypes/DocumentTypesEdit";
 import { DocumentTypesShow } from "./documentTypes/DocumentTypesShow";
+import { RevenueSharesList } from "./revenueShares/RevenueSharesList";
+import { RevenueSharesCreate } from "./revenueShares/RevenueSharesCreate";
+import { RevenueSharesEdit } from "./revenueShares/RevenueSharesEdit";
+import { RevenueSharesShow } from "./revenueShares/RevenueSharesShow";
 import { MetersList } from "./meters/MetersList";
 import { MetersCreate } from "./meters/MetersCreate";
 import { MetersEdit } from "./meters/MetersEdit";
@@ -93,22 +109,6 @@ import { DocumentPaymentsList } from "./documentPayments/DocumentPaymentsList";
 import { DocumentPaymentsCreate } from "./documentPayments/DocumentPaymentsCreate";
 import { DocumentPaymentsEdit } from "./documentPayments/DocumentPaymentsEdit";
 import { DocumentPaymentsShow } from "./documentPayments/DocumentPaymentsShow";
-import { LogsList } from "./logs/LogsList";
-import { LogsCreate } from "./logs/LogsCreate";
-import { LogsEdit } from "./logs/LogsEdit";
-import { LogsShow } from "./logs/LogsShow";
-import { RevenueSharesList } from "./revenueShares/RevenueSharesList";
-import { RevenueSharesCreate } from "./revenueShares/RevenueSharesCreate";
-import { RevenueSharesEdit } from "./revenueShares/RevenueSharesEdit";
-import { RevenueSharesShow } from "./revenueShares/RevenueSharesShow";
-import { ProductsList } from "./products/ProductsList";
-import { ProductsCreate } from "./products/ProductsCreate";
-import { ProductsEdit } from "./products/ProductsEdit";
-import { ProductsShow } from "./products/ProductsShow";
-import { FailedJobsList } from "./failedJobs/FailedJobsList";
-import { FailedJobsCreate } from "./failedJobs/FailedJobsCreate";
-import { FailedJobsEdit } from "./failedJobs/FailedJobsEdit";
-import { FailedJobsShow } from "./failedJobs/FailedJobsShow";
 import { ProductListStockList } from "./productListStock/ProductListStockList";
 import { ProductListStockCreate } from "./productListStock/ProductListStockCreate";
 import { ProductListStockEdit } from "./productListStock/ProductListStockEdit";
@@ -121,6 +121,26 @@ import { WaterTokensList } from "./waterTokens/WaterTokensList";
 import { WaterTokensCreate } from "./waterTokens/WaterTokensCreate";
 import { WaterTokensEdit } from "./waterTokens/WaterTokensEdit";
 import { WaterTokensShow } from "./waterTokens/WaterTokensShow";
+import { LogsList } from "./logs/LogsList";
+import { LogsCreate } from "./logs/LogsCreate";
+import { LogsEdit } from "./logs/LogsEdit";
+import { LogsShow } from "./logs/LogsShow";
+import { TransactionCostsList } from "./transactionCosts/TransactionCostsList";
+import { TransactionCostsCreate } from "./transactionCosts/TransactionCostsCreate";
+import { TransactionCostsEdit } from "./transactionCosts/TransactionCostsEdit";
+import { TransactionCostsShow } from "./transactionCosts/TransactionCostsShow";
+import { WaterSourcesList } from "./waterSources/WaterSourcesList";
+import { WaterSourcesCreate } from "./waterSources/WaterSourcesCreate";
+import { WaterSourcesEdit } from "./waterSources/WaterSourcesEdit";
+import { WaterSourcesShow } from "./waterSources/WaterSourcesShow";
+import { ProductsList } from "./products/ProductsList";
+import { ProductsCreate } from "./products/ProductsCreate";
+import { ProductsEdit } from "./products/ProductsEdit";
+import { ProductsShow } from "./products/ProductsShow";
+import { FailedJobsList } from "./failedJobs/FailedJobsList";
+import { FailedJobsCreate } from "./failedJobs/FailedJobsCreate";
+import { FailedJobsEdit } from "./failedJobs/FailedJobsEdit";
+import { FailedJobsShow } from "./failedJobs/FailedJobsShow";
 import { ProductListsList } from "./productLists/ProductListsList";
 import { ProductListsCreate } from "./productLists/ProductListsCreate";
 import { ProductListsEdit } from "./productLists/ProductListsEdit";
@@ -129,26 +149,6 @@ import { MeterTypesList } from "./meterTypes/MeterTypesList";
 import { MeterTypesCreate } from "./meterTypes/MeterTypesCreate";
 import { MeterTypesEdit } from "./meterTypes/MeterTypesEdit";
 import { MeterTypesShow } from "./meterTypes/MeterTypesShow";
-import { ShortCodesList } from "./shortCodes/ShortCodesList";
-import { ShortCodesCreate } from "./shortCodes/ShortCodesCreate";
-import { ShortCodesEdit } from "./shortCodes/ShortCodesEdit";
-import { ShortCodesShow } from "./shortCodes/ShortCodesShow";
-import { TransactionCostsList } from "./transactionCosts/TransactionCostsList";
-import { TransactionCostsCreate } from "./transactionCosts/TransactionCostsCreate";
-import { TransactionCostsEdit } from "./transactionCosts/TransactionCostsEdit";
-import { TransactionCostsShow } from "./transactionCosts/TransactionCostsShow";
-import { PaymentAccountsList } from "./paymentAccounts/PaymentAccountsList";
-import { PaymentAccountsCreate } from "./paymentAccounts/PaymentAccountsCreate";
-import { PaymentAccountsEdit } from "./paymentAccounts/PaymentAccountsEdit";
-import { PaymentAccountsShow } from "./paymentAccounts/PaymentAccountsShow";
-import { PasswordResetTokensList } from "./passwordResetTokens/PasswordResetTokensList";
-import { PasswordResetTokensCreate } from "./passwordResetTokens/PasswordResetTokensCreate";
-import { PasswordResetTokensEdit } from "./passwordResetTokens/PasswordResetTokensEdit";
-import { PasswordResetTokensShow } from "./passwordResetTokens/PasswordResetTokensShow";
-import { WaterSourcesList } from "./waterSources/WaterSourcesList";
-import { WaterSourcesCreate } from "./waterSources/WaterSourcesCreate";
-import { WaterSourcesEdit } from "./waterSources/WaterSourcesEdit";
-import { WaterSourcesShow } from "./waterSources/WaterSourcesShow";
 import { OtpsList } from "./otps/OtpsList";
 import { OtpsCreate } from "./otps/OtpsCreate";
 import { OtpsEdit } from "./otps/OtpsEdit";
@@ -173,10 +173,6 @@ import { NotesList } from "./notes/NotesList";
 import { NotesCreate } from "./notes/NotesCreate";
 import { NotesEdit } from "./notes/NotesEdit";
 import { NotesShow } from "./notes/NotesShow";
-import { UsersList } from "./users/UsersList";
-import { UsersCreate } from "./users/UsersCreate";
-import { UsersEdit } from "./users/UsersEdit";
-import { UsersShow } from "./users/UsersShow";
 import { B2bTransactionsList } from "./b2bTransactions/B2bTransactionsList";
 import { B2bTransactionsCreate } from "./b2bTransactions/B2bTransactionsCreate";
 import { B2bTransactionsEdit } from "./b2bTransactions/B2bTransactionsEdit";
@@ -185,6 +181,10 @@ import { BankPaybillList } from "./bankPaybill/BankPaybillList";
 import { BankPaybillCreate } from "./bankPaybill/BankPaybillCreate";
 import { BankPaybillEdit } from "./bankPaybill/BankPaybillEdit";
 import { BankPaybillShow } from "./bankPaybill/BankPaybillShow";
+import { C2bTransactionsList } from "./c2bTransactions/C2bTransactionsList";
+import { C2bTransactionsCreate } from "./c2bTransactions/C2bTransactionsCreate";
+import { C2bTransactionsEdit } from "./c2bTransactions/C2bTransactionsEdit";
+import { C2bTransactionsShow } from "./c2bTransactions/C2bTransactionsShow";
 import { httpAuthProvider } from "./auth-provider/ra-auth-http";
 
 const App = (): React.ReactElement => {
@@ -247,20 +247,6 @@ const App = (): React.ReactElement => {
           show={UserShow}
         />
         <Resource
-          name="MeterData"
-          list={MeterDataList}
-          edit={MeterDataEdit}
-          create={MeterDataCreate}
-          show={MeterDataShow}
-        />
-        <Resource
-          name="Command"
-          list={CommandList}
-          edit={CommandEdit}
-          create={CommandCreate}
-          show={CommandShow}
-        />
-        <Resource
           name="Alert"
           list={AlertList}
           edit={AlertEdit}
@@ -273,6 +259,20 @@ const App = (): React.ReactElement => {
           edit={PrepaidMeterEdit}
           create={PrepaidMeterCreate}
           show={PrepaidMeterShow}
+        />
+        <Resource
+          name="MeterData"
+          list={MeterDataList}
+          edit={MeterDataEdit}
+          create={MeterDataCreate}
+          show={MeterDataShow}
+        />
+        <Resource
+          name="Command"
+          list={CommandList}
+          edit={CommandEdit}
+          create={CommandCreate}
+          show={CommandShow}
         />
         <Resource
           name="CustomerMeter"
@@ -296,18 +296,18 @@ const App = (): React.ReactElement => {
           show={CustomersShow}
         />
         <Resource
-          name="Premises"
-          list={PremisesList}
-          edit={PremisesEdit}
-          create={PremisesCreate}
-          show={PremisesShow}
-        />
-        <Resource
           name="Stocks"
           list={StocksList}
           edit={StocksEdit}
           create={StocksCreate}
           show={StocksShow}
+        />
+        <Resource
+          name="Premises"
+          list={PremisesList}
+          edit={PremisesEdit}
+          create={PremisesCreate}
+          show={PremisesShow}
         />
         <Resource
           name="PersonalAccessTokens"
@@ -331,6 +331,27 @@ const App = (): React.ReactElement => {
           show={TaxablesShow}
         />
         <Resource
+          name="PaymentAccounts"
+          list={PaymentAccountsList}
+          edit={PaymentAccountsEdit}
+          create={PaymentAccountsCreate}
+          show={PaymentAccountsShow}
+        />
+        <Resource
+          name="PasswordResetTokens"
+          list={PasswordResetTokensList}
+          edit={PasswordResetTokensEdit}
+          create={PasswordResetTokensCreate}
+          show={PasswordResetTokensShow}
+        />
+        <Resource
+          name="ShortCodes"
+          list={ShortCodesList}
+          edit={ShortCodesEdit}
+          create={ShortCodesCreate}
+          show={ShortCodesShow}
+        />
+        <Resource
           name="PremisesWaterSource"
           list={PremisesWaterSourceList}
           edit={PremisesWaterSourceEdit}
@@ -352,6 +373,13 @@ const App = (): React.ReactElement => {
           show={DocumentTypesShow}
         />
         <Resource
+          name="RevenueShares"
+          list={RevenueSharesList}
+          edit={RevenueSharesEdit}
+          create={RevenueSharesCreate}
+          show={RevenueSharesShow}
+        />
+        <Resource
           name="Meters"
           list={MetersList}
           edit={MetersEdit}
@@ -364,34 +392,6 @@ const App = (): React.ReactElement => {
           edit={DocumentPaymentsEdit}
           create={DocumentPaymentsCreate}
           show={DocumentPaymentsShow}
-        />
-        <Resource
-          name="Logs"
-          list={LogsList}
-          edit={LogsEdit}
-          create={LogsCreate}
-          show={LogsShow}
-        />
-        <Resource
-          name="RevenueShares"
-          list={RevenueSharesList}
-          edit={RevenueSharesEdit}
-          create={RevenueSharesCreate}
-          show={RevenueSharesShow}
-        />
-        <Resource
-          name="Products"
-          list={ProductsList}
-          edit={ProductsEdit}
-          create={ProductsCreate}
-          show={ProductsShow}
-        />
-        <Resource
-          name="FailedJobs"
-          list={FailedJobsList}
-          edit={FailedJobsEdit}
-          create={FailedJobsCreate}
-          show={FailedJobsShow}
         />
         <Resource
           name="ProductListStock"
@@ -415,6 +415,41 @@ const App = (): React.ReactElement => {
           show={WaterTokensShow}
         />
         <Resource
+          name="Logs"
+          list={LogsList}
+          edit={LogsEdit}
+          create={LogsCreate}
+          show={LogsShow}
+        />
+        <Resource
+          name="TransactionCosts"
+          list={TransactionCostsList}
+          edit={TransactionCostsEdit}
+          create={TransactionCostsCreate}
+          show={TransactionCostsShow}
+        />
+        <Resource
+          name="WaterSources"
+          list={WaterSourcesList}
+          edit={WaterSourcesEdit}
+          create={WaterSourcesCreate}
+          show={WaterSourcesShow}
+        />
+        <Resource
+          name="Products"
+          list={ProductsList}
+          edit={ProductsEdit}
+          create={ProductsCreate}
+          show={ProductsShow}
+        />
+        <Resource
+          name="FailedJobs"
+          list={FailedJobsList}
+          edit={FailedJobsEdit}
+          create={FailedJobsCreate}
+          show={FailedJobsShow}
+        />
+        <Resource
           name="ProductLists"
           list={ProductListsList}
           edit={ProductListsEdit}
@@ -427,41 +462,6 @@ const App = (): React.ReactElement => {
           edit={MeterTypesEdit}
           create={MeterTypesCreate}
           show={MeterTypesShow}
-        />
-        <Resource
-          name="ShortCodes"
-          list={ShortCodesList}
-          edit={ShortCodesEdit}
-          create={ShortCodesCreate}
-          show={ShortCodesShow}
-        />
-        <Resource
-          name="TransactionCosts"
-          list={TransactionCostsList}
-          edit={TransactionCostsEdit}
-          create={TransactionCostsCreate}
-          show={TransactionCostsShow}
-        />
-        <Resource
-          name="PaymentAccounts"
-          list={PaymentAccountsList}
-          edit={PaymentAccountsEdit}
-          create={PaymentAccountsCreate}
-          show={PaymentAccountsShow}
-        />
-        <Resource
-          name="PasswordResetTokens"
-          list={PasswordResetTokensList}
-          edit={PasswordResetTokensEdit}
-          create={PasswordResetTokensCreate}
-          show={PasswordResetTokensShow}
-        />
-        <Resource
-          name="WaterSources"
-          list={WaterSourcesList}
-          edit={WaterSourcesEdit}
-          create={WaterSourcesCreate}
-          show={WaterSourcesShow}
         />
         <Resource
           name="Otps"
@@ -506,13 +506,6 @@ const App = (): React.ReactElement => {
           show={NotesShow}
         />
         <Resource
-          name="Users"
-          list={UsersList}
-          edit={UsersEdit}
-          create={UsersCreate}
-          show={UsersShow}
-        />
-        <Resource
           name="B2bTransactions"
           list={B2bTransactionsList}
           edit={B2bTransactionsEdit}
@@ -525,6 +518,13 @@ const App = (): React.ReactElement => {
           edit={BankPaybillEdit}
           create={BankPaybillCreate}
           show={BankPaybillShow}
+        />
+        <Resource
+          name="C2bTransactions"
+          list={C2bTransactionsList}
+          edit={C2bTransactionsEdit}
+          create={C2bTransactionsCreate}
+          show={C2bTransactionsShow}
         />
       </Admin>
     </div>
