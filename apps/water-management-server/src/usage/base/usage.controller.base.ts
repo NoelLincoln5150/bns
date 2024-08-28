@@ -45,6 +45,9 @@ export class UsageControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: UsageCreateInput,
+  })
   async createUsage(@common.Body() data: UsageCreateInput): Promise<Usage> {
     return await this.service.createUsage({
       data: {
@@ -160,6 +163,9 @@ export class UsageControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: UsageUpdateInput,
   })
   async updateUsage(
     @common.Param() params: UsageWhereUniqueInput,

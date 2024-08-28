@@ -45,6 +45,9 @@ export class StocksControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: StocksCreateInput,
+  })
   async createStocks(@common.Body() data: StocksCreateInput): Promise<Stocks> {
     return await this.service.createStocks({
       data: data,
@@ -140,6 +143,9 @@ export class StocksControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: StocksUpdateInput,
   })
   async updateStocks(
     @common.Param() params: StocksWhereUniqueInput,

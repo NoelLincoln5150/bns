@@ -45,6 +45,9 @@ export class PasswordResetTokensControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: PasswordResetTokensCreateInput,
+  })
   async createPasswordResetTokens(
     @common.Body() data: PasswordResetTokensCreateInput
   ): Promise<PasswordResetTokens> {
@@ -132,6 +135,9 @@ export class PasswordResetTokensControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: PasswordResetTokensUpdateInput,
   })
   async updatePasswordResetTokens(
     @common.Param() params: PasswordResetTokensWhereUniqueInput,

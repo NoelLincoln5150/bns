@@ -45,6 +45,9 @@ export class TicketControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: TicketCreateInput,
+  })
   async createTicket(@common.Body() data: TicketCreateInput): Promise<Ticket> {
     return await this.service.createTicket({
       data: {
@@ -163,6 +166,9 @@ export class TicketControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: TicketUpdateInput,
   })
   async updateTicket(
     @common.Param() params: TicketWhereUniqueInput,

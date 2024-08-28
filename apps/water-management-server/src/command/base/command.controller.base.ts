@@ -45,6 +45,9 @@ export class CommandControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: CommandCreateInput,
+  })
   async createCommand(
     @common.Body() data: CommandCreateInput
   ): Promise<Command> {
@@ -162,6 +165,9 @@ export class CommandControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: CommandUpdateInput,
   })
   async updateCommand(
     @common.Param() params: CommandWhereUniqueInput,

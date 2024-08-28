@@ -54,6 +54,9 @@ export class PrepaidMeterControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: PrepaidMeterCreateInput,
+  })
   async createPrepaidMeter(
     @common.Body() data: PrepaidMeterCreateInput
   ): Promise<PrepaidMeter> {
@@ -139,6 +142,9 @@ export class PrepaidMeterControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: PrepaidMeterUpdateInput,
   })
   async updatePrepaidMeter(
     @common.Param() params: PrepaidMeterWhereUniqueInput,

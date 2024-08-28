@@ -45,6 +45,9 @@ export class ContractPartyControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: ContractPartyCreateInput,
+  })
   async createContractParty(
     @common.Body() data: ContractPartyCreateInput
   ): Promise<ContractParty> {
@@ -141,6 +144,9 @@ export class ContractPartyControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: ContractPartyUpdateInput,
   })
   async updateContractParty(
     @common.Param() params: ContractPartyWhereUniqueInput,

@@ -45,6 +45,9 @@ export class DocumentNumbersControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: DocumentNumbersCreateInput,
+  })
   async createDocumentNumbers(
     @common.Body() data: DocumentNumbersCreateInput
   ): Promise<DocumentNumbers> {
@@ -144,6 +147,9 @@ export class DocumentNumbersControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: DocumentNumbersUpdateInput,
   })
   async updateDocumentNumbers(
     @common.Param() params: DocumentNumbersWhereUniqueInput,

@@ -45,6 +45,9 @@ export class PaymentChannelsControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: PaymentChannelsCreateInput,
+  })
   async createPaymentChannels(
     @common.Body() data: PaymentChannelsCreateInput
   ): Promise<PaymentChannels> {
@@ -173,6 +176,9 @@ export class PaymentChannelsControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: PaymentChannelsUpdateInput,
   })
   async updatePaymentChannels(
     @common.Param() params: PaymentChannelsWhereUniqueInput,

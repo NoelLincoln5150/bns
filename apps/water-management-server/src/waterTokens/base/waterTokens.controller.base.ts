@@ -45,6 +45,9 @@ export class WaterTokensControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: WaterTokensCreateInput,
+  })
   async createWaterTokens(
     @common.Body() data: WaterTokensCreateInput
   ): Promise<WaterTokens> {
@@ -147,6 +150,9 @@ export class WaterTokensControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: WaterTokensUpdateInput,
   })
   async updateWaterTokens(
     @common.Param() params: WaterTokensWhereUniqueInput,

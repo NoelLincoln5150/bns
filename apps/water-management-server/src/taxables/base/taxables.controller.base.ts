@@ -45,6 +45,9 @@ export class TaxablesControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: TaxablesCreateInput,
+  })
   async createTaxables(
     @common.Body() data: TaxablesCreateInput
   ): Promise<Taxables> {
@@ -142,6 +145,9 @@ export class TaxablesControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: TaxablesUpdateInput,
   })
   async updateTaxables(
     @common.Param() params: TaxablesWhereUniqueInput,

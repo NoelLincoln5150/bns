@@ -45,6 +45,9 @@ export class CustomerMeterControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: CustomerMeterCreateInput,
+  })
   async createCustomerMeter(
     @common.Body() data: CustomerMeterCreateInput
   ): Promise<CustomerMeter> {
@@ -182,6 +185,9 @@ export class CustomerMeterControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: CustomerMeterUpdateInput,
   })
   async updateCustomerMeter(
     @common.Param() params: CustomerMeterWhereUniqueInput,

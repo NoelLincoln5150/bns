@@ -45,6 +45,9 @@ export class PersonalAccessTokensControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: PersonalAccessTokensCreateInput,
+  })
   async createPersonalAccessTokens(
     @common.Body() data: PersonalAccessTokensCreateInput
   ): Promise<PersonalAccessTokens> {
@@ -147,6 +150,9 @@ export class PersonalAccessTokensControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: PersonalAccessTokensUpdateInput,
   })
   async updatePersonalAccessTokens(
     @common.Param() params: PersonalAccessTokensWhereUniqueInput,

@@ -51,6 +51,9 @@ export class AppUserControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: AppUserCreateInput,
+  })
   async createAppUser(
     @common.Body() data: AppUserCreateInput
   ): Promise<AppUser> {
@@ -136,6 +139,9 @@ export class AppUserControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: AppUserUpdateInput,
   })
   async updateAppUser(
     @common.Param() params: AppUserWhereUniqueInput,

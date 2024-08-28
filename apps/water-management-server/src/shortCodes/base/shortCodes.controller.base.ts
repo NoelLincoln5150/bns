@@ -45,6 +45,9 @@ export class ShortCodesControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: ShortCodesCreateInput,
+  })
   async createShortCodes(
     @common.Body() data: ShortCodesCreateInput
   ): Promise<ShortCodes> {
@@ -151,6 +154,9 @@ export class ShortCodesControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: ShortCodesUpdateInput,
   })
   async updateShortCodes(
     @common.Param() params: ShortCodesWhereUniqueInput,

@@ -45,6 +45,9 @@ export class OtpsControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: OtpsCreateInput,
+  })
   async createOtps(@common.Body() data: OtpsCreateInput): Promise<Otps> {
     return await this.service.createOtps({
       data: data,
@@ -134,6 +137,9 @@ export class OtpsControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: OtpsUpdateInput,
   })
   async updateOtps(
     @common.Param() params: OtpsWhereUniqueInput,

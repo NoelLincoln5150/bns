@@ -45,6 +45,9 @@ export class TaxesControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: TaxesCreateInput,
+  })
   async createTaxes(@common.Body() data: TaxesCreateInput): Promise<Taxes> {
     return await this.service.createTaxes({
       data: data,
@@ -137,6 +140,9 @@ export class TaxesControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: TaxesUpdateInput,
   })
   async updateTaxes(
     @common.Param() params: TaxesWhereUniqueInput,

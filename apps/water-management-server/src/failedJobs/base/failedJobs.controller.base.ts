@@ -45,6 +45,9 @@ export class FailedJobsControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: FailedJobsCreateInput,
+  })
   async createFailedJobs(
     @common.Body() data: FailedJobsCreateInput
   ): Promise<FailedJobs> {
@@ -142,6 +145,9 @@ export class FailedJobsControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: FailedJobsUpdateInput,
   })
   async updateFailedJobs(
     @common.Param() params: FailedJobsWhereUniqueInput,
