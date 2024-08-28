@@ -45,6 +45,9 @@ export class WaterMeterControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: WaterMeterCreateInput,
+  })
   async createWaterMeter(
     @common.Body() data: WaterMeterCreateInput
   ): Promise<WaterMeter> {
@@ -127,6 +130,9 @@ export class WaterMeterControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: WaterMeterUpdateInput,
   })
   async updateWaterMeter(
     @common.Param() params: WaterMeterWhereUniqueInput,

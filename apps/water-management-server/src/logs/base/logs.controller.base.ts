@@ -45,6 +45,9 @@ export class LogsControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: LogsCreateInput,
+  })
   async createLogs(@common.Body() data: LogsCreateInput): Promise<Logs> {
     return await this.service.createLogs({
       data: {
@@ -172,6 +175,9 @@ export class LogsControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: LogsUpdateInput,
   })
   async updateLogs(
     @common.Param() params: LogsWhereUniqueInput,

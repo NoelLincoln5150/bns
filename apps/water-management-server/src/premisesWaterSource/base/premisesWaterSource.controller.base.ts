@@ -45,6 +45,9 @@ export class PremisesWaterSourceControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: PremisesWaterSourceCreateInput,
+  })
   async createPremisesWaterSource(
     @common.Body() data: PremisesWaterSourceCreateInput
   ): Promise<PremisesWaterSource> {
@@ -155,6 +158,9 @@ export class PremisesWaterSourceControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: PremisesWaterSourceUpdateInput,
   })
   async updatePremisesWaterSource(
     @common.Param() params: PremisesWaterSourceWhereUniqueInput,

@@ -45,6 +45,9 @@ export class RevenueSharesControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: RevenueSharesCreateInput,
+  })
   async createRevenueShares(
     @common.Body() data: RevenueSharesCreateInput
   ): Promise<RevenueShares> {
@@ -150,6 +153,9 @@ export class RevenueSharesControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: RevenueSharesUpdateInput,
   })
   async updateRevenueShares(
     @common.Param() params: RevenueSharesWhereUniqueInput,

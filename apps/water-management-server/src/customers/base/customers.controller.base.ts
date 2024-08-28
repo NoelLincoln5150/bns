@@ -51,6 +51,9 @@ export class CustomersControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: CustomersCreateInput,
+  })
   async createCustomers(
     @common.Body() data: CustomersCreateInput
   ): Promise<Customers> {
@@ -145,6 +148,9 @@ export class CustomersControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: CustomersUpdateInput,
   })
   async updateCustomers(
     @common.Param() params: CustomersWhereUniqueInput,

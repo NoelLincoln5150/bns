@@ -45,6 +45,9 @@ export class B2bTransactionsControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: B2bTransactionsCreateInput,
+  })
   async createB2bTransactions(
     @common.Body() data: B2bTransactionsCreateInput
   ): Promise<B2bTransactions> {
@@ -230,6 +233,9 @@ export class B2bTransactionsControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: B2bTransactionsUpdateInput,
   })
   async updateB2bTransactions(
     @common.Param() params: B2bTransactionsWhereUniqueInput,

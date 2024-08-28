@@ -45,6 +45,9 @@ export class PremisesControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: PremisesCreateInput,
+  })
   async createPremises(
     @common.Body() data: PremisesCreateInput
   ): Promise<Premises> {
@@ -160,6 +163,9 @@ export class PremisesControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: PremisesUpdateInput,
   })
   async updatePremises(
     @common.Param() params: PremisesWhereUniqueInput,

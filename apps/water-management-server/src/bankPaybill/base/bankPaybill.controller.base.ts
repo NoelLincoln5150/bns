@@ -45,6 +45,9 @@ export class BankPaybillControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: BankPaybillCreateInput,
+  })
   async createBankPaybill(
     @common.Body() data: BankPaybillCreateInput
   ): Promise<BankPaybill> {
@@ -136,6 +139,9 @@ export class BankPaybillControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: BankPaybillUpdateInput,
   })
   async updateBankPaybill(
     @common.Param() params: BankPaybillWhereUniqueInput,

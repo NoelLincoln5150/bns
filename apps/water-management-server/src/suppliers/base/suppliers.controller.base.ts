@@ -48,6 +48,9 @@ export class SuppliersControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: SuppliersCreateInput,
+  })
   async createSuppliers(
     @common.Body() data: SuppliersCreateInput
   ): Promise<Suppliers> {
@@ -142,6 +145,9 @@ export class SuppliersControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: SuppliersUpdateInput,
   })
   async updateSuppliers(
     @common.Param() params: SuppliersWhereUniqueInput,

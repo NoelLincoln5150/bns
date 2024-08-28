@@ -45,6 +45,9 @@ export class NotesControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: NotesCreateInput,
+  })
   async createNotes(@common.Body() data: NotesCreateInput): Promise<Notes> {
     return await this.service.createNotes({
       data: data,
@@ -140,6 +143,9 @@ export class NotesControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: NotesUpdateInput,
   })
   async updateNotes(
     @common.Param() params: NotesWhereUniqueInput,

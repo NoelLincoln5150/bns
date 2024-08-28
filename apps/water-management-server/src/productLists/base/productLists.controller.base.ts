@@ -48,6 +48,9 @@ export class ProductListsControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: ProductListsCreateInput,
+  })
   async createProductLists(
     @common.Body() data: ProductListsCreateInput
   ): Promise<ProductLists> {
@@ -138,6 +141,9 @@ export class ProductListsControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: ProductListsUpdateInput,
   })
   async updateProductLists(
     @common.Param() params: ProductListsWhereUniqueInput,

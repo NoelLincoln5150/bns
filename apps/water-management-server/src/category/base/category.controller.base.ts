@@ -45,6 +45,9 @@ export class CategoryControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: CategoryCreateInput,
+  })
   async createCategory(
     @common.Body() data: CategoryCreateInput
   ): Promise<Category> {
@@ -130,6 +133,9 @@ export class CategoryControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: CategoryUpdateInput,
   })
   async updateCategory(
     @common.Param() params: CategoryWhereUniqueInput,

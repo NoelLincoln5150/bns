@@ -45,6 +45,9 @@ export class MigrationsControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: MigrationsCreateInput,
+  })
   async createMigrations(
     @common.Body() data: MigrationsCreateInput
   ): Promise<Migrations> {
@@ -127,6 +130,9 @@ export class MigrationsControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: MigrationsUpdateInput,
   })
   async updateMigrations(
     @common.Param() params: MigrationsWhereUniqueInput,

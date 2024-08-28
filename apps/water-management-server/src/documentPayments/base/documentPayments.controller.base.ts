@@ -48,6 +48,9 @@ export class DocumentPaymentsControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: DocumentPaymentsCreateInput,
+  })
   async createDocumentPayments(
     @common.Body() data: DocumentPaymentsCreateInput
   ): Promise<DocumentPayments> {
@@ -158,6 +161,9 @@ export class DocumentPaymentsControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: DocumentPaymentsUpdateInput,
   })
   async updateDocumentPayments(
     @common.Param() params: DocumentPaymentsWhereUniqueInput,

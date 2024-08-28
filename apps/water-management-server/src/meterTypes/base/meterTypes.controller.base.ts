@@ -48,6 +48,9 @@ export class MeterTypesControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: MeterTypesCreateInput,
+  })
   async createMeterTypes(
     @common.Body() data: MeterTypesCreateInput
   ): Promise<MeterTypes> {
@@ -127,6 +130,9 @@ export class MeterTypesControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: MeterTypesUpdateInput,
   })
   async updateMeterTypes(
     @common.Param() params: MeterTypesWhereUniqueInput,

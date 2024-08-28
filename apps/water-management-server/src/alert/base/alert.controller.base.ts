@@ -45,6 +45,9 @@ export class AlertControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: AlertCreateInput,
+  })
   async createAlert(@common.Body() data: AlertCreateInput): Promise<Alert> {
     return await this.service.createAlert({
       data: {
@@ -157,6 +160,9 @@ export class AlertControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: AlertUpdateInput,
   })
   async updateAlert(
     @common.Param() params: AlertWhereUniqueInput,

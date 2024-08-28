@@ -45,6 +45,9 @@ export class IssueTicketControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: IssueTicketCreateInput,
+  })
   async createIssueTicket(
     @common.Body() data: IssueTicketCreateInput
   ): Promise<IssueTicket> {
@@ -156,6 +159,9 @@ export class IssueTicketControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: IssueTicketUpdateInput,
   })
   async updateIssueTicket(
     @common.Param() params: IssueTicketWhereUniqueInput,

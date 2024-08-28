@@ -48,6 +48,9 @@ export class RoleControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
+  @swagger.ApiBody({
+    type: RoleCreateInput,
+  })
   async createRole(@common.Body() data: RoleCreateInput): Promise<Role> {
     return await this.service.createRole({
       data: data,
@@ -131,6 +134,9 @@ export class RoleControllerBase {
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
+  })
+  @swagger.ApiBody({
+    type: RoleUpdateInput,
   })
   async updateRole(
     @common.Param() params: RoleWhereUniqueInput,
