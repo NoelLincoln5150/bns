@@ -49,7 +49,13 @@ import { ContractModule } from "./contract/contract.module";
 import { ContactModule } from "./contact/contact.module";
 import { CategoryModule } from "./category/category.module";
 import { CategoryProductModule } from "./categoryProduct/categoryProduct.module";
+import { PaymentModule } from "./payment/payment.module";
+import { IssueTicketModule } from "./issueTicket/issueTicket.module";
+import { AppUserModule } from "./appUser/appUser.module";
+import { WaterMeterModule } from "./waterMeter/waterMeter.module";
+import { DashboardModule } from "./dashboard/dashboard.module";
 import { IoTModule } from "./iot/iot.module";
+import { RolesModule } from "./roles/roles.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -121,7 +127,13 @@ import { AuthModule } from "./auth/auth.module";
     ContactModule,
     CategoryModule,
     CategoryProductModule,
+    PaymentModule,
+    IssueTicketModule,
+    AppUserModule,
+    WaterMeterModule,
+    DashboardModule,
     IoTModule,
+    RolesModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

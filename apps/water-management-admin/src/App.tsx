@@ -205,6 +205,22 @@ import { CategoryProductList } from "./categoryProduct/CategoryProductList";
 import { CategoryProductCreate } from "./categoryProduct/CategoryProductCreate";
 import { CategoryProductEdit } from "./categoryProduct/CategoryProductEdit";
 import { CategoryProductShow } from "./categoryProduct/CategoryProductShow";
+import { PaymentList } from "./payment/PaymentList";
+import { PaymentCreate } from "./payment/PaymentCreate";
+import { PaymentEdit } from "./payment/PaymentEdit";
+import { PaymentShow } from "./payment/PaymentShow";
+import { IssueTicketList } from "./issueTicket/IssueTicketList";
+import { IssueTicketCreate } from "./issueTicket/IssueTicketCreate";
+import { IssueTicketEdit } from "./issueTicket/IssueTicketEdit";
+import { IssueTicketShow } from "./issueTicket/IssueTicketShow";
+import { AppUserList } from "./appUser/AppUserList";
+import { AppUserCreate } from "./appUser/AppUserCreate";
+import { AppUserEdit } from "./appUser/AppUserEdit";
+import { AppUserShow } from "./appUser/AppUserShow";
+import { WaterMeterList } from "./waterMeter/WaterMeterList";
+import { WaterMeterCreate } from "./waterMeter/WaterMeterCreate";
+import { WaterMeterEdit } from "./waterMeter/WaterMeterEdit";
+import { WaterMeterShow } from "./waterMeter/WaterMeterShow";
 import { httpAuthProvider } from "./auth-provider/ra-auth-http";
 
 const App = (): React.ReactElement => {
@@ -580,6 +596,34 @@ const App = (): React.ReactElement => {
           edit={CategoryProductEdit}
           create={CategoryProductCreate}
           show={CategoryProductShow}
+        />
+        <Resource
+          name="Payment"
+          list={PaymentList}
+          edit={PaymentEdit}
+          create={PaymentCreate}
+          show={PaymentShow}
+        />
+        <Resource
+          name="IssueTicket"
+          list={IssueTicketList}
+          edit={IssueTicketEdit}
+          create={IssueTicketCreate}
+          show={IssueTicketShow}
+        />
+        <Resource
+          name="AppUser"
+          list={AppUserList}
+          edit={AppUserEdit}
+          create={AppUserCreate}
+          show={AppUserShow}
+        />
+        <Resource
+          name="WaterMeter"
+          list={WaterMeterList}
+          edit={WaterMeterEdit}
+          create={WaterMeterCreate}
+          show={WaterMeterShow}
         />
       </Admin>
     </div>
