@@ -1,0 +1,724 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Ticket {
+  createdAt    DateTime          @default(now())
+  id           String            @id @default(cuid())
+  message      String?
+  status       EnumTicketStatus?
+  subject      String?
+  updatedAt    DateTime          @updatedAt
+  user         User?             @relation(fields: [userId], references: [id])
+  userId       String?
+  userRelation String?
+}
+
+model Meter {
+  coordinates      Json?
+  createdAt        DateTime         @default(now())
+  customerMeters   CustomerMeter[]
+  id               String           @id @default(cuid())
+  installationDate DateTime?
+  meterType        MeterTypes?      @relation(fields: [meterTypeId], references: [id])
+  meterTypeId      String?
+  status           EnumMeterStatus?
+  tokenBalance     Int?
+  updatedAt        DateTime         @updatedAt
+  usages           Usage?           @relation(fields: [usagesId], references: [id])
+  usagesId         String?          @unique
+  user             User?            @relation(fields: [userId], references: [id])
+  userId           String?
+}
+
+model Usage {
+  amountUsed    Float?
+  createdAt     DateTime  @default(now())
+  id            String    @id @default(cuid())
+  meter         Meter?
+  meterRelation String?
+  updatedAt     DateTime  @updatedAt
+  usageDate     DateTime?
+}
+
+model Role {
+  createdAt   DateTime @default(now())
+  description String?
+  id          String   @id @default(cuid())
+  name        String?
+  updatedAt   DateTime @updatedAt
+  users       User[]
+}
+
+model User {
+  createdAt       DateTime  @default(now())
+  email           String?   @unique
+  emailVerifiedAt DateTime?
+  firstName       String?
+  id              String    @id @default(cuid())
+  lastName        String?
+  logsItems       Logs[]
+  meters          Meter[]
+  name            String?
+  password        String
+  rememberToken   String?
+  role            Role[]
+  roles           Json
+  tickets         Ticket[]
+  updatedAt       DateTime  @updatedAt
+  username        String    @unique
+}
+
+model MeterData {
+  createdAt      DateTime      @default(now())
+  id             String        @id @default(cuid())
+  prepaidMeter   PrepaidMeter? @relation(fields: [prepaidMeterId], references: [id])
+  prepaidMeterId String?
+  timestamp      DateTime?
+  updatedAt      DateTime      @updatedAt
+  value          Float?
+}
+
+model Command {
+  commandType    EnumCommandCommandType?
+  createdAt      DateTime                @default(now())
+  id             String                  @id @default(cuid())
+  parameter      String?
+  prepaidMeter   PrepaidMeter?           @relation(fields: [prepaidMeterId], references: [id])
+  prepaidMeterId String?
+  sentAt         DateTime?
+  updatedAt      DateTime                @updatedAt
+}
+
+model Alert {
+  createdAt      DateTime        @default(now())
+  id             String          @id @default(cuid())
+  level          EnumAlertLevel?
+  message        String?
+  prepaidMeter   PrepaidMeter?   @relation(fields: [prepaidMeterId], references: [id])
+  prepaidMeterId String?
+  updatedAt      DateTime        @updatedAt
+}
+
+model PrepaidMeter {
+  alerts         Alert[]
+  commands       Command[]
+  createdAt      DateTime                @default(now())
+  id             String                  @id @default(cuid())
+  meterDataItems MeterData[]
+  meterNumber    String?
+  status         EnumPrepaidMeterStatus?
+  updatedAt      DateTime                @updatedAt
+}
+
+model Documents {
+  createdAt             DateTime           @default(now())
+  deletedAt             String?
+  documentPaymentsItems DocumentPayments[]
+  documentType          DocumentTypes?     @relation(fields: [documentTypeId], references: [id])
+  documentTypeId        String?
+  documentableId        String?
+  documentableType      String?
+  id                    String             @id @default(cuid())
+  numberField           String?
+  paid                  Boolean?
+  updatedAt             DateTime           @updatedAt
+}
+
+model Customers {
+  b2bTransactionsItems B2bTransactions[]
+  createdAt            DateTime          @default(now())
+  customerMeters       CustomerMeter[]
+  deletedAt            String?
+  email                String?
+  hash                 String?
+  id                   String            @id @default(cuid())
+  name                 String?
+  phoneNumber          String?
+  updatedAt            DateTime          @updatedAt
+}
+
+model CustomerMeter {
+  createdAt  DateTime   @default(now())
+  customer   Customers? @relation(fields: [customerId], references: [id])
+  customerId String?
+  id         String     @id @default(cuid())
+  meterId    Meter?     @relation(fields: [meterIdId], references: [id])
+  meterIdId  String?
+  updatedAt  DateTime   @updatedAt
+}
+
+model PersonalAccessTokens {
+  abilities     String?
+  createdAt     DateTime @default(now())
+  expiresAt     String?
+  id            String   @id @default(cuid())
+  lastUsedAt    String?
+  name          String?
+  token         String?
+  tokenableId   String?
+  tokenableType String?
+  updatedAt     DateTime @updatedAt
+}
+
+model Suppliers {
+  contracts   Contract[]
+  createdAt   DateTime   @default(now())
+  deletedAt   DateTime?
+  id          String     @id @default(cuid())
+  name        String?
+  numberField Int?
+  taxNumber   String?
+  typeField   String?
+  updatedAt   DateTime   @updatedAt
+}
+
+model Premises {
+  contractNumber String?
+  county         String?
+  createdAt      DateTime @default(now())
+  elevation      String?
+  id             String   @id @default(cuid())
+  latitude       String?
+  location       String?
+  longitude      String?
+  phoneNumber    String?
+  region         String?
+  subCounty      String?
+  supplierNumber String?
+  town           String?
+  typeField      String?
+  updatedAt      DateTime @updatedAt
+}
+
+model Taxables {
+  apply       String?
+  createdAt   DateTime @default(now())
+  id          String   @id @default(cuid())
+  included    Boolean?
+  rate        Float?
+  taxId       String?
+  taxableId   String?
+  taxableType String?
+  updatedAt   DateTime @updatedAt
+}
+
+model Stocks {
+  count      Int?
+  createdAt  DateTime  @default(now())
+  deletedAt  DateTime?
+  documentId String?
+  id         String    @id @default(cuid())
+  price      Float?
+  productId  String?
+  quantity   Int?
+  updatedAt  DateTime  @updatedAt
+}
+
+model DocumentPayments {
+  createdAt   DateTime       @default(now())
+  document    Documents?     @relation(fields: [documentId], references: [id])
+  documentId  String?
+  id          String         @id @default(cuid())
+  paymentType PaymentTypes[]
+  updatedAt   DateTime       @updatedAt
+}
+
+model RevenueShares {
+  applyTransactionFee Boolean?
+  approved            Boolean?
+  contractNumber      String?
+  createdAt           DateTime  @default(now())
+  deletedAt           DateTime?
+  id                  String    @id @default(cuid())
+  isCharge            Boolean?
+  numberField         Int?
+  paymentChannelId    String?
+  share               Float?
+  updatedAt           DateTime  @updatedAt
+}
+
+model PremisesWaterSource {
+  createdAt       DateTime      @default(now())
+  id              String        @id @default(cuid())
+  premisesId      String?
+  updatedAt       DateTime      @updatedAt
+  waterSourceId   WaterSources? @relation(fields: [waterSourceIdId], references: [id])
+  waterSourceIdId String?
+}
+
+model ProductLists {
+  barcode   String?
+  createdAt DateTime   @default(now())
+  deletedAt DateTime?
+  id        String     @id @default(cuid())
+  inStock   Boolean?
+  productid Products[]
+  updatedAt DateTime   @updatedAt
+}
+
+model Meters {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model ProductListStock {
+  createdAt     DateTime @default(now())
+  id            String   @id @default(cuid())
+  productListId String?
+  stockId       String?
+  updatedAt     DateTime @updatedAt
+}
+
+model Taxes {
+  apply     String?
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
+  fixed     Float?
+  id        String    @id @default(cuid())
+  name      String?
+  rate      Float?
+  updatedAt DateTime  @updatedAt
+}
+
+model Products {
+  barcode              String?
+  categoryProducts     CategoryProduct[]
+  createdAt            DateTime          @default(now())
+  deletedAt            String?
+  description          String?
+  id                   String            @id @default(cuid())
+  isSerialized         Boolean?
+  lowStockWarning      String?
+  minimumOrderQuantity Int?
+  name                 String?
+  price                Float?
+  productListsItems    ProductLists[]
+  quantity             Int?
+  stockTakePeriod      String?
+  updatedAt            DateTime          @updatedAt
+}
+
+model WaterTokens {
+  c2bTransactionId String?
+  charges          Float?
+  createdAt        DateTime  @default(now())
+  deletedAt        DateTime?
+  expired          DateTime?
+  id               String    @id @default(cuid())
+  liters           Float?
+  tokenAmount      Float?
+  tokenRequests    Json?
+  updatedAt        DateTime  @updatedAt
+}
+
+model TransactionCosts {
+  createdAt DateTime @default(now())
+  fee       Decimal?
+  id        String   @id @default(cuid())
+  max       Decimal?
+  min       Decimal?
+  updatedAt DateTime @updatedAt
+}
+
+model PaymentAccounts {
+  b2bTransactionsItems B2bTransactions[]
+  createdAt            DateTime          @default(now())
+  deletedAt            DateTime?
+  enabled              Boolean?
+  id                   String            @id @default(cuid())
+  updatedAt            DateTime          @updatedAt
+}
+
+model DocumentNumbers {
+  code        String?
+  count       String?
+  createdAt   DateTime  @default(now())
+  deletedAt   String?
+  description String?
+  id          String    @id @default(cuid())
+  name        String?
+  updatedAt   DateTime  @updatedAt
+  year        DateTime?
+}
+
+model Logs {
+  action         String?
+  createdAt      DateTime  @default(now())
+  deletedAt      String?
+  id             String    @id @default(cuid())
+  ipAddress      Decimal?
+  message        String?
+  requestPayload String?
+  resourceId     String?
+  resourceModel  String?
+  updateValues   DateTime?
+  updatedAt      DateTime  @updatedAt
+  userId         User?     @relation(fields: [userIdId], references: [id])
+  userIdId       String?
+}
+
+model FailedJobs {
+  connection String?
+  createdAt  DateTime  @default(now())
+  exception  String?
+  failedAt   DateTime?
+  id         String    @id @default(cuid())
+  payload    String?
+  queue      String?
+  updatedAt  DateTime  @updatedAt
+  uuid       String?
+}
+
+model PasswordResetTokens {
+  createdAt DateTime @default(now())
+  email     String?
+  id        String   @id @default(cuid())
+  token     String?
+  updatedAt DateTime @updatedAt
+}
+
+model DocumentTypes {
+  code           String?
+  createdAt      DateTime    @default(now())
+  deletedAt      DateTime?
+  documentsItems Documents[]
+  id             String      @id @default(cuid())
+  movement       String?
+  name           String?
+  requirePayment String?
+  typeField      String?
+  updatedAt      DateTime    @updatedAt
+}
+
+model WaterSources {
+  county               String?
+  createdAt            DateTime              @default(now())
+  deletedAt            DateTime?
+  elevation            Float?
+  id                   String                @id @default(cuid())
+  latitude             Float?
+  localAddress         String?
+  longitude            Float?
+  name                 String?
+  numberField          Int?
+  premisesWaterSources PremisesWaterSource[]
+  region               String?
+  subCounty            String?
+  supplierNumber       String?
+  town                 String?
+  typeField            String?
+  updatedAt            DateTime              @updatedAt
+}
+
+model ShortCodes {
+  consumerKey    String?
+  consumerSecret String?
+  createdAt      DateTime  @default(now())
+  deletedAt      DateTime?
+  displayName    String?
+  enabled        Boolean?
+  id             String    @id @default(cuid())
+  name           String?
+  registered     DateTime?
+  shortcode      String?
+  typeField      String?
+  updatedAt      DateTime  @updatedAt
+}
+
+model MeterTypes {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  meters    Meter[]
+  updatedAt DateTime @updatedAt
+}
+
+model PaymentTypes {
+  canSettle             String?
+  createdAt             DateTime           @default(now())
+  deletedAt             String?
+  displayName           String?
+  documentPaymentsItems DocumentPayments[]
+  enabled               String?
+  id                    String             @id @default(cuid())
+  name                  String?
+  paymentChannelsItems  PaymentChannels[]
+  updatedAt             DateTime           @updatedAt
+}
+
+model Otps {
+  createdAt  DateTime @default(now())
+  id         String   @id @default(cuid())
+  identifier String?
+  token      String?
+  updatedAt  DateTime @updatedAt
+  valid      Boolean?
+  validity   Int?
+}
+
+model PaymentChannels {
+  accountNumber Decimal?
+  channel       String?
+  createdAt     DateTime      @default(now())
+  deletedAt     String?
+  enabled       String?
+  id            String        @id @default(cuid())
+  payableId     String?
+  payableType   String?
+  paymentType   PaymentTypes? @relation(fields: [paymentTypeId], references: [id])
+  paymentTypeId String?
+  updatedAt     DateTime      @updatedAt
+}
+
+model PasswordResets {
+  createdAt DateTime @default(now())
+  email     String?
+  id        String   @id @default(cuid())
+  token     String?
+  updatedAt DateTime @updatedAt
+}
+
+model Notes {
+  body        String?
+  createdAt   DateTime @default(now())
+  deletedAt   String?
+  id          String   @id @default(cuid())
+  mutable     Boolean?
+  notableId   String?
+  notableType String?
+  title       String?
+  updatedAt   DateTime @updatedAt
+}
+
+model Migrations {
+  createdAt     DateTime @default(now())
+  id            String   @id @default(cuid())
+  migrationName String?
+  updatedAt     DateTime @updatedAt
+}
+
+model B2bTransactions {
+  amount           Float?
+  c2bTransactionId String?
+  completed        DateTime?
+  confirmed        DateTime?
+  contractNumber   String?
+  conversationId   String?
+  createdAt        DateTime                   @default(now())
+  customer         Customers?                 @relation(fields: [customerId], references: [id])
+  customerId       String?
+  deletedAt        DateTime?
+  id               String                     @id @default(cuid())
+  initiated        DateTime?
+  initiatedPayload Json?
+  message          String?
+  payload          Json?
+  paymentAccount   PaymentAccounts?           @relation(fields: [paymentAccountId], references: [id])
+  paymentAccountId String?
+  paymentChannelId String?
+  share            Float?
+  status           EnumB2bTransactionsStatus?
+  transactionDate  DateTime?
+  transactionFee   Float?
+  updatedAt        DateTime                   @updatedAt
+}
+
+model BankPaybill {
+  createdAt DateTime @default(now())
+  deletedAt String?
+  enabled   String?
+  id        String   @id @default(cuid())
+  name      String?
+  paybill   String?  @unique
+  updatedAt DateTime @updatedAt
+}
+
+model C2bTransactions {
+  accepted       Boolean?
+  accountNumber  String?
+  amount         Float?
+  completed      Boolean?
+  confirmed      Boolean?
+  contractNumber String?
+  createdAt      DateTime  @default(now())
+  customerId     Int?
+  deletedAt      DateTime?
+  id             String    @id @default(cuid())
+  message        String?
+  payload        Json?
+  transId        String?
+  typeField      String?
+  updatedAt      DateTime  @updatedAt
+}
+
+model ContractParty {
+  createdAt   DateTime  @default(now())
+  deletedAt   DateTime?
+  id          String    @id @default(cuid())
+  name        String?
+  numberField String?
+  taxNumber   String?
+  typeField   String?
+  updatedAt   DateTime  @updatedAt
+}
+
+model Contract {
+  approved         Boolean?
+  createdAt        DateTime            @default(now())
+  id               String              @id @default(cuid())
+  numberField      String?
+  pricePerUnit     Float?
+  status           EnumContractStatus?
+  supplierNumber   Suppliers?          @relation(fields: [supplierNumberId], references: [id])
+  supplierNumberId String?
+  titlle           String?
+  updatedAt        DateTime            @updatedAt
+}
+
+model Contact {
+  active          String?
+  contactableId   String?
+  contactableType String?
+  createdAt       DateTime  @default(now())
+  deletedAt       DateTime?
+  id              String    @id @default(cuid())
+  info            String?
+  name            String?
+  typeField       String?
+  updatedAt       DateTime  @updatedAt
+}
+
+model Category {
+  createdAt DateTime @default(now())
+  deletedAt String?
+  id        String   @id @default(cuid())
+  name      String?  @unique
+  updatedAt DateTime @updatedAt
+}
+
+model CategoryProduct {
+  categoryId String?
+  createdAt  DateTime  @default(now())
+  id         String    @id @default(cuid())
+  productI   Products? @relation(fields: [productIId], references: [id])
+  productIId String?
+  updatedAt  DateTime  @updatedAt
+}
+
+model Payment {
+  amount    Float?
+  appUser   AppUser?  @relation(fields: [appUserId], references: [id])
+  appUserId String?
+  createdAt DateTime  @default(now())
+  date      DateTime?
+  id        String    @id @default(cuid())
+  updatedAt DateTime  @updatedAt
+}
+
+model IssueTicket {
+  appUser     AppUser?               @relation(fields: [appUserId], references: [id])
+  appUserId   String?
+  createdAt   DateTime               @default(now())
+  description String?
+  id          String                 @id @default(cuid())
+  status      EnumIssueTicketStatus?
+  updatedAt   DateTime               @updatedAt
+}
+
+model AppUser {
+  createdAt    DateTime      @default(now())
+  email        String?
+  id           String        @id @default(cuid())
+  issueTickets IssueTicket[]
+  name         String?
+  payments     Payment[]
+  updatedAt    DateTime      @updatedAt
+}
+
+model WaterMeter {
+  createdAt DateTime              @default(now())
+  id        String                @id @default(cuid())
+  status    EnumWaterMeterStatus?
+  updatedAt DateTime              @updatedAt
+}
+
+enum EnumTicketStatus {
+  Pending
+  InProgress
+  Resolved
+  Closed
+  Escalated
+  OnHold
+  Cancelled
+  Scheduled
+  AwaitingParts
+  UnderReview
+}
+
+enum EnumMeterStatus {
+  Active
+  Inactive
+  Suspended
+  Maintenance
+  Faulty
+  Closed
+  Pending
+  Disconnected
+}
+
+enum EnumCommandCommandType {
+  Open
+  Close
+  Reset
+}
+
+enum EnumAlertLevel {
+  Info
+  Warning
+  Urgent
+  Error
+  Critical
+}
+
+enum EnumPrepaidMeterStatus {
+  Active
+  Inactive
+  Suspended
+  Closed
+}
+
+enum EnumB2bTransactionsStatus {
+  Option1
+}
+
+enum EnumContractStatus {
+  Draft
+  PendingApproval
+  Approved
+  Rejected
+  SentforSignature
+  PartiallySigned
+  FullySigned
+  Active
+  OnHold
+  AmendmentinProgress
+  Expired
+  Terminated
+  Completed
+  Renewed
+  Cancelled
+}
+
+enum EnumIssueTicketStatus {
+  Option1
+}
+
+enum EnumWaterMeterStatus {
+  Option1
+}
